@@ -1,0 +1,24 @@
+package net.mine_diver.aethermp.blocks;
+
+import net.mine_diver.aethermp.items.ItemManager;
+import net.minecraft.server.Block;
+import net.minecraft.server.EntityHuman;
+import net.minecraft.server.Material;
+import net.minecraft.server.StatisticList;
+import net.minecraft.server.World;
+
+public class BlockQuicksoil extends Block {
+
+    public BlockQuicksoil(int ID) {
+        super(ID, Material.SAND);
+        frictionFactor = 1.1F;
+    }
+    
+    @Override
+    public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
+        entityhuman.a(StatisticList.C[id], 1);
+        if(l == 0 && ItemManager.equippedSkyrootShovel(entityhuman))
+            g(world, i, j, k, l);
+        g(world, i, j, k, l);
+    }
+}
