@@ -37,10 +37,10 @@ public class CraftAetherEventFactory extends CraftEventFactory {
     	Method method = null;
     	try {
 			method = new Object(){}.getClass().getEnclosingClass().getSuperclass().getDeclaredMethod("getPlayerBucketEvent", Event.Type.class, EntityHuman.class, int.class, int.class, int.class, int.class, ItemStack.class, Item.class);
-			method.setAccessible(true);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+		method.setAccessible(true);
     	getPlayerBucketEventMethod = method;
     }
 }

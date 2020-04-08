@@ -111,5 +111,29 @@ public class mod_AetherMp extends BaseModMp {
 				entity.fallDistance = fallDistance;
 			}
 		}
+		
+		public static class GuiConnecting {
+			
+			public static NetClientHandler setNetClientHandler(net.minecraft.src.GuiConnecting guiconnecting, NetClientHandler netclienthandler)
+		    {
+		        return net.minecraft.src.GuiConnecting.setNetClientHandler(guiconnecting, netclienthandler);
+		    }
+
+		    public static NetClientHandler getNetClientHandler(net.minecraft.src.GuiConnecting guiconnecting)
+		    {
+		        return net.minecraft.src.GuiConnecting.getNetClientHandler(guiconnecting);
+		    }
+		}
+		
+		public static class EntityLiving {
+			
+			public static float getMoveForward(net.minecraft.src.EntityLiving entityliving) {
+				return entityliving.moveForward;
+			}
+			
+			public static float getMoveStrafing(net.minecraft.src.EntityLiving entityliving) {
+				return entityliving.moveStrafing;
+			}
+		}
 	}
 }

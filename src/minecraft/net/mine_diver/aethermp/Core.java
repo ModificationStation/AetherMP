@@ -6,7 +6,10 @@ import sun.misc.Unsafe;
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.entities.EntityManager;
 import net.mine_diver.aethermp.gui.GuiManager;
+import net.mine_diver.aethermp.network.NetClientHandlerAether;
 import net.mine_diver.aethermp.network.PacketManager;
+import net.mine_diver.aethermp.player.OtherPlayerMPAPI;
+import net.mine_diver.aethermp.player.OtherPlayerMPBaseAether;
 import net.mine_diver.aethermp.player.PlayerBaseAetherMp;
 import net.mine_diver.aethermp.proxy.GuiIngameAetherMp;
 import net.mine_diver.aethermp.render.RenderManager;
@@ -15,7 +18,10 @@ import net.minecraft.src.AetherAchievements;
 import net.minecraft.src.BaseMod;
 import net.minecraft.src.BaseModMp;
 import net.minecraft.src.Entity;
+import net.minecraft.src.EntityOtherPlayerMP;
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerSP;
+import net.minecraft.src.GuiConnecting;
 import net.minecraft.src.GuiMainMenu;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
@@ -23,6 +29,8 @@ import net.minecraft.src.Packet230ModLoader;
 import net.minecraft.src.PlayerAPI;
 import net.minecraft.src.PlayerBaseAether;
 import net.minecraft.src.Render;
+
+import static net.minecraft.src.mod_AetherMp.PackageAccess;
 
 public class Core {
 	
@@ -38,6 +46,7 @@ public class Core {
 		GuiManager.registerGuis(mod);
 		BlockManager.registerBlocks();
 		EntityManager.registerEntities();
+		OtherPlayerMPAPI.RegisterPlayerBase(OtherPlayerMPBaseAether.class);
 	}
 	
 	public void addRenderer(Map<Class<? extends Entity>, Render> entityRenderers) {
@@ -45,6 +54,17 @@ public class Core {
 	}
 	
 	public boolean onTickInGUI(Minecraft minecraft, GuiScreen guiscreen) {
+		if (guiscreen instanceof GuiConnecting && PackageAccess.GuiConnecting.getNetClientHandler((GuiConnecting) guiscreen) != null) {
+			GuiConnecting guiconnecting = (GuiConnecting) guiscreen;
+			NetClientHandlerAether ncha;
+			try {
+				ncha = (NetClientHandlerAether) unsafe.allocateInstance(NetClientHandlerAether.class);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+			ncha.initSuper(PackageAccess.GuiConnecting.getNetClientHandler(guiconnecting));
+			PackageAccess.GuiConnecting.setNetClientHandler(guiconnecting, ncha);
+		}
 		if (guiscreen instanceof GuiMainMenu && !(minecraft.ingameGUI instanceof GuiIngameAetherMp))
 			minecraft.ingameGUI = new GuiIngameAetherMp(minecraft);
 		return true;
@@ -75,6 +95,10 @@ public class Core {
 	
 	public void handlePacket(Packet230ModLoader packet) {
         PacketManager.handlePacket(packet);
+	}
+	
+	public static OtherPlayerMPBaseAether getPlayer(EntityPlayer entityplayer) {
+		return (OtherPlayerMPBaseAether) OtherPlayerMPAPI.getPlayerBase((EntityOtherPlayerMP) entityplayer, OtherPlayerMPBaseAether.class);
 	}
 	
 	public static final Unsafe unsafe;

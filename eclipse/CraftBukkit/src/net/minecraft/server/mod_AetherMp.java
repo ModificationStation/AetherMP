@@ -91,6 +91,7 @@ public class mod_AetherMp extends BaseModMp {
     idItemSwordGravitite = 17028,
     idItemCloudParachute = 17040,
     idItemCloudParachuteGold = 17041,
+    idItemLeatherGlove = 17054,
     idItemZaniteGlove = 17058,
     idItemZaniteHelmet = 17059,
     idItemZaniteChestplate = 17060,
@@ -155,6 +156,13 @@ public class mod_AetherMp extends BaseModMp {
 			
 			public static net.minecraft.server.Item newItem(int ID) {
 				return new net.minecraft.server.Item(ID);
+			}
+		}
+		
+		public static class SlotArmor {
+			
+			public static net.minecraft.server.SlotArmor newSlotArmor(ContainerPlayer container, IInventory inventory, int slot, int xDisplay, int yDisplay, int armorType) {
+				return new net.minecraft.server.SlotArmor(container, inventory, slot, xDisplay, yDisplay, armorType);
 			}
 		}
 	}

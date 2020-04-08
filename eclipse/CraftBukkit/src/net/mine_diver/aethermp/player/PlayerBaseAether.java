@@ -1,11 +1,15 @@
 package net.mine_diver.aethermp.player;
 
+import java.util.Arrays;
+
 import org.bukkit.Location;
 
 import net.mine_diver.aethermp.blocks.BlockAetherPortal;
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.dimension.DimensionManager;
 import net.mine_diver.aethermp.entities.EntityCloudParachute;
+import net.mine_diver.aethermp.inventory.ContainerAether;
+import net.mine_diver.aethermp.inventory.InventoryAether;
 import net.mine_diver.aethermp.items.ItemManager;
 import net.minecraft.server.Block;
 import net.minecraft.server.DimensionBase;
@@ -13,13 +17,26 @@ import net.minecraft.server.Entity;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.MathHelper;
+import net.minecraft.server.ModLoader;
 import net.minecraft.server.NBTTagCompound;
+import net.minecraft.server.NBTTagList;
+import net.minecraft.server.Packet5EntityEquipment;
 import net.minecraft.server.PlayerBase;
 
 public class PlayerBaseAether extends PlayerBase {
 
 	public PlayerBaseAether(EntityPlayer var1) {
 		super(var1);
+		inv = new InventoryAether(player);
+		player.defaultContainer = new ContainerAether(player.inventory, inv, !player.world.isStatic);
+		player.activeContainer = player.defaultContainer;
+		try {
+			ItemStack[] equipment = (ItemStack[]) ModLoader.getPrivateValue(EntityPlayer.class, player, "bN");
+			equipment = Arrays.copyOf(equipment, equipment.length + 4);
+			ModLoader.setPrivateValue(EntityPlayer.class, player, "bN", equipment);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	@Override
@@ -41,6 +58,35 @@ public class PlayerBaseAether extends PlayerBase {
             player.health = maxHealth;
         player.noDamageTicks = player.maxNoDamageTicks / 2;
         return true;
+    }
+	
+	@Override
+	public boolean onUpdate() {
+		for (int i = 0; i < 4; ++i) {
+            ItemStack itemstack = getMoreArmorEquipment(i);
+            if (itemstack != this.moreArmor[i]) {
+                player.b.getTracker(player.dimension).a(player, new Packet5EntityEquipment(player.id, i + 5, itemstack));
+                this.moreArmor[i] = itemstack;
+                ItemStack[] equipment;
+                try {
+					equipment = (ItemStack[]) ModLoader.getPrivateValue(EntityPlayer.class, player, "bN");
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+                equipment[i + 5] = itemstack;
+            }
+        }
+		return false;
+	}
+	
+	public ItemStack getMoreArmorEquipment(final int i) {
+		if (i == 0)
+			return inv.slots[0];
+		if (i == 1)
+			return inv.slots[6];
+		if (i == 2)
+			return inv.slots[1];
+		return inv.slots[2];
     }
 	
 	@Override
@@ -148,6 +194,7 @@ public class PlayerBaseAether extends PlayerBase {
 	public boolean writeEntityToNBT(NBTTagCompound tag) {
         NBTTagCompound customData = new NBTTagCompound();
         customData.a("MaxHealth", (byte) maxHealth);
+        customData.a("Inventory", inv.writeToNBT(new NBTTagList()));
         tag.a("Aether", customData);
         return false;
     }
@@ -158,8 +205,12 @@ public class PlayerBaseAether extends PlayerBase {
         maxHealth = customData.c("MaxHealth");
         if(maxHealth < 20)
             maxHealth = 20;
+        NBTTagList nbttaglist = customData.l("Inventory");
+        inv.readFromNBT(nbttaglist);
         return false;
     }
 	
     public int maxHealth = 20;
+    public InventoryAether inv;
+    public ItemStack[] moreArmor = new ItemStack[4];
 }

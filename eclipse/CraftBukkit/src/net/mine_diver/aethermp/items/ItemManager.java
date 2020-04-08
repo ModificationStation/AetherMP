@@ -72,6 +72,7 @@ public class ItemManager {
     public static final Item ZaniteChestplate = new ItemArmor(mod_AetherMp.idItemZaniteChestplate, 2, -1, 1).a("ZaniteBody");
     public static final Item ZaniteLeggings = new ItemArmor(mod_AetherMp.idItemZaniteLeggings, 2, -1, 2).a("ZaniteLegs");
     public static final Item ZaniteBoots = new ItemArmor(mod_AetherMp.idItemZaniteBoots, 2, -1, 3).a("ZaniteBoots");
+    public static final Item LeatherGlove = new ItemMoreArmor(mod_AetherMp.idItemLeatherGlove, 0, 10).a("LeatherGlove");
     public static final Item NeptuneHelmet = new ItemArmor(mod_AetherMp.idItemNeptuneHelmet, 3, -1, 0).a("NeptuneHelm");
     public static final Item NeptuneChestplate = new ItemArmor(mod_AetherMp.idItemNeptuneChestplate, 3, -1, 1).a("NeptuneBody");
     public static final Item NeptuneLeggings = new ItemArmor(mod_AetherMp.idItemNeptuneLeggings, 3, -1, 2).a("NeptuneLegs");
