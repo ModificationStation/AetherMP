@@ -32,20 +32,26 @@ public class NetClientHandlerAether extends NetClientHandler {
     }
 	
 	private static final Method getEntityByIDMethod;
+	private static final Field netHandlerField;
 	
 	static {
 		Method method = null;
+		Field field = null;
 		try {
-			method = new Object(){}.getClass().getEnclosingClass().getSuperclass().getDeclaredMethod("b", int.class);
+			method = new Object(){}.getClass().getEnclosingClass().getSuperclass().getDeclaredMethod("a", int.class);
+			field = NetworkManager.class.getDeclaredField("p");
 		} catch (Exception e) {
 			try {
 				method = new Object(){}.getClass().getEnclosingClass().getSuperclass().getDeclaredMethod("getEntityByID", int.class);
+				field = NetworkManager.class.getDeclaredField("netHandler");
 			} catch (Exception e1) {
 				throw new RuntimeException(e1);
 			}
 		}
 		method.setAccessible(true);
+		field.setAccessible(true);
 		getEntityByIDMethod = method;
+		netHandlerField = field;
 	}
 	
 	public void initSuper(NetClientHandler netclienthandler) {
@@ -53,17 +59,8 @@ public class NetClientHandlerAether extends NetClientHandler {
 			for (Field field : NetClientHandler.class.getDeclaredFields()) {
 				field.setAccessible(true);
 				field.set(this, field.get(netclienthandler));
-				if (field.getName().equals("a") || field.getName().equals("netManager")) {
-					NetworkManager netManager = (NetworkManager) field.get(this);
-					Field netHandlerField;
-					try {
-						netHandlerField = netManager.getClass().getDeclaredField("p");
-					} catch (Exception e) {
-						netHandlerField = netManager.getClass().getDeclaredField("netHandler");
-					}
-					netHandlerField.setAccessible(true);
-					netHandlerField.set(netManager, this);
-				}
+				if (field.getName().equals("e") || field.getName().equals("netManager"))
+					netHandlerField.set(field.get(this), this);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
