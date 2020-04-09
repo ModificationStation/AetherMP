@@ -270,18 +270,18 @@ public class TileEntityEnchanter extends TileEntity implements IInventory {
         addEnchantment(new ItemStack(ItemManager.GravititeBodyplate, 1), new ItemStack(ItemManager.GravititeBodyplate, 1), 20000);
         addEnchantment(new ItemStack(ItemManager.GravititePlatelegs, 1), new ItemStack(ItemManager.GravititePlatelegs, 1), 15000);
         addEnchantment(new ItemStack(ItemManager.GravititeBoots, 1), new ItemStack(ItemManager.GravititeBoots, 1), 12000);
-        //addEnchantment(new ItemStack(ItemManager.GravititeGlove, 1), new ItemStack(ItemManager.GravititeGlove, 1), 10000);
+        addEnchantment(new ItemStack(ItemManager.GravititeGlove, 1), new ItemStack(ItemManager.GravititeGlove, 1), 10000);
         addEnchantment(new ItemStack(ItemManager.ZaniteHelmet, 1), new ItemStack(ItemManager.ZaniteHelmet, 1), 6000);
         addEnchantment(new ItemStack(ItemManager.ZaniteChestplate, 1), new ItemStack(ItemManager.ZaniteChestplate, 1), 10000);
         addEnchantment(new ItemStack(ItemManager.ZaniteLeggings, 1), new ItemStack(ItemManager.ZaniteLeggings, 1), 8000);
         addEnchantment(new ItemStack(ItemManager.ZaniteBoots, 1), new ItemStack(ItemManager.ZaniteBoots, 1), 5000);
-        /*addEnchantment(new ItemStack(ItemManager.ZaniteGlove, 1), new ItemStack(ItemManager.ZaniteGlove, 1), 4000);
+        addEnchantment(new ItemStack(ItemManager.ZaniteGlove, 1), new ItemStack(ItemManager.ZaniteGlove, 1), 4000);
         addEnchantment(new ItemStack(ItemManager.ZaniteRing, 1), new ItemStack(ItemManager.ZaniteRing, 1), 2000);
         addEnchantment(new ItemStack(ItemManager.ZanitePendant, 1), new ItemStack(ItemManager.ZanitePendant, 1), 2000);
         addEnchantment(new ItemStack(ItemManager.LeatherGlove, 1), new ItemStack(ItemManager.LeatherGlove, 1), 300);
         addEnchantment(new ItemStack(ItemManager.IronGlove, 1), new ItemStack(ItemManager.IronGlove, 1), 1200);
         addEnchantment(new ItemStack(ItemManager.GoldGlove, 1), new ItemStack(ItemManager.GoldGlove, 1), 800);
         addEnchantment(new ItemStack(ItemManager.DiamondGlove, 1), new ItemStack(ItemManager.DiamondGlove, 1), 4000);
-        addEnchantment(new ItemStack(ItemManager.DartShooter, 1, 0), new ItemStack(ItemManager.DartShooter, 1, 2), 2000);*/
+        //addEnchantment(new ItemStack(ItemManager.DartShooter, 1, 0), new ItemStack(ItemManager.DartShooter, 1, 2), 2000);
     }
 }

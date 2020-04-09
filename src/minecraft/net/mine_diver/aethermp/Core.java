@@ -15,6 +15,7 @@ import net.mine_diver.aethermp.proxy.GuiIngameAetherMp;
 import net.mine_diver.aethermp.render.RenderManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.AetherAchievements;
+import net.minecraft.src.AetherItems;
 import net.minecraft.src.BaseMod;
 import net.minecraft.src.BaseModMp;
 import net.minecraft.src.Entity;
@@ -24,11 +25,14 @@ import net.minecraft.src.EntityPlayerSP;
 import net.minecraft.src.GuiConnecting;
 import net.minecraft.src.GuiMainMenu;
 import net.minecraft.src.GuiScreen;
+import net.minecraft.src.InventoryAether;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.Packet230ModLoader;
 import net.minecraft.src.PlayerAPI;
 import net.minecraft.src.PlayerBaseAether;
 import net.minecraft.src.Render;
+import net.minecraft.src.mod_Aether;
 
 import static net.minecraft.src.mod_AetherMp.PackageAccess;
 
@@ -84,6 +88,37 @@ public class Core {
 			player.posY = realY;
 		if (!(minecraft.ingameGUI instanceof GuiIngameAetherMp))
 			minecraft.ingameGUI = new GuiIngameAetherMp(minecraft);
+		long time = minecraft.theWorld.getWorldTime();
+		if (player.worldObj.multiplayerWorld && clock != time) {
+			InventoryAether inv = mod_Aether.getPlayer(player).inv;
+			if(player.inventory.armorInventory[3] != null && player.inventory.armorInventory[3].itemID == AetherItems.PhoenixHelm.shiftedIndex && player.inventory.armorInventory[2] != null && player.inventory.armorInventory[2].itemID == AetherItems.PhoenixBody.shiftedIndex && player.inventory.armorInventory[1] != null && player.inventory.armorInventory[1].itemID == AetherItems.PhoenixLegs.shiftedIndex && player.inventory.armorInventory[0] != null && player.inventory.armorInventory[0].itemID == AetherItems.PhoenixBoots.shiftedIndex && inv.slots[6] != null && inv.slots[6].itemID == AetherItems.PhoenixGlove.shiftedIndex) {
+                player.fire = 0;
+                if(!GuiMainMenu.mmactive)
+                    player.worldObj.spawnParticle("flame", player.posX + player.getRandom().nextGaussian() / 5D, (player.posY - 0.5D) + player.getRandom().nextGaussian() / 5D, player.posZ + player.getRandom().nextGaussian() / 3D, 0.0D, 0.0D, 0.0D);
+			}
+			for (EntityOtherPlayerMP otherplayer : OtherPlayerMPAPI.playerBases.keySet()) {
+				ItemStack[] otherinv = getPlayer(otherplayer).inv;
+				if(otherplayer.inventory.armorInventory[3] != null && otherplayer.inventory.armorInventory[3].itemID == AetherItems.PhoenixHelm.shiftedIndex && otherplayer.inventory.armorInventory[2] != null && otherplayer.inventory.armorInventory[2].itemID == AetherItems.PhoenixBody.shiftedIndex && otherplayer.inventory.armorInventory[1] != null && otherplayer.inventory.armorInventory[1].itemID == AetherItems.PhoenixLegs.shiftedIndex && otherplayer.inventory.armorInventory[0] != null && otherplayer.inventory.armorInventory[0].itemID == AetherItems.PhoenixBoots.shiftedIndex && otherinv[1] != null && otherinv[1].itemID == AetherItems.PhoenixGlove.shiftedIndex) {
+					otherplayer.fire = 0;
+	                otherplayer.worldObj.spawnParticle("flame", otherplayer.posX + PackageAccess.Entity.getRand(otherplayer).nextGaussian() / 5D, otherplayer.posY + PackageAccess.Entity.getRand(otherplayer).nextGaussian() / 5D + 1, otherplayer.posZ + PackageAccess.Entity.getRand(otherplayer).nextGaussian() / 3D, 0.0D, 0.0D, 0.0D);
+				}
+			}
+			if(player.inventory.armorInventory[3] != null && player.inventory.armorInventory[3].itemID == AetherItems.GravititeHelmet.shiftedIndex && player.inventory.armorInventory[2] != null && player.inventory.armorInventory[2].itemID == AetherItems.GravititeBodyplate.shiftedIndex && player.inventory.armorInventory[1] != null && player.inventory.armorInventory[1].itemID == AetherItems.GravititePlatelegs.shiftedIndex && player.inventory.armorInventory[0] != null && player.inventory.armorInventory[0].itemID == AetherItems.GravititeBoots.shiftedIndex && inv.slots[6] != null && inv.slots[6].itemID == AetherItems.GravititeGlove.shiftedIndex && PackageAccess.EntityLiving.getIsJumping(player) && !jumpBoosted) {
+	            player.motionY = 1.0D;
+	            jumpBoosted = true;
+	        }
+			if(!PackageAccess.EntityLiving.getIsJumping(player) && player.onGround)
+	            jumpBoosted = false;
+			if(inv.slots[3] != null && inv.slots[3].itemID == AetherItems.IronBubble.shiftedIndex || inv.slots[7] != null && inv.slots[7].itemID == AetherItems.IronBubble.shiftedIndex)
+                player.air = 20;
+			if((inv.slots[3] != null && inv.slots[3].itemID == AetherItems.GoldenFeather.shiftedIndex || inv.slots[7] != null && inv.slots[7].itemID == AetherItems.GoldenFeather.shiftedIndex) && !player.onGround && player.motionY < 0.0D && !PackageAccess.Entity.getInWater(player))
+                player.motionY *= 0.59999999999999998D;
+			if(inv.slots[1] != null && inv.slots[1].itemID == AetherItems.AgilityCape.shiftedIndex)
+                player.stepHeight = 1.0F;
+            else
+                player.stepHeight = 0.5F;
+			clock = time;
+		}
 		return res;
 	}
 	
@@ -100,6 +135,9 @@ public class Core {
 	public static OtherPlayerMPBaseAether getPlayer(EntityPlayer entityplayer) {
 		return (OtherPlayerMPBaseAether) OtherPlayerMPAPI.getPlayerBase((EntityOtherPlayerMP) entityplayer, OtherPlayerMPBaseAether.class);
 	}
+	
+	private static boolean jumpBoosted;
+	private static long clock;
 	
 	public static final Unsafe unsafe;
 	static {

@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import net.mine_diver.aethermp.Core;
 import net.minecraft.src.AetherItems;
+import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiMainMenu;
 import net.minecraft.src.ItemMoreArmor;
@@ -12,8 +13,6 @@ import net.minecraft.src.MathHelper;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.ModelBiped;
 import net.minecraft.src.RenderPlayerAether;
-
-import static net.minecraft.src.mod_AetherMp.PackageAccess;
 
 public class RenderOtherPlayerMPAether extends RenderPlayerAether {
 	
@@ -29,12 +28,12 @@ public class RenderOtherPlayerMPAether extends RenderPlayerAether {
 	
 	@Override
 	protected boolean setEnergyShieldBrightness(EntityPlayer player, int i, float f) {
-        if(i != 0)
+        if (i != 0)
             return false;
         ItemStack[] inv = Core.getPlayer(player).inv;
         boolean flag = inv != null && inv[3] != null && inv[3].itemID == AetherItems.RepShield.shiftedIndex;
-        if(flag) {
-            if((player.onGround || player.ridingEntity != null && player.ridingEntity.onGround) && PackageAccess.EntityLiving.getMoveForward(player) == 0.0F && PackageAccess.EntityLiving.getMoveStrafing(player) == 0.0F) {
+        if (flag) {
+            if (inv[3].getItemDamage() == 1) {
                 loadTexture("/aether/mobs/energyGlow.png");
                 GL11.glEnable(2977);
                 GL11.glEnable(3042);
@@ -149,6 +148,12 @@ public class RenderOtherPlayerMPAether extends RenderPlayerAether {
             GL11.glPopMatrix();
         }
     }
+	
+	@Override
+	public void doRenderShadowAndFire(Entity entity, double d, double d1, double d2,  float f, float f1) {
+		if (!invisible((EntityPlayer) entity))
+			super.doRenderShadowAndFire(entity, d, d1, d2, f, f1);
+	}
 	
 	@Override
 	public boolean invisible(EntityPlayer player) {

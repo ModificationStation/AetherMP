@@ -44,10 +44,15 @@ public class WorkbenchManager {
         craftings.put(new ItemStack(ItemManager.Stick, 4), new Object[] {"#", "#", '#', BlockManager.Plank});
         craftings.put(new ItemStack(Block.WORKBENCH, 1), new Object[] {"UU", "UU", 'U', BlockManager.Plank});
         craftings.put(new ItemStack(BlockManager.AmbrosiumTorch, 2), new Object[] {" Z", " Y", 'Z', ItemManager.AmbrosiumShard, 'Y', ItemManager.Stick});
+        craftings.put(new ItemStack(ItemManager.WhiteCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 0)});
+        craftings.put(new ItemStack(ItemManager.RedCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 14)});
+        craftings.put(new ItemStack(ItemManager.BlueCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 11)});
+        craftings.put(new ItemStack(ItemManager.BlueCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 3)});
+        craftings.put(new ItemStack(ItemManager.BlueCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 9)});
+        craftings.put(new ItemStack(ItemManager.YellowCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 4)});
         craftings.put(new ItemStack(BlockManager.ZaniteBlock, 1), new Object[] {"XX", "XX", 'X', ItemManager.Zanite});
         craftings.put(new ItemStack(ItemManager.CloudParachute, 1), new Object[] {"UU", "UU", 'U', new ItemStack(BlockManager.Aercloud, 1, 0)});
         craftings.put(new ItemStack(ItemManager.CloudParachuteGold, 1), new Object[] {"UU", "UU", 'U', new ItemStack(BlockManager.Aercloud, 1, 2)});
-        craftings.put(new ItemStack(ItemManager.LeatherGlove), new Object[] {"C C", 'C', Item.LEATHER});
         craftings.put(new ItemStack(Item.SADDLE, 1), new Object[] {"XXX", "XZX", 'X', Item.LEATHER, 'Z', Item.STRING});
         craftings.put(new ItemStack(ItemManager.GravititeHelmet, 1), new Object[] {"XXX", "X X", 'X', BlockManager.EnchantedGravitite});
         craftings.put(new ItemStack(ItemManager.GravititeBodyplate, 1), new Object[] {"X X", "XXX", "XXX", 'X', BlockManager.EnchantedGravitite});
@@ -66,5 +71,17 @@ public class WorkbenchManager {
         craftings.put(new ItemStack(Block.JUKEBOX), new Object[] {"PPP", "PGP", "PPP", 'P', BlockManager.Plank, 'G', BlockManager.EnchantedGravitite});
         craftings.put(new ItemStack(BlockManager.Plank, 4), new Object[] {"L", 'L', BlockManager.Log});
         craftings.put(new ItemStack(BlockManager.Enchanter), new Object[] {"HHH", "HZH", "HHH", 'H', BlockManager.Holystone, 'Z', ItemManager.Zanite});
+        craftings.put(new ItemStack(ItemManager.LeatherGlove), new Object[] {"C C", 'C', Item.LEATHER});
+        craftings.put(new ItemStack(ItemManager.IronGlove), new Object[] {"C C", 'C', Item.IRON_INGOT});
+        craftings.put(new ItemStack(ItemManager.GoldGlove), new Object[] {"C C", 'C', Item.GOLD_INGOT});
+        craftings.put(new ItemStack(ItemManager.DiamondGlove), new Object[] {"C C", 'C', Item.DIAMOND });
+        craftings.put(new ItemStack(ItemManager.ZaniteGlove), new Object[] {"C C", 'C', ItemManager.Zanite});
+        craftings.put(new ItemStack(ItemManager.GravititeGlove), new Object[] {"C C", 'C', BlockManager.EnchantedGravitite});
+        craftings.put(new ItemStack(ItemManager.IronRing), new Object[] {" C ", "C C", " C ", 'C', Item.IRON_INGOT});
+        craftings.put(new ItemStack(ItemManager.GoldRing), new Object[] {" C ", "C C", " C ", 'C', Item.GOLD_INGOT});
+        craftings.put(new ItemStack(ItemManager.ZaniteRing), new Object[] {" C ", "C C", " C ", 'C', ItemManager.Zanite});
+        craftings.put(new ItemStack(ItemManager.IronPendant), new Object[] {"SSS", "S S", " C ", 'S', Item.STRING, 'C', Item.IRON_INGOT});
+        craftings.put(new ItemStack(ItemManager.GoldPendant), new Object[] {"SSS", "S S", " C ", 'S', Item.STRING, 'C', Item.GOLD_INGOT});
+        craftings.put(new ItemStack(ItemManager.ZanitePendant), new Object[] {"SSS", "S S", " C ", 'S', Item.STRING, 'C', ItemManager.Zanite});
 	}
 }

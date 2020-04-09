@@ -14,6 +14,7 @@ public class OtherPlayerMPAPI {
 	}
 	
 	public static OtherPlayerMPBase getPlayerBase(EntityOtherPlayerMP entityotherplayermp, Class<? extends OtherPlayerMPBase> playerBaseClass) {
+		checkAndInit(entityotherplayermp);
 		for (OtherPlayerMPBase playerBase : playerBases.get(entityotherplayermp))
 			if (playerBaseClass.isInstance(playerBase))
 				return playerBase;

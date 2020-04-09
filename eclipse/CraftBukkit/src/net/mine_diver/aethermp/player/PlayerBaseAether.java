@@ -23,6 +23,8 @@ import net.minecraft.server.NBTTagList;
 import net.minecraft.server.Packet5EntityEquipment;
 import net.minecraft.server.PlayerBase;
 
+import static net.minecraft.server.mod_AetherMp.PackageAccess;
+
 public class PlayerBaseAether extends PlayerBase {
 
 	public PlayerBaseAether(EntityPlayer var1) {
@@ -62,6 +64,13 @@ public class PlayerBaseAether extends PlayerBase {
 	
 	@Override
 	public boolean onUpdate() {
+		sendInv();
+		prevLocX = player.locX;
+		prevLocZ = player.locZ;
+		return false;
+	}
+	
+	public void sendInv() {
 		for (int i = 0; i < 4; ++i) {
             ItemStack itemstack = getMoreArmorEquipment(i);
             if (itemstack != this.moreArmor[i]) {
@@ -76,7 +85,6 @@ public class PlayerBaseAether extends PlayerBase {
                 equipment[i + 5] = itemstack;
             }
         }
-		return false;
 	}
 	
 	public ItemStack getMoreArmorEquipment(final int i) {
@@ -86,6 +94,9 @@ public class PlayerBaseAether extends PlayerBase {
 			return inv.slots[6];
 		if (i == 2)
 			return inv.slots[1];
+		if (inv.slots[2] != null && inv.slots[2].id == ItemManager.RepShield.id)
+			//TODO: Make shield go off only when there's no manual input from client
+			return ((player.onGround || player.vehicle != null && player.vehicle.onGround) && Math.abs(prevLocX - player.locX) < 0.01 && Math.abs(prevLocZ - player.locZ) < 0.01) ? new ItemStack(inv.slots[2].id, inv.slots[2].count, 1) : new ItemStack(inv.slots[2].id, inv.slots[2].count, 0);
 		return inv.slots[2];
     }
 	
@@ -146,6 +157,13 @@ public class PlayerBaseAether extends PlayerBase {
                     }
             }
 		}
+		if(player.inventory.armor[3] != null && player.inventory.armor[3].id == ItemManager.PhoenixHelm.id && player.inventory.armor[2] != null && player.inventory.armor[2].id == ItemManager.PhoenixBody.id && player.inventory.armor[1] != null && player.inventory.armor[1].id == ItemManager.PhoenixLegs.id && player.inventory.armor[0] != null && player.inventory.armor[0].id == ItemManager.PhoenixBoots.id && inv.slots[6] != null && inv.slots[6].id == ItemManager.PhoenixGlove.id) {
+            PackageAccess.Entity.setIsImmuneToFire(player, true);
+            player.fireTicks = 0;
+            PackageAccess.Entity.setEntityFlag(player, 0, false);
+            player.world.a("flame", player.locX + player.getRandom().nextGaussian() / 5D, (player.locY - 0.5D) + player.getRandom().nextGaussian() / 5D, player.locZ + player.getRandom().nextGaussian() / 3D, 0.0D, 0.0D, 0.0D);
+        } else
+            PackageAccess.Entity.setIsImmuneToFire(player, false);
 		if (player.ac()) {
 			int playerBlock = player.world.getTypeId(MathHelper.floor(player.locX), MathHelper.floor(player.locY), MathHelper.floor(player.locZ));
             if(player.inventory.armor[0] != null && player.inventory.armor[0].id == ItemManager.PhoenixBoots.id) {
@@ -184,9 +202,96 @@ public class PlayerBaseAether extends PlayerBase {
                 if(player.inventory.armor[3] == null || player.inventory.armor[3].count < 1)
                     player.inventory.armor[3] = new ItemStack(ItemManager.ObsidianHelm, 1, 0);
             }
+            if(inv.slots[6] != null && inv.slots[6].id == ItemManager.PhoenixGlove.id) {
+                inv.slots[6].damage(1, player);
+                if(playerBlock == Block.STATIONARY_WATER.id) {
+                    inv.slots[6].damage(4, player);
+                    player.world.setTypeId(MathHelper.floor(player.locX), MathHelper.floor(player.locY), MathHelper.floor(player.locZ), 0);
+                }
+                if(inv.slots[6] == null || inv.slots[6].count < 1)
+                    inv.slots[6] = new ItemStack(ItemManager.ObsidianGlove, 1, 0);
+            }
 		}
+		if(player.inventory.armor[3] != null && player.inventory.armor[3].id == ItemManager.GravititeHelmet.id && player.inventory.armor[2] != null && player.inventory.armor[2].id == ItemManager.GravititeBodyplate.id && player.inventory.armor[1] != null && player.inventory.armor[1].id == ItemManager.GravititePlatelegs.id && player.inventory.armor[0] != null && player.inventory.armor[0].id == ItemManager.GravititeBoots.id && inv.slots[6] != null && inv.slots[6].id == ItemManager.GravititeGlove.id) {
+            if(player.getJumping() && !jumpBoosted) {
+                player.motY = 1.0D;
+                jumpBoosted = true;
+            }
+            player.fallDistance = -1F;
+        }
+		if(!player.getJumping() && player.onGround)
+            jumpBoosted = false;
+		if(inv.slots[3] != null && inv.slots[3].id == ItemManager.IronBubble.id || inv.slots[7] != null && inv.slots[7].id == ItemManager.IronBubble.id)
+            player.airTicks = 20;
 		if(player.world.spawnMonsters == 0 && player.health >= 20 && player.health < maxHealth && player.ticksLived % 20 == 0)
             player.b(1);
+		if(inv.slots[0] != null && inv.slots[0].id == ItemManager.IcePendant.id || inv.slots[4] != null && inv.slots[4].id == ItemManager.IceRing.id || inv.slots[5] != null && inv.slots[5].id == ItemManager.IceRing.id) {
+            int i = MathHelper.floor(player.locX);
+            int j = MathHelper.floor(player.boundingBox.b);
+            int k = MathHelper.floor(player.locZ);
+            for(int l = i - 1; l <= i + 1; l++)
+                for(int i1 = j - 1; i1 <= j + 1; i1++)
+                    for(int j1 = k - 1; j1 <= k + 1; j1++) {
+                        if(player.world.getTypeId(l, i1, j1) == 8) {
+                        	player.world.setTypeId(l, i1, j1, 79);
+                            continue;
+                        }
+                        if(player.world.getTypeId(l, i1, j1) == 9) {
+                        	player.world.setTypeId(l, i1, j1, 79);
+                            continue;
+                        }
+                        if(player.world.getTypeId(l, i1, j1) == 10) {
+                        	player.world.setTypeId(l, i1, j1, 49);
+                            continue;
+                        }
+                        if(player.world.getTypeId(l, i1, j1) == 11)
+                        	player.world.setTypeId(l, i1, j1, 49);
+                    }
+        }
+		if(inv.slots[3] != null && inv.slots[3].id == ItemManager.GoldenFeather.id || inv.slots[7] != null && inv.slots[7].id == ItemManager.GoldenFeather.id) {
+            if(!player.onGround && player.motY < 0.0D && !PackageAccess.Entity.getInWater(player))
+                player.motY *= 0.59999999999999998D;
+            player.fallDistance = -1F;
+        }
+		if(inv.slots[1] != null && inv.slots[1].id == ItemManager.AgilityCape.id)
+            player.bs = 1.0F;
+        else
+            player.bs = 0.5F;
+		if(ticks % 200 == 0 && player.health < maxHealth && (inv.slots[3] != null && inv.slots[3].id == ItemManager.RegenerationStone.id || inv.slots[7] != null && inv.slots[7].id == ItemManager.RegenerationStone.id))
+            player.b(1);
+		if(player.ticksLived % 400 == 0) {
+            if(inv.slots[0] != null && inv.slots[0].id == ItemManager.ZanitePendant.id) {
+                inv.slots[0].damage(1, player);
+                if(inv.slots[0].count < 1)
+                    inv.slots[0] = null;
+            }
+            if(inv.slots[4] != null && inv.slots[4].id == ItemManager.ZaniteRing.id) {
+                inv.slots[4].damage(1, player);
+                if(inv.slots[4].count < 1)
+                    inv.slots[4] = null;
+            }
+            if(inv.slots[5] != null && inv.slots[5].id == ItemManager.ZaniteRing.id) {
+                inv.slots[5].damage(1, player);
+                if(inv.slots[5].count < 1)
+                    inv.slots[5] = null;
+            }
+            if(inv.slots[0] != null && inv.slots[0].id == ItemManager.IcePendant.id) {
+                inv.slots[0].damage(1, player);
+                if(inv.slots[0].count < 1)
+                    inv.slots[0] = null;
+            }
+            if(inv.slots[4] != null && inv.slots[4].id == ItemManager.IceRing.id) {
+                inv.slots[4].damage(1, player);
+                if(inv.slots[4].count < 1)
+                    inv.slots[4] = null;
+            }
+            if(inv.slots[5] != null && inv.slots[5].id == ItemManager.IceRing.id) {
+                inv.slots[5].damage(1, player);
+                if(inv.slots[5].count < 1)
+                    inv.slots[5] = null;
+            }
+        }
+		ticks++;
 		return false;
 	}
 	
@@ -210,7 +315,39 @@ public class PlayerBaseAether extends PlayerBase {
         return false;
     }
 	
+	@Override
+	public boolean onDeath(Entity entity) {
+		for (int i = 0; i < inv.slots.length; i++)
+			inv.slots[i] = null;
+		sendInv();
+		return false;
+	}
+	
+	@Override
+	public boolean isInWater(boolean inWater) {
+        return inWater && (!wearingNeptuneArmor() || player.getJumping());
+    }
+	
+	@Override
+	public float getCurrentPlayerStrVsBlock(Block block, float f) {
+        if(inv.slots[0] != null && inv.slots[0].id == ItemManager.ZanitePendant.id)
+            f *= 1.0F + (float)inv.slots[0].getData() / ((float)inv.slots[0].i() * 3F);
+        if(inv.slots[4] != null && inv.slots[4].id == ItemManager.ZaniteRing.id)
+            f *= 1.0F + (float)inv.slots[4].getData() / ((float)inv.slots[4].i() * 3F);
+        if(inv.slots[5] != null && inv.slots[5].id == ItemManager.ZaniteRing.id)
+            f *= 1.0F + (float)inv.slots[5].getData() / ((float)inv.slots[5].i() * 3F);
+        return f;
+    }
+	
+	private boolean wearingNeptuneArmor() {
+        return player.inventory.armor[3] != null && player.inventory.armor[3].id == ItemManager.NeptuneHelmet.id && player.inventory.armor[2] != null && player.inventory.armor[2].id == ItemManager.NeptuneChestplate.id && player.inventory.armor[1] != null && player.inventory.armor[1].id == ItemManager.NeptuneLeggings.id && player.inventory.armor[0] != null && player.inventory.armor[0].id == ItemManager.NeptuneBoots.id && inv.slots[6] != null && inv.slots[6].id == ItemManager.NeptuneGlove.id;
+    }
+	
     public int maxHealth = 20;
     public InventoryAether inv;
     public ItemStack[] moreArmor = new ItemStack[4];
+    public double prevLocX;
+    public double prevLocZ;
+    private boolean jumpBoosted;
+    private int ticks = 0;
 }

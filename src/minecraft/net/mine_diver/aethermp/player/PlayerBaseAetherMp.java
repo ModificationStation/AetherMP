@@ -30,6 +30,13 @@ public class PlayerBaseAetherMp extends PlayerBaseAether {
 		}
 	}
 	
+	@Override
+	public boolean onLivingUpdate() {
+		if (!player.worldObj.multiplayerWorld)
+			return super.onLivingUpdate();
+		return false;
+	}
+	
 	private static EntityPlayerSP checkIfMultiplayer(EntityPlayerSP player) {
 		ISaveHandler savehandler = PackageAccess.World.getSaveHandler(player.worldObj);
 		if (savehandler instanceof SaveHandlerMP) {

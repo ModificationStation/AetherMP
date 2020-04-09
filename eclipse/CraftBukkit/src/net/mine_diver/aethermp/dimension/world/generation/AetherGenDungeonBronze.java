@@ -265,8 +265,8 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
         case 3:
             return new ItemStack(ItemManager.ShovelZanite);
 
-        /*case 4:
-            return new ItemStack(ItemManager.AgilityCape);*/
+        case 4:
+            return new ItemStack(ItemManager.AgilityCape);
 
         case 5:
             return new ItemStack(ItemManager.AmbrosiumShard, random.nextInt(10) + 1);
@@ -293,23 +293,23 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
                 return new ItemStack(Item.byId[Item.GOLD_RECORD.id + random.nextInt(2)]);
             break;
 
-        /*case 12:
+        case 12:
             if(random.nextInt(4) == 0)
-                return new ItemStack(ItemManager.IronRing.id, 1);
+                return new ItemStack(ItemManager.IronRing);
             break;
 
         case 13:
             if(random.nextInt(10) == 0)
-                return new ItemStack(ItemManager.GoldRing.id, 1);
-            break;*/
+                return new ItemStack(ItemManager.GoldRing);
+            break;
         }
         return new ItemStack(BlockManager.AmbrosiumTorch);
     }
 
     private ItemStack getBronzeLoot(Random random) {
-        /*int i = random.nextInt(7);
+        int i = random.nextInt(7);
         switch(i) {
-        case 0:
+        /*case 0:
             return new ItemStack(ItemManager.GummieSwet, random.nextInt(8), random.nextInt(2));
 
         case 1:
@@ -325,11 +325,11 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
             return new ItemStack(ItemManager.LightningKnife, random.nextInt(16), 1);
 
         case 5:
-            return new ItemStack(ItemManager.Lance);
+            return new ItemStack(ItemManager.Lance);*/
 
         case 6:
             return new ItemStack(ItemManager.AgilityCape);
-        }*/
+        }
         return new ItemStack(ItemManager.Stick);
     }
 

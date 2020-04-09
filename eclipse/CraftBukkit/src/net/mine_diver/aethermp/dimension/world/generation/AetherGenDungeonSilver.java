@@ -400,7 +400,7 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
                 return new ItemStack(ItemManager.ZaniteChestplate);
             break;
 
-        /*case 12:
+        case 12:
             if(random.nextInt(4) == 0)
                 return new ItemStack(ItemManager.IronPendant);
 
@@ -411,7 +411,7 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
         case 14:
             if(random.nextInt(15) == 0)
                 return new ItemStack(ItemManager.ZaniteRing);
-            break;*/
+            break;
         }
         return new ItemStack(BlockManager.AmbrosiumTorch, random.nextInt(5));
     }
@@ -438,13 +438,13 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
             break;
 
         case 3:
-            return new ItemStack(ItemManager.SwordHoly);
+            return new ItemStack(ItemManager.SwordHoly);*/
 
         case 4:
             return new ItemStack(ItemManager.GoldenFeather);
 
         case 5:
-            return new ItemStack(ItemManager.RegenerationStone);*/
+            return new ItemStack(ItemManager.RegenerationStone);
 
         case 6:
             if(random.nextBoolean())
@@ -458,13 +458,13 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
         case 7:
             if(random.nextBoolean())
                 return new ItemStack(ItemManager.NeptuneBoots);
-            /*else
+            else
                 return new ItemStack(ItemManager.NeptuneGlove);
 
         case 8:
-            return new ItemStack(ItemManager.InvisibilityCloak);*/
+            return new ItemStack(ItemManager.InvisibilityCloak);
         }
-        return null;// new ItemStack(ItemManager.ZanitePendant);
+        return new ItemStack(ItemManager.ZanitePendant);
     }
     
     private int baseMeta1;

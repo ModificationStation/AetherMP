@@ -89,9 +89,22 @@ public class mod_AetherMp extends BaseModMp {
     idItemSwordHolystone = 17026,
     idItemSwordZanite = 17027,
     idItemSwordGravitite = 17028,
+    idItemIronBubble = 17029,
     idItemCloudParachute = 17040,
     idItemCloudParachuteGold = 17041,
+    idItemGoldenFeather = 17044,
+    idItemIronRing = 17046,
+    idItemGoldRing = 17047,
+    idItemZaniteRing = 17048,
+    idItemIronPendant = 17049,
+    idItemGoldPendant = 17050,
+    idItemZanitePendant = 17051,
+    idItemRepShield = 17052,
+    idItemAetherCape = 17053,
     idItemLeatherGlove = 17054,
+    idItemIronGlove = 17055,
+    idItemGoldGlove = 17056,
+    idItemDiamondGlove = 17057,
     idItemZaniteGlove = 17058,
     idItemZaniteHelmet = 17059,
     idItemZaniteChestplate = 17060,
@@ -117,7 +130,16 @@ public class mod_AetherMp extends BaseModMp {
     idItemNeptuneChestplate = 17080,
     idItemNeptuneLeggings = 17081,
     idItemNeptuneBoots = 17082,
-    idItemHealingStone = 17093;
+    idItemRegenerationStone = 17083,
+    idItemInvisibilityCloak = 17084,
+    idItemAgilityCape = 17085,
+    idItemWhiteCape = 17086,
+    idItemRedCape = 17087,
+    idItemYellowCape = 17088,
+    idItemBlueCape = 17089,
+    idItemHealingStone = 17093,
+    idItemIceRing = 17094,
+    idItemIcePendant = 17095;
 	
 	public static class PackageAccess {
 		
@@ -157,12 +179,31 @@ public class mod_AetherMp extends BaseModMp {
 			public static net.minecraft.server.Item newItem(int ID) {
 				return new net.minecraft.server.Item(ID);
 			}
+			
+			public static void setMaxDamage(net.minecraft.server.Item item, int maxDamage) {
+				item.d(maxDamage);
+			}
 		}
 		
 		public static class SlotArmor {
 			
 			public static net.minecraft.server.SlotArmor newSlotArmor(ContainerPlayer container, IInventory inventory, int slot, int xDisplay, int yDisplay, int armorType) {
 				return new net.minecraft.server.SlotArmor(container, inventory, slot, xDisplay, yDisplay, armorType);
+			}
+		}
+		
+		public static class Entity {
+			
+			public static boolean getInWater(net.minecraft.server.Entity entity) {
+				return entity.bA;
+			}
+			
+			public static void setIsImmuneToFire(net.minecraft.server.Entity entity, boolean isImmuneToFire) {
+				entity.fireProof = isImmuneToFire;
+			}
+			
+			public static void setEntityFlag(net.minecraft.server.Entity entity, int ID, boolean flag) {
+				entity.a(ID, flag);
 			}
 		}
 	}

@@ -184,10 +184,10 @@ public class AetherGenDungeon extends WorldGenerator {
         default:
             break;
 
-        /*case 0: // '\0'
+        case 0:
             return new ItemStack(ItemManager.IronBubble);
 
-        case 1: // '\001'
+        /*case 1: // '\001'
             return new ItemStack(ItemManager.VampireBlade);
 
         case 2: // '\002'
@@ -205,8 +205,8 @@ public class AetherGenDungeon extends WorldGenerator {
         case 4: // '\004'
             if(random.nextBoolean())
                 return new ItemStack(ItemManager.PhoenixBoots);
-            /*else
-                return new ItemStack(ItemManager.PhoenixGlove);*/
+            else
+                return new ItemStack(ItemManager.PhoenixGlove);
 
         /*case 5: // '\005'
             return new ItemStack(ItemManager.LifeShard);*/
@@ -223,8 +223,8 @@ public class AetherGenDungeon extends WorldGenerator {
         case 7: // '\007'
             if(random.nextBoolean())
                 return new ItemStack(ItemManager.GravititeBoots);
-            /*else
-                return new ItemStack(ItemManager.GravititeGlove);*/
+            else
+                return new ItemStack(ItemManager.GravititeGlove);
         }
         return new ItemStack(ItemManager.ObsidianBody);
     }
