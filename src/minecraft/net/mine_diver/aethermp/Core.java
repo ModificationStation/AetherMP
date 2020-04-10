@@ -48,7 +48,7 @@ public class Core {
 			if (PlayerAPI.playerBaseClasses.get(i).equals(PlayerBaseAether.class))
 				PlayerAPI.playerBaseClasses.set(i, PlayerBaseAetherMp.class);
 		GuiManager.registerGuis(mod);
-		BlockManager.registerBlocks();
+		BlockManager.registerBlocks(aetherInstance);
 		EntityManager.registerEntities();
 		OtherPlayerMPAPI.RegisterPlayerBase(OtherPlayerMPBaseAether.class);
 	}

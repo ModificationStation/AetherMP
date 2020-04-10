@@ -12,6 +12,7 @@ import net.minecraft.server.Material;
 import net.minecraft.server.TileEntity;
 import net.minecraft.server.TileEntityChest;
 import net.minecraft.server.World;
+import net.minecraft.server.mod_AetherMp;
 
 public class BlockTreasureChest extends BlockContainer {
 
@@ -34,7 +35,7 @@ public class BlockTreasureChest extends BlockContainer {
         int l = world.getData(i, j, k);
         TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i, j, k);
         if (l % 2 == 1) {
-            GuiManager.OpenGUIWithMeta(entityhuman, 81, tileentitychest, new ContainerChest(entityhuman.inventory, tileentitychest), l);
+            GuiManager.OpenGUIWithMeta(entityhuman, mod_AetherMp.idGuiTreasureChest, tileentitychest, new ContainerChest(entityhuman.inventory, tileentitychest), l);
             return true;
         }
         ItemStack itemstack = entityhuman.inventory.getItemInHand();

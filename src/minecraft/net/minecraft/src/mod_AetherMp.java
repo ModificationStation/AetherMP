@@ -70,6 +70,7 @@ public class mod_AetherMp extends BaseModMp {
 	public static int
 	idGuiEnchanter = 80,
 	idGuiTreasureChest = 81,
+	idGuiFreezer = 82,
 	idEntityCloudParachute = 101,
 	idEntityFloatingBlock = 80,
 	idEntityMimic = 81,

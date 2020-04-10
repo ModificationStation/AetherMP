@@ -2,8 +2,8 @@ package net.mine_diver.aethermp.blocks;
 
 import java.util.Random;
 
-import net.mine_diver.aethermp.blocks.tileentities.TileEntityEnchanter;
-import net.mine_diver.aethermp.inventory.ContainerEnchanter;
+import net.mine_diver.aethermp.blocks.tileentities.TileEntityFreezer;
+import net.mine_diver.aethermp.inventory.ContainerFreezer;
 import net.minecraft.server.Block;
 import net.minecraft.server.BlockContainer;
 import net.minecraft.server.EntityHuman;
@@ -17,16 +17,11 @@ import net.minecraft.server.TileEntity;
 import net.minecraft.server.World;
 import net.minecraft.server.mod_AetherMp;
 
-public class BlockEnchanter extends BlockContainer {
+public class BlockFreezer extends BlockContainer {
 
-    protected BlockEnchanter(int i) {
-        super(i, Material.STONE);
-        EnchanterRand = new Random();
-    }
-    
-    @Override
-    public int a(int i, Random random) {
-        return BlockManager.Enchanter.id;
+    protected BlockFreezer(int blockID) {
+        super(blockID, Material.STONE);
+        FrozenRand = new Random();
     }
     
     @Override
@@ -54,28 +49,28 @@ public class BlockEnchanter extends BlockContainer {
     
     @Override
     public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
-        TileEntityEnchanter tileentityenchanter = (TileEntityEnchanter)world.getTileEntity(i, j, k);
-        ModLoader.OpenGUI(entityhuman, mod_AetherMp.idGuiEnchanter, tileentityenchanter, new ContainerEnchanter(entityhuman.inventory, tileentityenchanter));
+        TileEntityFreezer tileentityFreezer = (TileEntityFreezer) world.getTileEntity(i, j, k);
+        ModLoader.OpenGUI(entityhuman, mod_AetherMp.idGuiFreezer, tileentityFreezer, new ContainerFreezer(entityhuman.inventory, tileentityFreezer));
         return true;
     }
-    
-    public static void updateEnchanterBlockState(boolean flag, World world, int i, int j, int k) {
+
+    public static void updateFreezerBlockState(boolean flag, World world, int i, int j, int k) {
         TileEntity tileentity = world.getTileEntity(i, j, k);
-        keepEnchanterInventory = true;
+        keepFreezerInventory = true;
         if(flag)
             world.setRawData(i, j, k, 1);
         else
             world.setRawData(i, j, k, 0);
-        keepEnchanterInventory = false;
+        keepFreezerInventory = false;
         if (tileentity != null) {
         	tileentity.j();
-        	world.setTileEntity(i, j, k, tileentity);
+            world.setTileEntity(i, j, k, tileentity);
         }
     }
     
     @Override
     protected TileEntity a_() {
-        return new TileEntityEnchanter();
+        return new TileEntityFreezer();
     }
     
     @Override
@@ -93,36 +88,36 @@ public class BlockEnchanter extends BlockContainer {
     
     @Override
     public void remove(World world, int i, int j, int k) {
-        if (!keepEnchanterInventory){
-        	TileEntityEnchanter tileentityenchanter = (TileEntityEnchanter)world.getTileEntity(i, j, k);
+    	if (!keepFreezerInventory) {
+	        TileEntityFreezer tileentityFreezer = (TileEntityFreezer)world.getTileEntity(i, j, k);
 label0:
-	        for(int l = 0; l < tileentityenchanter.getSize(); l++) {
-	            ItemStack itemstack = tileentityenchanter.getItem(l);
+	        for(int l = 0; l < tileentityFreezer.getSize(); l++) {
+	            ItemStack itemstack = tileentityFreezer.getItem(l);
 	            if(itemstack == null)
 	                continue;
-	            float f = EnchanterRand.nextFloat() * 0.8F + 0.1F;
-	            float f1 = EnchanterRand.nextFloat() * 0.8F + 0.1F;
-	            float f2 = EnchanterRand.nextFloat() * 0.8F + 0.1F;
+	            float f = FrozenRand.nextFloat() * 0.8F + 0.1F;
+	            float f1 = FrozenRand.nextFloat() * 0.8F + 0.1F;
+	            float f2 = FrozenRand.nextFloat() * 0.8F + 0.1F;
 	            do {
 	                if(itemstack.count <= 0)
 	                    continue label0;
-	                int i1 = EnchanterRand.nextInt(21) + 10;
+	                int i1 = FrozenRand.nextInt(21) + 10;
 	                if(i1 > itemstack.count)
 	                    i1 = itemstack.count;
 	                itemstack.count -= i1;
 	                EntityItem entityitem = new EntityItem(world, (float)i + f, (float)j + f1, (float)k + f2, new ItemStack(itemstack.id, i1, itemstack.getData()));
 	                float f3 = 0.05F;
-	                entityitem.motX = (float)EnchanterRand.nextGaussian() * f3;
-	                entityitem.motY = (float)EnchanterRand.nextGaussian() * f3 + 0.2F;
-	                entityitem.motZ = (float)EnchanterRand.nextGaussian() * f3;
+	                entityitem.motX = (float)FrozenRand.nextGaussian() * f3;
+	                entityitem.motY = (float)FrozenRand.nextGaussian() * f3 + 0.2F;
+	                entityitem.motZ = (float)FrozenRand.nextGaussian() * f3;
 	                world.addEntity(entityitem);
 	            } while(true);
 	        }
-        }
+    	}
 
         super.remove(world, i, j, k);
     }
 
-    private Random EnchanterRand;
-    private static boolean keepEnchanterInventory = false;
+    private Random FrozenRand;
+    private static boolean keepFreezerInventory = false;
 }

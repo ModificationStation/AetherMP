@@ -50,6 +50,7 @@ public class WorkbenchManager {
         craftings.put(new ItemStack(ItemManager.BlueCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 3)});
         craftings.put(new ItemStack(ItemManager.BlueCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 9)});
         craftings.put(new ItemStack(ItemManager.YellowCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 4)});
+        craftings.put(new ItemStack(BlockManager.Freezer, 1), new Object[] {"XXX", "XZX", "YYY", Character.valueOf('X'), BlockManager.Holystone, Character.valueOf('Z'), BlockManager.Icestone, Character.valueOf('Y'), BlockManager.Plank});
         craftings.put(new ItemStack(BlockManager.ZaniteBlock, 1), new Object[] {"XX", "XX", 'X', ItemManager.Zanite});
         craftings.put(new ItemStack(ItemManager.CloudParachute, 1), new Object[] {"UU", "UU", 'U', new ItemStack(BlockManager.Aercloud, 1, 0)});
         craftings.put(new ItemStack(ItemManager.CloudParachuteGold, 1), new Object[] {"UU", "UU", 'U', new ItemStack(BlockManager.Aercloud, 1, 2)});

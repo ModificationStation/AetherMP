@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Properties;
 
 import net.minecraft.src.AetherBlocks;
+import net.minecraft.src.BaseMod;
 import net.minecraft.src.Block;
 import net.minecraft.src.IDResolver;
 import net.minecraft.src.ModLoader;
@@ -14,14 +15,14 @@ import static net.minecraft.src.mod_AetherMp.PackageAccess;
 
 public class BlockManager {
 	
-	public static void registerBlocks() {
+	public static void registerBlocks(BaseMod aetherInstance) {
 		try {
 			for (BlockType block : aetherBlocks) {
 				Block targetBlock = (Block) block.getTargetField().get(null);
 				String longName = "";
 				String ID = "";
 				if (IDResolverInstalled) {
-					longName = "BlockID." + TrimMCPMethod.invoke(null, targetBlock.getClass().getName()) + "|mod_Aether|" + block.getOriginalID();
+					longName = "BlockID." + TrimMCPMethod.invoke(null, targetBlock.getClass().getName()) + "|" + aetherInstance.getClass().getSimpleName() + "|" + block.getOriginalID();
 					Properties knownIDs = (Properties) ModLoader.getPrivateValue(IDResolver.class, null, "knownIDs");
 					ID = knownIDs.getProperty(longName);
 					knownIDs.remove(longName);
@@ -53,7 +54,8 @@ public class BlockManager {
 			aetherBlocks = new BlockType[] {
 					new BlockType(BlockChestMimicMp.class, AetherBlocks.class.getDeclaredField("ChestMimic"), mod_Aether.idBlockChestMimic),
 					new BlockType(BlockTrapMp.class, AetherBlocks.class.getDeclaredField("Trap"), mod_Aether.idBlockTrap),
-					new BlockType(BlockEnchanterMp.class, AetherBlocks.class.getDeclaredField("Enchanter"), mod_Aether.idBlockEnchanter)
+					new BlockType(BlockEnchanterMp.class, AetherBlocks.class.getDeclaredField("Enchanter"), mod_Aether.idBlockEnchanter),
+					new BlockType(BlockFreezerMp.class, AetherBlocks.class.getDeclaredField("Freezer"), mod_Aether.idBlockFreezer)
 			};
 		} catch (Exception e) {
 			throw new RuntimeException(e);

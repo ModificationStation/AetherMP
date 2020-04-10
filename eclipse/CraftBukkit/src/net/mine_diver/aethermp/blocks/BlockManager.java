@@ -13,6 +13,7 @@ import static net.minecraft.server.mod_AetherMp.PackageAccess;
 import java.util.Arrays;
 
 import net.mine_diver.aethermp.blocks.tileentities.TileEntityEnchanter;
+import net.mine_diver.aethermp.blocks.tileentities.TileEntityFreezer;
 import net.mine_diver.aethermp.items.ItemBlockAercloud;
 import net.mine_diver.aethermp.items.ItemBlockAetherLog;
 import net.mine_diver.aethermp.items.ItemBlockHolystone;
@@ -44,38 +45,40 @@ public class BlockManager {
         return i == 0 || i == Aercloud.id;
     }
     
-    public static final Block Portal = new BlockAetherPortal(mod_AetherMp.idBlockAetherPortal).a("AetherPortal");
-    public static final Block Dirt = new BlockAetherDirt(mod_AetherMp.idBlockAetherDirt).a("AetherDirt");
-    public static final Block Grass = new BlockAetherGrass(mod_AetherMp.idBlockAetherGrass).a("AetherGrass");
-    public static final Block Quicksoil = new BlockQuicksoil(mod_AetherMp.idBlockQuicksoil).a("Quicksoil");
-    public static final Block Holystone = new BlockHolystone(mod_AetherMp.idBlockHolystone).a("Holystone");
-    public static final Block Icestone = new BlockIcestone(mod_AetherMp.idBlockIcestone).a("Icestone");
-    public static final Block Aercloud = new BlockAercloud(mod_AetherMp.idBlockAercloud).a("Aercloud");
-    public static final Block Aerogel = new BlockAerogel(mod_AetherMp.idBlockAerogel).a("Aerogel");
-    public static final Block Log = new BlockAetherLog(mod_AetherMp.idBlockLog).a("AetherLog");
-    public static final Block Plank = PackageAccess.Block.newBlock(mod_AetherMp.idBlockPlank, -1, Material.WOOD).a("AetherPlank");
-    public static final Block SkyrootLeaves = new BlockAetherLeaves(mod_AetherMp.idBlockSkyrootLeaves).a("SkyrootLeaves");
-    public static final Block GoldenOakLeaves = new BlockAetherLeaves(mod_AetherMp.idBlockGoldenOakLeaves).a("GoldenLeaves");
-    public static final Block SkyrootSapling = new BlockAetherSapling(mod_AetherMp.idBlockSkyrootSapling).a("SkyrootSapling");
-    public static final Block GoldenOakSapling = new BlockAetherSapling(mod_AetherMp.idBlockGoldenOakSapling).a("GoldenOakSapling");
-    public static final Block AmbrosiumOre = new BlockAmbrosiumOre(mod_AetherMp.idBlockAmbrosiumOre).a("AmbrosiumOre");
-    public static final Block AmbrosiumTorch = new BlockAmbrosiumTorch(mod_AetherMp.idBlockAmbrosiumTorch).a("AmbrosiumTorch");
-    public static final Block ZaniteOre = new BlockZaniteOre(mod_AetherMp.idBlockZaniteOre).a("ZaniteOre");
-    public static final Block GravititeOre = new BlockFloating(mod_AetherMp.idBlockGravititeOre, false).a("GravititeOre");
-    public static final Block EnchantedGravitite = new BlockFloating(mod_AetherMp.idBlockEnchantedGravitite, true).a("EnchantedGravitite");
-    public static final Block Enchanter = new BlockEnchanter(mod_AetherMp.idBlockEnchanter).a("Enchanter");
-    public static final Block Trap = new BlockTrap(mod_AetherMp.idBlockTrap).a("Trap");
-    public static final Block ChestMimic = new BlockChestMimic(mod_AetherMp.idBlockChestMimic).a("Mimic");
-    public static final Block TreasureChest = new BlockTreasureChest(mod_AetherMp.idBlockTreasureChest).a("TreasureChest");
-    public static final Block DungeonStone = new BlockDungeon(mod_AetherMp.idBlockDungeonStone).a("DungeonStone");
-    public static final Block LightDungeonStone = new BlockDungeon(mod_AetherMp.idBlockLightDungeonStone).a("LightDungeonStone");
-    public static final Block LockedDungeonStone = new BlockDungeon(mod_AetherMp.idBlockLockedDungeonStone).a("LockedDungeonStone");
-    public static final Block LockedLightDungeonStone = new BlockDungeon(mod_AetherMp.idBlockLockedLightDungeonStone).a("LightLockedDungeonStone");
-    public static final Block Pillar = new BlockPillar(mod_AetherMp.idBlockPillar).a("Pillar");
-    public static final Block ZaniteBlock = PackageAccess.Block.newBlock(mod_AetherMp.idBlockZanite, Material.STONE).a("ZaniteBlock");
-    public static final Block QuicksoilGlass = new BlockQuicksoilGlass(mod_AetherMp.idBlockQuicksoilGlass).a("QuicksoilGlass");
-    public static final Block WhiteFlower = new BlockAetherFlower(mod_AetherMp.idBlockWhiteFlower).a("White_Flower");
-    public static final Block PurpleFlower = new BlockAetherFlower(mod_AetherMp.idBlockPurpleFlower).a("Purple_Flower");
+    public static final Block
+    Portal = new BlockAetherPortal(mod_AetherMp.idBlockAetherPortal).a("AetherPortal"),
+    Dirt = new BlockAetherDirt(mod_AetherMp.idBlockAetherDirt).a("AetherDirt"),
+    Grass = new BlockAetherGrass(mod_AetherMp.idBlockAetherGrass).a("AetherGrass"),
+    Quicksoil = new BlockQuicksoil(mod_AetherMp.idBlockQuicksoil).a("Quicksoil"),
+    Holystone = new BlockHolystone(mod_AetherMp.idBlockHolystone).a("Holystone"),
+    Icestone = new BlockIcestone(mod_AetherMp.idBlockIcestone).a("Icestone"),
+    Aercloud = new BlockAercloud(mod_AetherMp.idBlockAercloud).a("Aercloud"),
+    Aerogel = new BlockAerogel(mod_AetherMp.idBlockAerogel).a("Aerogel"),
+    Log = new BlockAetherLog(mod_AetherMp.idBlockLog).a("AetherLog"),
+    Plank = PackageAccess.Block.newBlock(mod_AetherMp.idBlockPlank, -1, Material.WOOD).a("AetherPlank"),
+    SkyrootLeaves = new BlockAetherLeaves(mod_AetherMp.idBlockSkyrootLeaves).a("SkyrootLeaves"),
+    GoldenOakLeaves = new BlockAetherLeaves(mod_AetherMp.idBlockGoldenOakLeaves).a("GoldenLeaves"),
+    SkyrootSapling = new BlockAetherSapling(mod_AetherMp.idBlockSkyrootSapling).a("SkyrootSapling"),
+    GoldenOakSapling = new BlockAetherSapling(mod_AetherMp.idBlockGoldenOakSapling).a("GoldenOakSapling"),
+    AmbrosiumOre = new BlockAmbrosiumOre(mod_AetherMp.idBlockAmbrosiumOre).a("AmbrosiumOre"),
+    AmbrosiumTorch = new BlockAmbrosiumTorch(mod_AetherMp.idBlockAmbrosiumTorch).a("AmbrosiumTorch"),
+    ZaniteOre = new BlockZaniteOre(mod_AetherMp.idBlockZaniteOre).a("ZaniteOre"),
+    GravititeOre = new BlockFloating(mod_AetherMp.idBlockGravititeOre, false).a("GravititeOre"),
+    EnchantedGravitite = new BlockFloating(mod_AetherMp.idBlockEnchantedGravitite, true).a("EnchantedGravitite"),
+    Enchanter = new BlockEnchanter(mod_AetherMp.idBlockEnchanter).a("Enchanter"),
+    Trap = new BlockTrap(mod_AetherMp.idBlockTrap).a("Trap"),
+    ChestMimic = new BlockChestMimic(mod_AetherMp.idBlockChestMimic).a("Mimic"),
+    TreasureChest = new BlockTreasureChest(mod_AetherMp.idBlockTreasureChest).a("TreasureChest"),
+    DungeonStone = new BlockDungeon(mod_AetherMp.idBlockDungeonStone).a("DungeonStone"),
+    LightDungeonStone = new BlockDungeon(mod_AetherMp.idBlockLightDungeonStone).a("LightDungeonStone"),
+    LockedDungeonStone = new BlockDungeon(mod_AetherMp.idBlockLockedDungeonStone).a("LockedDungeonStone"),
+    LockedLightDungeonStone = new BlockDungeon(mod_AetherMp.idBlockLockedLightDungeonStone).a("LightLockedDungeonStone"),
+    Pillar = new BlockPillar(mod_AetherMp.idBlockPillar).a("Pillar"),
+    ZaniteBlock = PackageAccess.Block.newBlock(mod_AetherMp.idBlockZanite, Material.STONE).a("ZaniteBlock"),
+    QuicksoilGlass = new BlockQuicksoilGlass(mod_AetherMp.idBlockQuicksoilGlass).a("QuicksoilGlass"),
+    Freezer = new BlockFreezer(mod_AetherMp.idBlockFreezer).a("Freezer"),
+    WhiteFlower = new BlockAetherFlower(mod_AetherMp.idBlockWhiteFlower).a("White_Flower"),
+    PurpleFlower = new BlockAetherFlower(mod_AetherMp.idBlockPurpleFlower).a("Purple_Flower");
 	
 	public static final BlockInfo[] blocks = new BlockInfo[] {
 			new BlockInfo(Portal).setHardness(-1).setResistance(6000000),
@@ -108,15 +111,18 @@ public class BlockManager {
 			new BlockInfo(Pillar).setHardness(0.5F).setBlockItem(ItemDungeonBlock.class),
 			new BlockInfo(ZaniteBlock).setHardness(3),
 			new BlockInfo(QuicksoilGlass).setHardness(0.2F).setLightValue(0.7375F).setLightOpacity(0),
+			new BlockInfo(Freezer).setHardness(2.5F).setTileEntity(TileEntityFreezer.class),
 			new BlockInfo(WhiteFlower).setHardness(0),
 			new BlockInfo(PurpleFlower).setHardness(0)
 	};
 	
-	public static final ToolBase Pickaxe = new ToolBase();
-    public static final ToolBase Shovel = new ToolBase();
-    public static final ToolBase Axe = new ToolBase();
+	public static final ToolBase
+	Pickaxe = new ToolBase(),
+    Shovel = new ToolBase(),
+    Axe = new ToolBase();
     
-    public static final BlockHarvestPower[] pickaxePower = new BlockHarvestPower[] {
+    public static final BlockHarvestPower[]
+    pickaxePower = new BlockHarvestPower[] {
 			new BlockHarvestPower(Holystone.id, 20F),
 			new BlockHarvestPower(Icestone.id, 20F),
 			new BlockHarvestPower(AmbrosiumOre.id, 20F),
@@ -128,16 +134,14 @@ public class BlockManager {
 			new BlockHarvestPower(GravititeOre.id, 60F),
 			new BlockHarvestPower(EnchantedGravitite.id, 60F),
 			new BlockHarvestPower(Aerogel.id, 60F)
-    };
-    
-    public static final BlockHarvestPower[] shovelPower = new BlockHarvestPower[] {
+    },
+    shovelPower = new BlockHarvestPower[] {
             new BlockHarvestPower(Dirt.id, 0.0F),
             new BlockHarvestPower(Grass.id, 0.0F),
             new BlockHarvestPower(Quicksoil.id, 0.0F),
             new BlockHarvestPower(Aercloud.id, 0.0F)
-    };
-    
-    public static final BlockHarvestPower[] axePower = new BlockHarvestPower[] {
+    },
+    axePower = new BlockHarvestPower[] {
             new BlockHarvestPower(Log.id, 0.0F),
             new BlockHarvestPower(Plank.id, 0.0F),
             new BlockHarvestPower(SkyrootLeaves.id, 0.0F),

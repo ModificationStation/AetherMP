@@ -25,6 +25,9 @@ public class mod_AetherMp extends BaseModMp {
 	@MLProp
 	public static int
 	idDimensionAether = 3,
+	idGuiEnchanter = 80,
+	idGuiTreasureChest = 81,
+	idGuiFreezer = 82,
 	idEntityFloatingBlock = 80,
 	idEntityMimic = 81,
 	idEntityZephyr = 85,
@@ -64,6 +67,7 @@ public class mod_AetherMp extends BaseModMp {
     idBlockPillar = 193,
     idBlockZanite = 194,
     idBlockQuicksoilGlass = 195,
+    idBlockFreezer = 196,
     idBlockWhiteFlower = 197,
     idBlockPurpleFlower = 198,
     idItemKey = 17001,
