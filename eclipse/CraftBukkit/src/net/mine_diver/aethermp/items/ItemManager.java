@@ -36,6 +36,7 @@ public class ItemManager {
     
     public static final Item
     Key = new ItemAetherKey(mod_AetherMp.idItemKey).a("AetherKey"),
+    LoreBook = new ItemLoreBook(mod_AetherMp.idItemLoreBook).a("LoreBook"),
     GoldenAmber = PackageAccess.Item.newItem(mod_AetherMp.idItemGoldenAmber).a("GoldenAmber"),
     Stick = PackageAccess.Item.newItem(mod_AetherMp.idItemStick).a("SkyrootStick"),
     AmbrosiumShard = new ItemAmbrosium(mod_AetherMp.idItemAmbrosiumShard, 1).a("AmbrosiumShard"),

@@ -2,9 +2,6 @@ package net.mine_diver.aethermp.dimension.world.generation;
 
 import java.util.Random;
 
-import org.bukkit.block.Chest;
-import org.bukkit.craftbukkit.block.CraftChest;
-
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.items.ItemManager;
 import net.minecraft.server.Block;
@@ -167,15 +164,11 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
                             int k10 = k + 7 + 7 * i8 + random.nextInt(2);
                             if(world.getTypeId(i10, j + 5 * l7 + 1, k10) != 0)
                                 break;
-                            org.bukkit.block.Block chestBlock = worldBukkit.getBlockAt(i10, j + 5 * l7 + 1, k10);
-                            chestBlock.setTypeId(Block.CHEST.id);
-                            Chest chest = (Chest)worldBukkit.getBlockAt(i10, j + 5 * l7 + 1, k10).getState();
-                            org.bukkit.inventory.Inventory inventory = chest.getInventory();
-                            TileEntityChest tileentitychest1 = (TileEntityChest)world.getTileEntity(i10, j + 5 * l7 + 1, k10);
+                            worldBukkit.getBlockAt(i10, j + 5 * l7 + 1, k10).setTypeId(Block.CHEST.id);
+                            TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(i10, j + 5 * l7 + 1, k10);
                             for(int j10 = 0; j10 < 3 + random.nextInt(3); j10++) {
-                            	ItemStack vis = getNormalLoot(random);
-                                org.bukkit.inventory.ItemStack itemstack1 = new org.bukkit.inventory.ItemStack(vis.id, vis.count, (short) vis.damage);
-                                inventory.setItem(random.nextInt(tileentitychest1.getSize()), itemstack1);
+                            	ItemStack itemstack = getNormalLoot(random);
+                                tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
                             }
 
                             break;
@@ -249,24 +242,12 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
         addHollowBox(world, random, i + 41, j - 2, k + 13, 4, 4, 4);
         i3 = i + 42 + random.nextInt(2);
         int i7 = k + 14 + random.nextInt(2);
-        /*world.setRawTypeId(i3, j - 1, i7, BlockManager.TreasureChest.id);
-        TileEntityChest chest = (TileEntityChest)world.getTileEntity(i3, j - 1, i7);
-        for (int j8 = 0; j8 < 3 + random.nextInt(3); j8++) {
-            ItemStack itemstack = getSilverLoot(random);
-            chest.setItem(random.nextInt(chest.getSize()), itemstack);
-        }*/
         
-        org.bukkit.block.Block chestBlock = worldBukkit.getBlockAt(i3, j - 1, i7);
-        chestBlock.setTypeId(BlockManager.TreasureChest.id, false);
-        Chest treasureChest = new CraftChest(chestBlock);
-        org.bukkit.inventory.Inventory inventory = treasureChest.getInventory();
-        TileEntityChest tileentitychest1 = (TileEntityChest) world.getTileEntity(i3, j - 1, i7);
+        worldBukkit.getBlockAt(i3, j - 1, i7).setTypeId(BlockManager.TreasureChest.id, false);
+        TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i3, j - 1, i7);
         for(int j10 = 0; j10 < 3 + random.nextInt(3); j10++) {
-        	ItemStack vis = getSilverLoot(random);
-        	if (vis != null) {
-        		org.bukkit.inventory.ItemStack itemstack1 = new org.bukkit.inventory.ItemStack(vis.id, vis.count, (short) vis.damage);
-            	inventory.setItem(random.nextInt(tileentitychest1.getSize()), itemstack1);
-        	}
+        	ItemStack itemstack = getSilverLoot(random);
+            tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
         }
 
         worldBukkit.getBlockAt(i3, j - 1, i7).setData((byte) 2, false);

@@ -3,14 +3,14 @@ package net.mine_diver.aethermp.player;
 import java.util.Arrays;
 
 import org.bukkit.Location;
+import org.bukkit.World.Environment;
 
-import net.mine_diver.aethermp.blocks.BlockAetherPortal;
-import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.dimension.DimensionManager;
 import net.mine_diver.aethermp.entities.EntityCloudParachute;
 import net.mine_diver.aethermp.inventory.ContainerAether;
 import net.mine_diver.aethermp.inventory.InventoryAether;
 import net.mine_diver.aethermp.items.ItemManager;
+import net.mine_diver.aethermp.util.Achievements;
 import net.minecraft.server.Block;
 import net.minecraft.server.DimensionBase;
 import net.minecraft.server.Entity;
@@ -22,6 +22,7 @@ import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.NBTTagList;
 import net.minecraft.server.Packet5EntityEquipment;
 import net.minecraft.server.PlayerBase;
+import net.minecraft.server.mod_AetherMp;
 
 import static net.minecraft.server.mod_AetherMp.PackageAccess;
 
@@ -102,7 +103,7 @@ public class PlayerBaseAether extends PlayerBase {
 	
 	@Override
 	public boolean onLivingUpdate() {
-		if (player.dimension == DimensionManager.Aether.number && player.locY < -2) {
+		if (player.locY < -2 && DimensionManager.getCurrentDimension(player.world).equals(Environment.valueOf(mod_AetherMp.nameDimensionAether.toUpperCase()))) {
 			Class<? extends Entity> entityClass = null;
 			NBTTagCompound tag = new NBTTagCompound();
 			if (player.vehicle != null) {
@@ -114,7 +115,7 @@ public class PlayerBaseAether extends PlayerBase {
 			boolean cloudPara = false;
 			if (EntityCloudParachute.getCloudBelongingToEntity(player) != null)
 				cloudPara = true;
-			DimensionBase.usePortal(((BlockAetherPortal) BlockManager.Portal).getDimNumber(), player);
+			DimensionBase.usePortal(player.dimension, player);
 			player.netServerHandler.teleport(new Location(player.world.getWorld(), player.locX, 127, player.locZ, player.yaw, 0));
 			if (entityClass != null)
 				try {
@@ -156,6 +157,12 @@ public class PlayerBaseAether extends PlayerBase {
                         player.inventory.setItem(i, itemstack);
                     }
             }
+		}
+		if (!enteredAether && DimensionManager.getCurrentDimension(player.world).equals(Environment.valueOf(mod_AetherMp.nameDimensionAether.toUpperCase()))) {
+			Achievements.giveAchievement(Achievements.enterAether, player);
+			player.inventory.pickup(new ItemStack(ItemManager.LoreBook, 1, 2));
+            player.inventory.pickup(new ItemStack(ItemManager.CloudParachute, 1));
+            enteredAether = true;
 		}
 		if(player.inventory.armor[3] != null && player.inventory.armor[3].id == ItemManager.PhoenixHelm.id && player.inventory.armor[2] != null && player.inventory.armor[2].id == ItemManager.PhoenixBody.id && player.inventory.armor[1] != null && player.inventory.armor[1].id == ItemManager.PhoenixLegs.id && player.inventory.armor[0] != null && player.inventory.armor[0].id == ItemManager.PhoenixBoots.id && inv.slots[6] != null && inv.slots[6].id == ItemManager.PhoenixGlove.id) {
             PackageAccess.Entity.setIsImmuneToFire(player, true);
@@ -300,6 +307,7 @@ public class PlayerBaseAether extends PlayerBase {
         NBTTagCompound customData = new NBTTagCompound();
         customData.a("MaxHealth", (byte) maxHealth);
         customData.a("Inventory", inv.writeToNBT(new NBTTagList()));
+        customData.a("EnteredAether", enteredAether);
         tag.a("Aether", customData);
         return false;
     }
@@ -312,6 +320,7 @@ public class PlayerBaseAether extends PlayerBase {
             maxHealth = 20;
         NBTTagList nbttaglist = customData.l("Inventory");
         inv.readFromNBT(nbttaglist);
+        enteredAether = customData.m("EnteredAether");
         return false;
     }
 	
@@ -350,4 +359,5 @@ public class PlayerBaseAether extends PlayerBase {
     public double prevLocZ;
     private boolean jumpBoosted;
     private int ticks = 0;
+    public boolean enteredAether = false;
 }

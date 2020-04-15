@@ -2,9 +2,6 @@ package net.mine_diver.aethermp.dimension.world.generation;
 
 import java.util.Random;
 
-import org.bukkit.block.Chest;
-import org.bukkit.craftbukkit.block.CraftChest;
-
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.items.ItemManager;
 import net.minecraft.server.Block;
@@ -47,16 +44,11 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
         int i1 = j - 1;
         int j1 = k + 7 + random.nextInt(2);
         
-        //TODO: Use vanilla
-        org.bukkit.block.Block chestBlock = worldBukkit.getBlockAt(l, i1, j1);
-        chestBlock.setTypeIdAndData(BlockManager.TreasureChest.id, (byte) 0, true);
-        Chest chest = new CraftChest(chestBlock);
-        org.bukkit.inventory.Inventory inventory = chest.getInventory();
+        worldBukkit.getBlockAt(l, i1, j1).setTypeIdAndData(BlockManager.TreasureChest.id, (byte) 0, true);
         TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(l, i1, j1);
         for(int k1 = 0; k1 < 3 + random.nextInt(3); k1++) {
-        	ItemStack vis = getBronzeLoot(random);
-            org.bukkit.inventory.ItemStack itemstack = new org.bukkit.inventory.ItemStack(vis.id, vis.count, (short) vis.damage);
-            inventory.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
+        	ItemStack itemstack = getBronzeLoot(random);
+            tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
         }
 
         l = i + 20;
@@ -138,16 +130,11 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
             if(world.getTypeId(i3, j1 + 2, l3) != 0)
                 break;
             
-            //TODO: Use vanilla
-            org.bukkit.block.Block chestBlock = worldBukkit.getBlockAt(i3, j1 + 2, l3);
-            chestBlock.setTypeId(Block.CHEST.id);
-            Chest chest = (Chest)worldBukkit.getBlockAt(i3, j1 + 2, l3).getState();
-            org.bukkit.inventory.Inventory inventory = chest.getInventory();
+            worldBukkit.getBlockAt(i3, j1 + 2, l3).setTypeId(Block.CHEST.id);
             TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(i3, j1 + 2, l3);
             for(int j3 = 0; j3 < 3 + random.nextInt(3); j3++) {
-            	ItemStack vis = getNormalLoot(random);
-                org.bukkit.inventory.ItemStack itemstack = new org.bukkit.inventory.ItemStack(vis.id, vis.count, (short) vis.damage);
-                inventory.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
+            	ItemStack itemstack = getNormalLoot(random);
+                tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
             }
 
             break;

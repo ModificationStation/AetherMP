@@ -16,7 +16,21 @@ public class mod_AetherMp extends BaseModMp {
 		CORE.postInit();
 	}
 	
+	@Override
+	public void HandleSendKey(EntityPlayer entityplayer, int key) {
+		CORE.handleSendKey(entityplayer, key);
+	}
+	
+	@Override
+	public void TakenFromCrafting(EntityHuman entityhuman, ItemStack itemstack) {
+		CORE.takenFromCrafting(entityhuman, itemstack);
+	}
+	
 	public static final Core CORE = new Core();
+	
+	@MLProp
+	public static boolean
+	allowLoreBookKeyBind = true;
 	
 	@MLProp
 	public static String
@@ -28,6 +42,7 @@ public class mod_AetherMp extends BaseModMp {
 	idGuiEnchanter = 80,
 	idGuiTreasureChest = 81,
 	idGuiFreezer = 82,
+	idGuiLore = 83,
 	idEntityFloatingBlock = 80,
 	idEntityMimic = 81,
 	idEntityZephyr = 85,
@@ -71,6 +86,7 @@ public class mod_AetherMp extends BaseModMp {
     idBlockWhiteFlower = 197,
     idBlockPurpleFlower = 198,
     idItemKey = 17001,
+    idItemLoreBook = 17002,
     idItemBlueMusicDisk = 17004,
     idItemGoldenAmber = 17005,
     idItemStick = 17007,

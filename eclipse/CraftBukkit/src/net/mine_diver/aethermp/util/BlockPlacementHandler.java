@@ -2,6 +2,8 @@ package net.mine_diver.aethermp.util;
 
 import java.util.Random;
 
+import org.bukkit.World.Environment;
+
 import net.mine_diver.aethermp.blocks.BlockAetherPortal;
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.dimension.DimensionManager;
@@ -9,13 +11,14 @@ import net.minecraft.server.Block;
 import net.minecraft.server.IInterceptBlockSet;
 import net.minecraft.server.Loc;
 import net.minecraft.server.World;
+import net.minecraft.server.WorldServer;
 import net.minecraft.server.mod_AetherMp;
 
 public class BlockPlacementHandler implements IInterceptBlockSet {
 
 	@Override
 	public boolean canIntercept(World arg0, Loc arg1, int arg2) {
-		return (DimensionManager.getCurrentDimension(arg0) == mod_AetherMp.idDimensionAether &&
+		return (DimensionManager.getCurrentDimension(arg0).equals(Environment.valueOf(mod_AetherMp.nameDimensionAether.toUpperCase())) &&
 				(arg2 == Block.TORCH.id ||
 	            arg2 == Block.FIRE.id ||
 	            arg2 == Block.NETHERRACK.id ||
@@ -24,7 +27,7 @@ public class BlockPlacementHandler implements IInterceptBlockSet {
 	            arg2 == Block.STATIONARY_LAVA.id ||
 	            arg2 == Block.PORTAL.id ||
 	            arg2 == Block.BED.id)) ||
-				(DimensionManager.getCurrentDimension(arg0) < 0 &&
+				((DimensionManager.getCurrentDimension(arg0).equals(Environment.NETHER) || ((WorldServer) arg0).dimension < 0) &&
 				(arg2 == BlockManager.Portal.id ||
 	            arg2 == BlockManager.Dirt.id ||
 	            arg2 == BlockManager.Grass.id ||
@@ -62,7 +65,7 @@ public class BlockPlacementHandler implements IInterceptBlockSet {
         if(arg2 == Block.WATER.id || arg2 == Block.STATIONARY_WATER.id) {
             if(arg0.getTypeId(arg1.x(), arg1.y() - 1, arg1.z()) == Block.GLOWSTONE.id && ((BlockAetherPortal) BlockManager.Portal).a_(arg0, arg1.x(), arg1.y(), arg1.z()))
                 return BlockManager.Portal.id;
-            if(DimensionManager.getCurrentDimension(arg0) != -1)
+            if(!DimensionManager.getCurrentDimension(arg0).equals(Environment.NETHER))
                 return arg2;
         }
         Random rand = new Random();
@@ -71,7 +74,7 @@ public class BlockPlacementHandler implements IInterceptBlockSet {
 
         if (arg2 == Block.LAVA.id || arg2 == Block.STATIONARY_LAVA.id)
             return BlockManager.Aerogel.id;
-        if (DimensionManager.getCurrentDimension(arg0) < 0 && (arg2 == Block.WATER.id || arg2 == Block.STATIONARY_WATER.id))
+        if ((DimensionManager.getCurrentDimension(arg0).equals(Environment.NETHER) || ((WorldServer) arg0).dimension < 0) && (arg2 == Block.WATER.id || arg2 == Block.STATIONARY_WATER.id))
             return Block.COBBLESTONE.id;
         else
             return 0;

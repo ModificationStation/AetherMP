@@ -5,6 +5,7 @@ import net.minecraft.server.Container;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.ICrafting;
 import net.minecraft.server.InventoryPlayer;
+import net.minecraft.server.ItemStack;
 import net.minecraft.server.Slot;
 import net.minecraft.server.SlotResult2;
 
@@ -27,6 +28,9 @@ public class ContainerEnchanter extends Container {
     }
     
     @Override
+    protected void a(ItemStack itemstack1, int k, int l, boolean flag1) {}
+    
+    @Override
     public void a() {
         super.a();
         for(int i = 0; i < listeners.size(); i++) {
@@ -45,8 +49,45 @@ public class ContainerEnchanter extends Container {
     }
     
     @Override
+    public void a(final ICrafting crafting) {
+        super.a(crafting);
+        crafting.a(this, 0, enchanter.enchantTimeForItem);
+        crafting.a(this, 1, enchanter.enchantProgress);
+        crafting.a(this, 2, enchanter.enchantPowerRemaining);
+    }
+    
+    @Override
     public boolean b(EntityHuman entityhuman) {
         return enchanter.a_(entityhuman);
+    }
+    
+    @Override
+    public ItemStack a(int i) {
+        ItemStack itemstack = null;
+        Slot slot = (Slot)e.get(i);
+        if(slot != null && slot.b()) {
+            ItemStack itemstack1 = slot.getItem();
+            itemstack = itemstack1.cloneItemStack();
+            if(i == 2)
+                a(itemstack1, 3, 39, true);
+            else
+            if(i >= 3 && i < 30)
+                a(itemstack1, 30, 39, false);
+            else
+            if(i >= 30 && i < 39)
+                a(itemstack1, 3, 30, false);
+            else
+                a(itemstack1, 3, 39, false);
+            if(itemstack1.count == 0)
+                slot.c(null);
+            else
+                slot.c();
+            if(itemstack1.count != itemstack.count)
+                slot.a(itemstack1);
+            else
+                return null;
+        }
+        return itemstack;
     }
 
     private TileEntityEnchanter enchanter;

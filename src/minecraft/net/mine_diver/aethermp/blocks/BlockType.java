@@ -6,7 +6,7 @@ import net.minecraft.src.Block;
 
 public class BlockType {
 	
-	public BlockType(Class<? extends Block> clazz, Field target, int ID) {
+	BlockType(Class<? extends Block> clazz, Field target, int ID) {
 		blockClass = clazz;
 		targetField = target;
 		originalID = ID;

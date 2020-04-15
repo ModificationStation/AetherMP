@@ -3,10 +3,13 @@ package net.mine_diver.aethermp.network;
 import net.mine_diver.aethermp.entities.EntityCloudParachuteMp;
 import net.mine_diver.aethermp.entities.EntityManager;
 import net.mine_diver.aethermp.gui.GuiManager;
+import net.mine_diver.aethermp.util.AchievementHandler;
+import net.minecraft.src.Achievement;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.Packet230ModLoader;
+import net.minecraft.src.StatList;
 import net.minecraft.src.mod_AetherMp;
 
 public class PacketManager {
@@ -20,6 +23,8 @@ public class PacketManager {
 	            ModLoader.OpenGUI(ModLoader.getMinecraftInstance().thePlayer, guiscreen);
 	            ModLoader.getMinecraftInstance().thePlayer.craftingInventory.windowId = packet.dataInt[0];
 	        }
+		} else if (packet.packetType == 5) {
+			AchievementHandler.handleAchievement((Achievement) StatList.func_27361_a(packet.dataInt[0]), false);
 		} else if (mod_AetherMp.utilizeUnstablePackets) {
 			//TODO: Find an alternative way to send sounds from Zephyrs
 	        if (packet.packetType == 0)

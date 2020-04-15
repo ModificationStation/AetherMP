@@ -2,7 +2,6 @@ package net.mine_diver.aethermp.entities;
 
 import java.util.*;
 
-import net.mine_diver.aethermp.dimension.DimensionManager;
 import net.minecraft.server.AxisAlignedBB;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityHuman;
@@ -14,6 +13,7 @@ import net.minecraft.server.ModLoaderMp;
 import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.Packet230ModLoader;
 import net.minecraft.server.World;
+import net.minecraft.server.WorldServer;
 import net.minecraft.server.mod_AetherMp;
 
 public class EntityCloudParachute extends Entity implements ISpawnable {
@@ -70,7 +70,7 @@ public class EntityCloudParachute extends Entity implements ISpawnable {
         packet.dataInt = new int[] {entityliving == null ? 0 : entityliving.id};
         packet.packetType = 3;
         packet.modId = ModLoaderMp.GetModInstance(mod_AetherMp.class).getId();
-        ModLoader.getMinecraftServerInstance().serverConfigurationManager.sendPacketNearby(entityliving.locX, entityliving.locY, entityliving.locZ, ModLoader.getMinecraftServerInstance().propertyManager.getInt("view-distance", 10) * 16, DimensionManager.getCurrentDimension(world), packet);
+        ModLoader.getMinecraftServerInstance().serverConfigurationManager.sendPacketNearby(entityliving.locX, entityliving.locY, entityliving.locZ, ModLoader.getMinecraftServerInstance().propertyManager.getInt("view-distance", 10) * 16, ((WorldServer) world).dimension, packet);
     }
 
     public static boolean entityHasRoomForCloud(World world, EntityLiving entityliving) {

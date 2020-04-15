@@ -139,8 +139,7 @@ public class AetherGenDungeon extends WorldGenerator {
                         if(i2 == i1 + 4 && i3 == 0 && l2 == -2) {
                             worldBukkit.getBlockAt(i + j3, j + l2, k + k3).setTypeIdAndData(BlockManager.TreasureChest.id, (byte)4, false);
                             TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(i + j3, j + l2, k + k3);
-                            for(int l3 = 0; l3 < 3 + random.nextInt(3); l3++)
-                            {
+                            for(int l3 = 0; l3 < 3 + random.nextInt(3); l3++) {
                                 ItemStack itemstack = getGoldLoot(random);
                                 tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
                             }

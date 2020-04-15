@@ -1,10 +1,10 @@
 package net.mine_diver.aethermp.network;
 
-import net.mine_diver.aethermp.dimension.DimensionManager;
 import net.minecraft.server.Entity;
 import net.minecraft.server.ModLoader;
 import net.minecraft.server.ModLoaderMp;
 import net.minecraft.server.Packet230ModLoader;
+import net.minecraft.server.WorldServer;
 import net.minecraft.server.mod_AetherMp;
 
 public class PacketManager {
@@ -16,7 +16,7 @@ public class PacketManager {
         packet.dataFloat = new float[]{volume, pitch};
         packet.packetType = 0;
         packet.modId = ModLoaderMp.GetModInstance(mod_AetherMp.class).getId();
-        ModLoader.getMinecraftServerInstance().getTracker(DimensionManager.getCurrentDimension(entity.world)).a(entity, packet);
+        ModLoader.getMinecraftServerInstance().getTracker(((WorldServer) entity.world).dimension).a(entity, packet);
     }
 	
     public static void makeSound(float x, float y, float z, String sound, float volume, float pitch, int i) {

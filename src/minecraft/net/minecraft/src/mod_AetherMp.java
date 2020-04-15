@@ -51,6 +51,11 @@ public class mod_AetherMp extends BaseModMp {
 	}
 	
 	@Override
+	public void KeyboardEvent(KeyBinding event) {
+		CORE.keyboardEvent(event, aetherInstance);
+	}
+	
+	@Override
 	public GuiScreen HandleGUI(int ID) {
 		return CORE.handleGui(ID);
 	}
@@ -71,6 +76,7 @@ public class mod_AetherMp extends BaseModMp {
 	idGuiEnchanter = 80,
 	idGuiTreasureChest = 81,
 	idGuiFreezer = 82,
+	idGuiLore = 83,
 	idEntityCloudParachute = 101,
 	idEntityFloatingBlock = 80,
 	idEntityMimic = 81,
@@ -117,12 +123,12 @@ public class mod_AetherMp extends BaseModMp {
 				return entity.inWater;
 			}
 			
-			public static void setIsImmuneToFire(net.minecraft.src.Entity entity, boolean isImmuneToFire) {
-				entity.isImmuneToFire = isImmuneToFire;
-			}
-			
 			public static Random getRand(net.minecraft.src.Entity entity) {
 				return entity.rand;
+			}
+			
+			public static void setEntityFlag(net.minecraft.src.Entity entity, int ID, boolean flag) {
+				entity.setEntityFlag(ID, flag);
 			}
 		}
 		
@@ -143,6 +149,13 @@ public class mod_AetherMp extends BaseModMp {
 			
 			public static boolean getIsJumping(net.minecraft.src.EntityLiving entityliving) {
 				return entityliving.isJumping;
+			}
+		}
+		
+		public static class Item {
+			
+			public static int getIconIndex(net.minecraft.src.Item item) {
+				return item.iconIndex;
 			}
 		}
 	}

@@ -6,6 +6,7 @@ import java.util.Map;
 import net.minecraft.src.BaseModMp;
 import net.minecraft.src.GuiEnchanter;
 import net.minecraft.src.GuiFreezer;
+import net.minecraft.src.GuiLore;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.GuiTreasureChest;
 import net.minecraft.src.ModLoader;
@@ -37,5 +38,6 @@ public class GuiManager {
 		guis.put(mod_AetherMp.idGuiEnchanter, () -> {return new GuiEnchanter(ModLoader.getMinecraftInstance().thePlayer.inventory, new TileEntityEnchanter());});
 		guisMeta.put(mod_AetherMp.idGuiTreasureChest, (meta) -> {return new GuiTreasureChest(ModLoader.getMinecraftInstance().thePlayer.inventory, new TileEntityChest(), meta);});
 		guis.put(mod_AetherMp.idGuiFreezer, () -> {return new GuiFreezer(ModLoader.getMinecraftInstance().thePlayer.inventory, new TileEntityFreezer());});
+		guisMeta.put(mod_AetherMp.idGuiLore, (meta) -> {return new GuiLore(ModLoader.getMinecraftInstance().thePlayer.inventory, meta);});
 	}
 }
