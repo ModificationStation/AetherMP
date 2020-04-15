@@ -23,7 +23,7 @@ public class ItemManager {
 				String longName = "";
 				String ID = "";
 				if (IDResolverResolver.IDResolverInstalled) {
-					longName = "ItemID." + IDResolverResolver.TrimMCPMethod.invoke(null, targetItem.getClass().getName()) + "|" + aetherInstance.getClass().getSimpleName() + "|" + item.getOriginalID();
+					longName = "ItemID." + IDResolverResolver.TrimMCPMethod.invoke(null, targetItem.getClass().getName()) + "|" + aetherInstance.getClass().getSimpleName() + "|" + (item.getOriginalID() + Block.blocksList.length);
 					Properties knownIDs = (Properties) ModLoader.getPrivateValue(IDResolver.class, null, "knownIDs");
 					ID = knownIDs.getProperty(longName);
 					knownIDs.remove(longName);
