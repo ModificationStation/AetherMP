@@ -44,6 +44,8 @@ public class WorkbenchManager {
         craftings.put(new ItemStack(ItemManager.Stick, 4), new Object[] {"#", "#", '#', BlockManager.Plank});
         craftings.put(new ItemStack(Block.WORKBENCH, 1), new Object[] {"UU", "UU", 'U', BlockManager.Plank});
         craftings.put(new ItemStack(BlockManager.AmbrosiumTorch, 2), new Object[] {" Z", " Y", 'Z', ItemManager.AmbrosiumShard, 'Y', ItemManager.Stick});
+        craftings.put(new ItemStack(ItemManager.Dart, 1, 0), new Object[] {"X", "Z", "Y", Character.valueOf('X'), ItemManager.GoldenAmber, Character.valueOf('Z'), ItemManager.Stick, Character.valueOf('Y'), Item.FEATHER});
+        craftings.put(new ItemStack(ItemManager.Dart, 8, 1), new Object[] {"XXX", "XZX", "XXX", Character.valueOf('X'), new ItemStack(ItemManager.Dart, 1, 0), Character.valueOf('Z'), new ItemStack(ItemManager.Bucket, 1, 2)});
         craftings.put(new ItemStack(ItemManager.WhiteCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 0)});
         craftings.put(new ItemStack(ItemManager.RedCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 14)});
         craftings.put(new ItemStack(ItemManager.BlueCape, 1), new Object[] {"XX", "XX", "XX", 'X', new ItemStack(Block.WOOL, 1, 11)});
@@ -63,6 +65,7 @@ public class WorkbenchManager {
         craftings.put(new ItemStack(ItemManager.ZaniteChestplate, 1), new Object[] {"X X", "XXX", "XXX", 'X', ItemManager.Zanite});
         craftings.put(new ItemStack(ItemManager.ZaniteLeggings, 1), new Object[] {"XXX", "X X", "X X", 'X', ItemManager.Zanite});
         craftings.put(new ItemStack(ItemManager.ZaniteBoots, 1), new Object[] {"X X", "X X", 'X', ItemManager.Zanite});
+        shapelessCraftings.put(new ItemStack(ItemManager.DartShooter, 1, 1), new Object[] {new ItemStack(ItemManager.DartShooter, 1, 0), ItemManager.AechorPetal});
         shapelessCraftings.put(new ItemStack(ItemManager.Zanite, 4), new Object[] {BlockManager.ZaniteBlock});
         shapelessCraftings.put(new ItemStack(Item.INK_SACK, 2, 5), new Object[] {BlockManager.PurpleFlower});
         craftings.put(new ItemStack(Block.CHEST, 1), new Object[] {"PPP", "P P", "PPP", 'P', BlockManager.Plank});

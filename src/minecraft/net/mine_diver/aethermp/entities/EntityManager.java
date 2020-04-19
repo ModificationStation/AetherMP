@@ -23,7 +23,7 @@ public class EntityManager {
 					break;
 				}
 				case SECONDARY: {
-					ModLoaderMp.RegisterNetClientHandlerEntity(entity.getEntityClass(), entity.getEntityID());
+					ModLoaderMp.RegisterNetClientHandlerEntity(entity.getEntityClass(), entity.getHasOwner(), entity.getEntityID());
 					break;
 				}
 			}
@@ -39,12 +39,9 @@ public class EntityManager {
 	
 	public static Entity getEntityByID(int i) {
         if(i == ModLoader.getMinecraftInstance().thePlayer.entityId)
-        {
             return ModLoader.getMinecraftInstance().thePlayer;
-        } else
-        {
+        else
             return ((WorldClient) ModLoader.getMinecraftInstance().theWorld).getEntityByID(i);
-        }
     }
 	
 	public static final EntityType[] aetherEntities = new EntityType[] {
@@ -56,6 +53,14 @@ public class EntityManager {
 			new EntityType(EntitySentryMp.class, mod_AetherMp.idEntitySentry, RegType.MAIN),
 			new EntityType(EntitySheepuff.class, mod_AetherMp.idEntitySheepuff, RegType.MAIN),
 			new EntityType(EntityZephyr.class, mod_AetherMp.idEntityZephyr, RegType.MAIN),
-			new EntityType(EntityZephyrSnowballMp.class, mod_AetherMp.idEntityZephyrSnowball, RegType.SECONDARY)
+			new EntityType(EntityZephyrSnowballMp.class, mod_AetherMp.idEntityZephyrSnowball, RegType.SECONDARY),
+			new EntityType(EntityDartEnchantedMp.class, mod_AetherMp.idEntityDartEnchanted, RegType.SECONDARY),
+			new EntityType(EntityDartGoldenMp.class, mod_AetherMp.idEntityDartGolden, RegType.SECONDARY),
+			new EntityType(EntityDartPoisonMp.class, mod_AetherMp.idEntityDartPoison, RegType.SECONDARY),
+			new EntityType(EntityLightningKnifeMp.class, mod_AetherMp.idEntityLightningKnife, RegType.SECONDARY),
+			new EntityType(EntityNotchWaveMp.class, mod_AetherMp.idEntityNotchWave, RegType.SECONDARY),
+			new EntityType(EntityFlamingArrowMp.class, mod_AetherMp.idEntityFlamingArrow, RegType.SECONDARY),
+			new EntityType(EntityMiniCloudMp.class, mod_AetherMp.idEntityMiniCloud, RegType.SECONDARY),
+			new EntityType(EntityFiroBallMp.class, mod_AetherMp.idEntityFiroBall, RegType.SECONDARY)
 	};
 }

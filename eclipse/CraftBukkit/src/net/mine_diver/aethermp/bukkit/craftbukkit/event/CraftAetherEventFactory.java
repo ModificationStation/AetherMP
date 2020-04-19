@@ -1,4 +1,4 @@
-package net.mine_diver.aethermp.craftbukkit.event;
+package net.mine_diver.aethermp.bukkit.craftbukkit.event;
 
 import java.lang.reflect.Method;
 

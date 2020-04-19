@@ -10,12 +10,16 @@ import net.minecraft.server.ItemSword;
 
 import static net.minecraft.server.mod_AetherMp.PackageAccess;
 
+import net.mine_diver.aethermp.util.EnumElement;
+
 public class ItemManager {
 	
 	public static void registerItems() {
 		for (ItemInfo item : items) {
 			Item itemInst = item.getItem();
 			PackageAccess.Item.setMaxDamage(itemInst, item.getMaxDamage());
+			if (item.getHasSubtypes())
+				PackageAccess.Item.setHasSubtypes(itemInst, true);
 		}
 	}
 	
@@ -35,10 +39,15 @@ public class ItemManager {
     }
     
     public static final Item
+    VictoryMedal = PackageAccess.Item.newItem(mod_AetherMp.idItemVictoryMedal).c(10).a("VictoryMedal"),
     Key = new ItemAetherKey(mod_AetherMp.idItemKey).a("AetherKey"),
     LoreBook = new ItemLoreBook(mod_AetherMp.idItemLoreBook).a("LoreBook"),
+    MoaEgg = new ItemMoaEgg(mod_AetherMp.idItemMoaEgg).a("MoaEgg"),
+    AechorPetal = PackageAccess.Item.newItem(mod_AetherMp.idItemAechorPetal).a("AechorPetal"),
     GoldenAmber = PackageAccess.Item.newItem(mod_AetherMp.idItemGoldenAmber).a("GoldenAmber"),
     Stick = PackageAccess.Item.newItem(mod_AetherMp.idItemStick).a("SkyrootStick"),
+    Dart = new ItemDart(mod_AetherMp.idItemDart).a("Dart"),
+    DartShooter = new ItemDartShooter(mod_AetherMp.idItemDartShooter).a("DartShooter"),
     AmbrosiumShard = new ItemAmbrosium(mod_AetherMp.idItemAmbrosiumShard, 1).a("AmbrosiumShard"),
     Zanite = PackageAccess.Item.newItem(mod_AetherMp.idItemZanite).a("Zanite"),
     BlueMusicDisk = new ItemAetherRecord(mod_AetherMp.idItemBlueMusicDisk, "AetherTune").a("BlueMusicDisk"),
@@ -60,6 +69,16 @@ public class ItemManager {
     SwordZanite = new ItemSwordZanite(mod_AetherMp.idItemSwordZanite, EnumToolMaterial.IRON).a("SwordZanite"),
     SwordGravitite = new ItemSwordGravitite(mod_AetherMp.idItemSwordGravitite, EnumToolMaterial.DIAMOND).a("SwordGravitite"),
     IronBubble = new ItemMoreArmor(mod_AetherMp.idItemIronBubble, 0, 7).a("IronBubble"),
+    PigSlayer = new ItemPigSlayer(mod_AetherMp.idItemPigSlayer).a("PigSlayer"),
+    VampireBlade = new ItemVampireBlade(mod_AetherMp.idItemVampireBlade).a("VampireBlade"),
+    NatureStaff = PackageAccess.Item.newItem(mod_AetherMp.idItemNatureStaff).c(1).a("NatureStaff"),
+    SwordFire = new ItemSwordElemental(mod_AetherMp.idItemSwordFire, EnumElement.Fire).a("SwordFire"),
+    SwordHoly = new ItemSwordElemental(mod_AetherMp.idItemSwordHoly, EnumElement.Holy).a("SwordHoly"),
+    SwordLightning = new ItemSwordElemental(mod_AetherMp.idItemSwordLightning, EnumElement.Lightning).a("SwordLightning"),
+    LightningKnife = new ItemLightningKnife(mod_AetherMp.idItemLightningKnife).a("LightningKnife"),
+    GummieSwet = new ItemGummieSwet(mod_AetherMp.idItemGummieSwet).a("GummieSwet"),
+    HammerNotch = new ItemNotchHammer(mod_AetherMp.idItemHammerNotch).a("HammerNotch"),
+    PhoenixBow = new ItemPhoenixBow(mod_AetherMp.idItemPhoenixBow).a("PhoenixBow"),
     PhoenixHelm = new ItemArmor(mod_AetherMp.idItemPhoenixHelm, 3, -1, 0).a("PhoenixHelm"),
     PhoenixBody = new ItemArmor(mod_AetherMp.idItemPhoenixBody, 3, -1, 1).a("PhoenixBody"),
     PhoenixLegs = new ItemArmor(mod_AetherMp.idItemPhoenixLegs, 3, -1, 2).a("PhoenixLegs"),
@@ -68,6 +87,7 @@ public class ItemManager {
     ObsidianBody = new ItemArmor(mod_AetherMp.idItemObsidianBody, 4, -1, 1).a("ObsidianBody"),
     ObsidianLegs = new ItemArmor(mod_AetherMp.idItemObsidianLegs, 4, -1, 2).a("ObsidianLegs"),
     ObsidianBoots = new ItemArmor(mod_AetherMp.idItemObsidianBoots, 4, -1, 3).a("ObsidianBoots"),
+    CloudStaff = new ItemCloudStaff(mod_AetherMp.idItemCloudStaff).a("CloudStaff"),
     CloudParachute = new ItemCloudParachute(mod_AetherMp.idItemCloudParachute).a("CloudParachute"),
     CloudParachuteGold = new ItemCloudParachute(mod_AetherMp.idItemCloudParachuteGold).a("CloudParachuteGold"),
     GravititeHelmet = new ItemArmor(mod_AetherMp.idItemGravititeHelmet, 3, -1, 0).a("GravHelm"),
@@ -78,7 +98,9 @@ public class ItemManager {
     ZaniteChestplate = new ItemArmor(mod_AetherMp.idItemZaniteChestplate, 2, -1, 1).a("ZaniteBody"),
     ZaniteLeggings = new ItemArmor(mod_AetherMp.idItemZaniteLeggings, 2, -1, 2).a("ZaniteLegs"),
     ZaniteBoots = new ItemArmor(mod_AetherMp.idItemZaniteBoots, 2, -1, 3).a("ZaniteBoots"),
+    LifeShard = new ItemLifeShard(mod_AetherMp.idItemLifeShard).a("LifeShard"),
     GoldenFeather = new ItemMoreArmor(mod_AetherMp.idItemGoldenFeather, 0, 7).a("GoldenFeather"),
+    Lance = new ItemLance(mod_AetherMp.idItemLance, EnumToolMaterial.DIAMOND).a("Lance"),
     RepShield = new ItemMoreArmor(mod_AetherMp.idItemRepShield, 0, 6).a("RepShield"),
     AetherCape = new ItemMoreArmor(mod_AetherMp.idItemAetherCape, 0, 5).a("AetherCape"),
     IronRing = new ItemMoreArmor(mod_AetherMp.idItemIronRing, 0, 8).a("IronRing"),
@@ -102,6 +124,9 @@ public class ItemManager {
     NeptuneBoots = new ItemArmor(mod_AetherMp.idItemNeptuneBoots, 3, -1, 3).a("NeptuneBoots"),
     RegenerationStone = new ItemMoreArmor(mod_AetherMp.idItemRegenerationStone, 0, 7).a("RegenerationStone"),
     InvisibilityCloak = new ItemMoreArmor(mod_AetherMp.idItemInvisibilityCloak, 0, 5).a("InvisibilityCloak"),
+    PickValkyrie = new ItemValkyriePickaxe(mod_AetherMp.idItemPickValkyrie, EnumToolMaterial.DIAMOND).a("PickValkyrie"),
+    ShovelValkyrie = new ItemValkyrieSpade(mod_AetherMp.idItemShovelValkyrie, EnumToolMaterial.DIAMOND).a("ShovelValkyrie"),
+    AxeValkyrie = new ItemValkyrieAxe(mod_AetherMp.idItemAxeValkyrie, EnumToolMaterial.DIAMOND).a("AxeValkyrie"),
     HealingStone = new ItemAmbrosium(mod_AetherMp.idItemHealingStone, 4).a("Healing_Stone"),
     AgilityCape = new ItemMoreArmor(mod_AetherMp.idItemAgilityCape, 0, 5).a("AgilityCape"),
     WhiteCape = new ItemMoreArmor(mod_AetherMp.idItemWhiteCape, 0, 5).a("WhiteCape"),
@@ -112,6 +137,7 @@ public class ItemManager {
     IcePendant = new ItemMoreArmor(mod_AetherMp.idItemIcePendant, 0, 4).a("IcePendant");
     
     public static final ItemInfo[] items = new ItemInfo[] {
-    		new ItemInfo(RepShield).setMaxDamage(512)
+    		new ItemInfo(RepShield).setMaxDamage(512),
+    		new ItemInfo(Dart).setHasSubtypes(true)
     };
 }

@@ -1,6 +1,7 @@
 package net.mine_diver.aethermp.entities;
 
 import net.mine_diver.aethermp.blocks.BlockManager;
+import net.mine_diver.aethermp.bukkit.craftbukkit.entity.CraftEntityAether;
 import net.minecraft.server.EntityAnimal;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.NBTTagCompound;
@@ -41,5 +42,12 @@ public abstract class EntityAetherAnimal extends EntityAnimal {
     @Override
     public int e() {
         return 120;
+    }
+    
+    @Override
+    public org.bukkit.entity.Entity getBukkitEntity() {
+        if (this.bukkitEntity == null)
+            this.bukkitEntity = CraftEntityAether.getEntity(this.world.getServer(), this);
+        return this.bukkitEntity;
     }
 }

@@ -1,6 +1,7 @@
 package net.mine_diver.aethermp.entities;
 
 import net.mine_diver.aethermp.blocks.BlockManager;
+import net.mine_diver.aethermp.bukkit.craftbukkit.entity.CraftEntityAether;
 import net.mine_diver.aethermp.network.PacketManager;
 import net.minecraft.server.AxisAlignedBB;
 import net.minecraft.server.Entity;
@@ -168,6 +169,21 @@ public class EntityZephyr extends EntityFlying implements IMonster {
     @Override
     public int l() {
         return 1;
+    }
+    
+    public final void setTargetedEntity(Entity entity) {
+    	targetedEntity = entity;
+    }
+    
+    public final Entity getTargetedEntity() {
+    	return targetedEntity;
+    }
+    
+    @Override
+    public org.bukkit.entity.Entity getBukkitEntity() {
+        if (this.bukkitEntity == null)
+            this.bukkitEntity = CraftEntityAether.getEntity(this.world.getServer(), this);
+        return this.bukkitEntity;
     }
 
     private long checkTime;

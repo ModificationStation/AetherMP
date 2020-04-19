@@ -5,16 +5,19 @@ import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 
-import net.mine_diver.aethermp.craftbukkit.event.CraftAetherEventFactory;
+import net.mine_diver.aethermp.api.player.Poisonable;
+import net.mine_diver.aethermp.bukkit.craftbukkit.event.CraftAetherEventFactory;
 import net.minecraft.server.Block;
 import net.minecraft.server.EntityCow;
 import net.minecraft.server.EntityHuman;
+import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.EnumMovingObjectType;
 import net.minecraft.server.Item;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.Material;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.MovingObjectPosition;
+import net.minecraft.server.PlayerAPI;
 import net.minecraft.server.Vec3D;
 import net.minecraft.server.World;
 
@@ -46,12 +49,14 @@ public class ItemSkyrootBucket extends Item {
         Vec3D vec3d1 = vec3d.add((double)f7 * d3, (double)f8 * d3, (double)f9 * d3);
         MovingObjectPosition movingobjectposition = world.rayTrace(vec3d, vec3d1, itemstack.getData() == 0);
         
-        /*if (itemstack.getData() == 2 && (ModLoader.getMinecraftInstance().objectMouseOver == null || ModLoader.getMinecraftInstance().objectMouseOver.entityHit == null || !(ModLoader.getMinecraftInstance().objectMouseOver.entityHit instanceof EntityAechorPlant)))
-            if (AetherPoison.afflictPoison()) {
-                itemstack.setItemDamage(0);
+        if (itemstack.getData() == 2 /*&& (ModLoader.getMinecraftInstance().objectMouseOver == null || ModLoader.getMinecraftInstance().objectMouseOver.entityHit == null || !(ModLoader.getMinecraftInstance().objectMouseOver.entityHit instanceof EntityAechorPlant))*/) {
+            final PlayerBucketEmptyEvent event3 = CraftAetherEventFactory.callPlayerBucketEmptyEvent(entityhuman, MathHelper.floor(entityhuman.locX), MathHelper.floor(entityhuman.locY), MathHelper.floor(entityhuman.locZ), 0, itemstack);
+            if (event3.isCancelled())
                 return itemstack;
-            }
-        else if (itemstack.getData() == 3 && AetherPoison.curePoison()) {
+            final CraftItemStack itemInHand2 = (CraftItemStack)event3.getItemStack();
+            final byte data2 = (byte) (((entityhuman instanceof EntityPlayer ? ((Poisonable)PlayerAPI.getPlayerBase((EntityPlayer) entityhuman, Poisonable.class)).afflictPoison() : (true)) || itemInHand2.getData() == null) ? 0 : itemInHand2.getData().getData());
+            return new ItemStack(itemInHand2.getTypeId(), itemInHand2.getAmount(), data2);
+        } /*else if (itemstack.getData() == 3 && AetherPoison.curePoison()) {
             itemstack.setItemDamage(0);
             return itemstack;
         }*/

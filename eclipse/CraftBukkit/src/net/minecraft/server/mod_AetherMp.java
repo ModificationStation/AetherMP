@@ -13,7 +13,7 @@ public class mod_AetherMp extends BaseModMp {
 	@Override
 	public void ModsLoaded() {
 		super.ModsLoaded();
-		CORE.postInit();
+		CORE.postInit(this);
 	}
 	
 	@Override
@@ -24,6 +24,11 @@ public class mod_AetherMp extends BaseModMp {
 	@Override
 	public void TakenFromCrafting(EntityHuman entityhuman, ItemStack itemstack) {
 		CORE.takenFromCrafting(entityhuman, itemstack);
+	}
+	
+	@Override
+	public void OnTickInGame(MinecraftServer game) {
+		CORE.onTickInGame(game);
 	}
 	
 	public static final Core CORE = new Core();
@@ -38,11 +43,14 @@ public class mod_AetherMp extends BaseModMp {
 	
 	@MLProp
 	public static int
+	
 	idDimensionAether = 3,
+	
 	idGuiEnchanter = 80,
 	idGuiTreasureChest = 81,
 	idGuiFreezer = 82,
 	idGuiLore = 83,
+	
 	idEntityFloatingBlock = 80,
 	idEntityMimic = 81,
 	idEntityZephyr = 85,
@@ -50,8 +58,19 @@ public class mod_AetherMp extends BaseModMp {
 	idEntitySentry = 89,
 	idEntityZephyrSnowball = 100,
 	idEntityCloudParachute = 101,
+	idEntityDartEnchanted = 102,
+	idEntityDartGolden = 103,
+	idEntityDartPoison = 104,
+	idEntityAetherLightning = 105,
+	idEntityLightningKnife = 106,
+	idEntityNotchWave = 107,
+	idEntityFlamingArrow = 108,
+	idEntityMiniCloud = 109,
+	idEntityFiroBall = 110,
+	
 	rarityZephyr = 5,
 	raritySheepuff = 10,
+	
     idBlockAetherPortal = 165,
     idBlockAetherDirt = 166,
     idBlockAetherGrass = 167,
@@ -85,11 +104,17 @@ public class mod_AetherMp extends BaseModMp {
     idBlockFreezer = 196,
     idBlockWhiteFlower = 197,
     idBlockPurpleFlower = 198,
+    
+    idItemVictoryMedal = 17000,
     idItemKey = 17001,
     idItemLoreBook = 17002,
+    idItemMoaEgg = 17003,
     idItemBlueMusicDisk = 17004,
     idItemGoldenAmber = 17005,
+    idItemAechorPetal = 17006,
     idItemStick = 17007,
+    idItemDart = 17008,
+    idItemDartShooter = 17009,
     idItemAmbrosiumShard = 17010,
     idItemZanite = 17011,
     idItemBucket = 17012,
@@ -110,9 +135,22 @@ public class mod_AetherMp extends BaseModMp {
     idItemSwordZanite = 17027,
     idItemSwordGravitite = 17028,
     idItemIronBubble = 17029,
+    idItemPigSlayer = 17030,
+    idItemVampireBlade = 17031,
+    idItemNatureStaff = 17032,
+    idItemSwordFire = 17033,
+    idItemSwordHoly = 17034,
+    idItemSwordLightning = 17035,
+    idItemLightningKnife = 17036,
+    idItemGummieSwet = 17037,
+    idItemHammerNotch = 17038,
+    idItemPhoenixBow = 17039,
     idItemCloudParachute = 17040,
     idItemCloudParachuteGold = 17041,
+    idItemCloudStaff = 17042,
+    idItemLifeShard = 17043,
     idItemGoldenFeather = 17044,
+    idItemLance = 17045,
     idItemIronRing = 17046,
     idItemGoldRing = 17047,
     idItemZaniteRing = 17048,
@@ -157,6 +195,9 @@ public class mod_AetherMp extends BaseModMp {
     idItemRedCape = 17087,
     idItemYellowCape = 17088,
     idItemBlueCape = 17089,
+    idItemPickValkyrie = 17090,
+    idItemAxeValkyrie = 17091,
+    idItemShovelValkyrie = 17092,
     idItemHealingStone = 17093,
     idItemIceRing = 17094,
     idItemIcePendant = 17095;
@@ -203,6 +244,10 @@ public class mod_AetherMp extends BaseModMp {
 			public static void setMaxDamage(net.minecraft.server.Item item, int maxDamage) {
 				item.d(maxDamage);
 			}
+			
+			public static void setHasSubtypes(net.minecraft.server.Item item, boolean hasSubtypes) {
+				item.a(hasSubtypes);
+			}
 		}
 		
 		public static class SlotArmor {
@@ -224,6 +269,20 @@ public class mod_AetherMp extends BaseModMp {
 			
 			public static void setEntityFlag(net.minecraft.server.Entity entity, int ID, boolean flag) {
 				entity.a(ID, flag);
+			}
+		}
+		
+		public static class EntityPlayer extends EntityLiving {
+			
+			public static MinecraftServer getMCServer(net.minecraft.server.EntityPlayer entityplayer) {
+				return entityplayer.b;
+			}
+		}
+		
+		public static class EntityLiving extends Entity {
+			
+			public static void dropFewItems(net.minecraft.server.EntityLiving entityliving) {
+				entityliving.q();
 			}
 		}
 	}

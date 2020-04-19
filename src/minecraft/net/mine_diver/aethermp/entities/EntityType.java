@@ -5,8 +5,13 @@ import net.minecraft.src.Entity;
 public class EntityType {
 	
 	public EntityType(Class<? extends Entity> clazz, int id, RegType type) {
+		this(clazz, id, false, type);
+	}
+	
+	public EntityType(Class<? extends Entity> clazz, int id, boolean owned, RegType type) {
 		entityClass = clazz;
 		entityID = id;
+		hasOwner = owned;
 		regType = type;
 	}
 	
@@ -18,12 +23,17 @@ public class EntityType {
 		return entityID;
 	}
 	
+	boolean getHasOwner() {
+		return hasOwner;
+	}
+	
 	RegType getRegType() {
 		return regType;
 	}
 	
 	private final Class<? extends Entity> entityClass;
 	private final int entityID;
+	private final boolean hasOwner;
 	private final RegType regType;
 	
 	public static enum RegType {

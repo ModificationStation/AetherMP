@@ -26,7 +26,7 @@ public class GuiManager {
 				throw new RuntimeException(e);
 			}
 	        Packet230ModLoader packet = new Packet230ModLoader();
-	        packet.packetType = 4;
+	        packet.packetType = 3;
 	        packet.dataInt = new int[] {j, i, iinventory.getSize(), meta};
 	        packet.dataString = new String[] {iinventory.getName()};
 	        ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), entityplayer, packet);

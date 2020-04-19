@@ -258,14 +258,14 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
         case 5:
             return new ItemStack(ItemManager.AmbrosiumShard, random.nextInt(10) + 1);
 
-        /*case 6:
+        case 6:
             return new ItemStack(ItemManager.Dart, random.nextInt(5) + 1, 0);
 
         case 7:
             return new ItemStack(ItemManager.Dart, random.nextInt(3) + 1, 1);
 
         case 8:
-            return new ItemStack(ItemManager.Dart, random.nextInt(3) + 1, 2);*/
+            return new ItemStack(ItemManager.Dart, random.nextInt(3) + 1, 2);
 
         case 9:
             if(random.nextInt(20) == 0)

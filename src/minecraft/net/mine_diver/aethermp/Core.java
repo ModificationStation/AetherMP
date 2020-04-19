@@ -1,6 +1,7 @@
 package net.mine_diver.aethermp;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import org.lwjgl.input.Keyboard;
@@ -110,11 +111,13 @@ public class Core {
 	public boolean onTickInGame(Minecraft minecraft, BaseMod aetherInstance) {
 		EntityPlayerSP player = minecraft.thePlayer;
 		if (player.worldObj.multiplayerWorld) {
-			if(mod_Aether.getCurrentDimension() == 3)
+			if (mod_Aether.getCurrentDimension() == 3)
                 AchievementHandler.handleAchievement(AetherAchievements.enterAether, true);
 			if (!(minecraft.ingameGUI instanceof GuiIngameAetherMp))
 				minecraft.ingameGUI = new GuiIngameAetherMp(minecraft);
-			if(minecraft.currentScreen instanceof GuiInventory)
+			if (ModLoader.isGUIOpen(null))
+	            renderHearts((mod_Aether) aetherInstance);
+			if (minecraft.currentScreen instanceof GuiInventory)
 	            minecraft.displayGuiScreen(new GuiInventoryMoreSlots(minecraft.thePlayer));
 			long time = minecraft.theWorld.getWorldTime();
 			if (clock != time) {
@@ -168,6 +171,14 @@ public class Core {
         PacketManager.handlePacket(packet);
 	}
 	
+	public void renderHearts(mod_Aether aetherInstance) {
+		try {
+			renderHeartsMethod.invoke(aetherInstance, new Object[] {});
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public static OtherPlayerMPBaseAether getPlayer(EntityPlayer entityplayer) {
 		return (OtherPlayerMPBaseAether) OtherPlayerMPAPI.getPlayerBase((EntityOtherPlayerMP) entityplayer, OtherPlayerMPBaseAether.class);
 	}
@@ -178,6 +189,7 @@ public class Core {
 	private KeyBinding key_loreGain;
 	
 	private static final Field field_25102_aField;
+	private static final Method renderHeartsMethod;
 	static {
 		Field field = null;
 		try {
@@ -191,6 +203,14 @@ public class Core {
 		}
 		field.setAccessible(true);
 		field_25102_aField = field;
+		Method method = null;
+		try {
+			method = mod_Aether.class.getDeclaredMethod("renderHearts", new Class[] {});
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		method.setAccessible(true);
+		renderHeartsMethod = method;
 	}
 	
 	public static final Unsafe unsafe;

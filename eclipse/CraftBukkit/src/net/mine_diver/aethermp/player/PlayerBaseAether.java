@@ -1,50 +1,37 @@
 package net.mine_diver.aethermp.player;
 
-import java.util.Arrays;
-
 import org.bukkit.Location;
-import org.bukkit.World.Environment;
 
-import net.mine_diver.aethermp.dimension.DimensionManager;
 import net.mine_diver.aethermp.entities.EntityCloudParachute;
 import net.mine_diver.aethermp.inventory.ContainerAether;
 import net.mine_diver.aethermp.inventory.InventoryAether;
 import net.mine_diver.aethermp.items.ItemManager;
-import net.mine_diver.aethermp.util.Achievements;
+import net.mine_diver.aethermp.util.AetherPoison;
 import net.minecraft.server.Block;
 import net.minecraft.server.DimensionBase;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.MathHelper;
-import net.minecraft.server.ModLoader;
+import net.minecraft.server.ModLoaderMp;
 import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.NBTTagList;
-import net.minecraft.server.Packet5EntityEquipment;
-import net.minecraft.server.PlayerBase;
+import net.minecraft.server.Packet230ModLoader;
+import net.minecraft.server.World;
 import net.minecraft.server.mod_AetherMp;
 
 import static net.minecraft.server.mod_AetherMp.PackageAccess;
 
-public class PlayerBaseAether extends PlayerBase {
+public class PlayerBaseAether extends PlayerBaseAetherImpl {
 
 	public PlayerBaseAether(EntityPlayer var1) {
 		super(var1);
 		inv = new InventoryAether(player);
 		player.defaultContainer = new ContainerAether(player.inventory, inv, !player.world.isStatic);
 		player.activeContainer = player.defaultContainer;
-		try {
-			ItemStack[] equipment = (ItemStack[]) ModLoader.getPrivateValue(EntityPlayer.class, player, "bN");
-			equipment = Arrays.copyOf(equipment, equipment.length + 4);
-			ModLoader.setPrivateValue(EntityPlayer.class, player, "bN", equipment);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
 	}
 	
 	@Override
-	public void playerInit() {}
-	
 	public void increaseMaxHP(int i) {
         if(maxHealth <= 40 - i) {
             maxHealth += i;
@@ -64,31 +51,19 @@ public class PlayerBaseAether extends PlayerBase {
     }
 	
 	@Override
-	public boolean onUpdate() {
-		sendInv();
-		prevLocX = player.locX;
-		prevLocZ = player.locZ;
+	public boolean handlePortalEffect() {
+		if (maxHealth != previousMaxHealth) {
+			Packet230ModLoader packet = new Packet230ModLoader();
+			packet.packetType = 6;
+			packet.dataInt = new int[] {maxHealth};
+			ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), player, packet);
+			previousMaxHealth = maxHealth;
+		}
 		return false;
 	}
 	
-	public void sendInv() {
-		for (int i = 0; i < 4; ++i) {
-            ItemStack itemstack = getMoreArmorEquipment(i);
-            if (itemstack != this.moreArmor[i]) {
-                player.b.getTracker(player.dimension).a(player, new Packet5EntityEquipment(player.id, i + 5, itemstack));
-                this.moreArmor[i] = itemstack;
-                ItemStack[] equipment;
-                try {
-					equipment = (ItemStack[]) ModLoader.getPrivateValue(EntityPlayer.class, player, "bN");
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				}
-                equipment[i + 5] = itemstack;
-            }
-        }
-	}
-	
-	public ItemStack getMoreArmorEquipment(final int i) {
+	@Override
+	public ItemStack getMoreArmorEquipment(int i) {
 		if (i == 0)
 			return inv.slots[0];
 		if (i == 1)
@@ -102,68 +77,165 @@ public class PlayerBaseAether extends PlayerBase {
     }
 	
 	@Override
-	public boolean onLivingUpdate() {
-		if (player.locY < -2 && DimensionManager.getCurrentDimension(player.world).equals(Environment.valueOf(mod_AetherMp.nameDimensionAether.toUpperCase()))) {
-			Class<? extends Entity> entityClass = null;
-			NBTTagCompound tag = new NBTTagCompound();
-			if (player.vehicle != null) {
-				entityClass = player.vehicle.getClass();
-				player.vehicle.d(tag);
-				player.vehicle.die();
+	public int getMoreArmorAmount() {
+		return 4;
+	}
+	
+	@Override
+	public void writeCustomData(NBTTagCompound customData) {
+        customData.a("MaxHealth", (byte) maxHealth);
+        customData.a("Inventory", inv.writeToNBT(new NBTTagList()));
+    }
+	
+	@Override
+	public void readCustomData(NBTTagCompound customData) {
+        maxHealth = customData.c("MaxHealth");
+        if(maxHealth < 20)
+            maxHealth = 20;
+        NBTTagList nbttaglist = customData.l("Inventory");
+        inv.readFromNBT(nbttaglist);
+    }
+	
+	@Override
+	public boolean onDeath(Entity entity) {
+		for (int i = 0; i < inv.slots.length; i++)
+			inv.slots[i] = null;
+		sendInv();
+		return false;
+	}
+	
+	@Override
+	public boolean isInWater(boolean inWater) {
+        return inWater && (!wearingNeptuneArmor() || player.getJumping());
+    }
+	
+	@Override
+	public float getCurrentPlayerStrVsBlock(Block block, float f) {
+        if(inv.slots[0] != null && inv.slots[0].id == ItemManager.ZanitePendant.id)
+            f *= 1.0F + (float)inv.slots[0].getData() / ((float)inv.slots[0].i() * 3F);
+        if(inv.slots[4] != null && inv.slots[4].id == ItemManager.ZaniteRing.id)
+            f *= 1.0F + (float)inv.slots[4].getData() / ((float)inv.slots[4].i() * 3F);
+        if(inv.slots[5] != null && inv.slots[5].id == ItemManager.ZaniteRing.id)
+            f *= 1.0F + (float)inv.slots[5].getData() / ((float)inv.slots[5].i() * 3F);
+        return f;
+    }
+	
+	private boolean wearingNeptuneArmor() {
+        return player.inventory.armor[3] != null && player.inventory.armor[3].id == ItemManager.NeptuneHelmet.id && player.inventory.armor[2] != null && player.inventory.armor[2].id == ItemManager.NeptuneChestplate.id && player.inventory.armor[1] != null && player.inventory.armor[1].id == ItemManager.NeptuneLeggings.id && player.inventory.armor[0] != null && player.inventory.armor[0].id == ItemManager.NeptuneBoots.id && inv.slots[6] != null && inv.slots[6].id == ItemManager.NeptuneGlove.id;
+    }
+	
+	@Override
+	public void updatePoison() {
+		if(poisonWorld != player.world || player.dead || player.health <= 0) {
+            poisonWorld = player.world;
+            poisonTime = 0;
+            return;
+        }
+        if(poisonWorld == null)
+            return;
+        if(poisonTime < 0) {
+            poisonTime++;
+            return;
+        }
+        if(poisonTime == 0)
+            return;
+        long time = player.world.getTime();
+        int mod = poisonTime % 50;
+        if(clock != time) {
+            AetherPoison.distractEntity(player);
+            if(mod == 0)
+                player.damageEntity(null, 1);
+            poisonTime--;
+            clock = time;
+        }
+	}
+	
+	@Override
+	public boolean afflictPoison() {
+        if(poisonTime < 0)
+            return false;
+        else {
+            poisonTime = 500;
+            poisonWorld = player.world;
+            return true;
+        }
+    }
+	
+	@Override
+    public boolean curePoison() {
+        if(poisonTime == -500)
+            return false;
+        else {
+            poisonTime = -500;
+            poisonWorld = player.world;
+            return true;
+        }
+    }
+	
+	@Override
+	public void onFallFromAether() {
+		Class<? extends Entity> entityClass = null;
+		NBTTagCompound tag = new NBTTagCompound();
+		if (player.vehicle != null) {
+			entityClass = player.vehicle.getClass();
+			player.vehicle.d(tag);
+			player.vehicle.die();
+		}
+		double motionY = player.motY;
+		boolean cloudPara = false;
+		if (EntityCloudParachute.getCloudBelongingToEntity(player) != null)
+			cloudPara = true;
+		DimensionBase.usePortal(player.dimension, player);
+		player.netServerHandler.teleport(new Location(player.world.getWorld(), player.locX, 127, player.locZ, player.yaw, 0));
+		if (entityClass != null)
+			try {
+				Entity riding = (Entity) entityClass.getDeclaredConstructor(net.minecraft.server.World.class).newInstance(player.world);
+				riding.e(tag);
+				riding.setPositionRotation(player.locX, 127, player.locZ, player.yaw, 0);
+				player.world.addEntity(riding);
+				player.setPassengerOf(riding);
+			} catch (Exception e) {
+				System.out.println("Failed to transfer mount.");
 			}
-			double motionY = player.motY;
-			boolean cloudPara = false;
-			if (EntityCloudParachute.getCloudBelongingToEntity(player) != null)
-				cloudPara = true;
-			DimensionBase.usePortal(player.dimension, player);
-			player.netServerHandler.teleport(new Location(player.world.getWorld(), player.locX, 127, player.locZ, player.yaw, 0));
-			if (entityClass != null)
-				try {
-					Entity riding = (Entity) entityClass.getDeclaredConstructor(net.minecraft.server.World.class).newInstance(player.world);
-					riding.e(tag);
-					riding.setPositionRotation(player.locX, 127, player.locZ, player.yaw, 0);
-					player.world.addEntity(riding);
-					player.setPassengerOf(riding);
-				} catch (Exception e) {
-					System.out.println("Failed to transfer mount.");
-				}
-			player.motX = player.motZ = 0.0D;
-            player.motY = motionY;
-            if (cloudPara && EntityCloudParachute.entityHasRoomForCloud(player.world, player)) {
-                for(int i = 0; i < 32; i++)
-                    EntityCloudParachute.doCloudSmoke(player.world, player);
-                player.world.makeSound(player, "cloud", 1.0F, 1.0F / (player.world.random.nextFloat() * 0.1F + 0.95F));
-                player.world.addEntity(new EntityCloudParachute(player.world, player, false));
-            }
-            if(player.world.spawnMonsters == 0)
-                player.fallDistance = -64F;
-            if(!cloudPara) {
-                if(player.inventory.b(ItemManager.CloudParachute.id))
-                    if(EntityCloudParachute.entityHasRoomForCloud(player.world, player)) {
-                        for(int i = 0; i < 32; i++)
-                            EntityCloudParachute.doCloudSmoke(player.world, player);
-                        player.world.makeSound(player, "cloud", 1.0F, 1.0F / (player.world.random.nextFloat() * 0.1F + 0.95F));
-                            player.world.addEntity(new EntityCloudParachute(player.world, player, false));
-                    }
-                else
-                    for(int i = 0; i < player.inventory.getSize(); i++) {
-                        ItemStack itemstack = player.inventory.getItem(i);
-                        if(itemstack == null || itemstack.id != ItemManager.CloudParachuteGold.id || !EntityCloudParachute.entityHasRoomForCloud(player.world, player))
-                            continue;
+		player.motX = player.motZ = 0.0D;
+        player.motY = motionY;
+        if (cloudPara && EntityCloudParachute.entityHasRoomForCloud(player.world, player)) {
+            for(int i = 0; i < 32; i++)
+                EntityCloudParachute.doCloudSmoke(player.world, player);
+            player.world.makeSound(player, "cloud", 1.0F, 1.0F / (player.world.random.nextFloat() * 0.1F + 0.95F));
+            player.world.addEntity(new EntityCloudParachute(player.world, player, false));
+        }
+        if(player.world.spawnMonsters == 0)
+            player.fallDistance = -64F;
+        if(!cloudPara) {
+            if(player.inventory.b(ItemManager.CloudParachute.id))
+                if(EntityCloudParachute.entityHasRoomForCloud(player.world, player)) {
+                    for(int i = 0; i < 32; i++)
                         EntityCloudParachute.doCloudSmoke(player.world, player);
-                        player.world.makeSound(player, "cloud", 1.0F, 1.0F / (player.world.random.nextFloat() * 0.1F + 0.95F));
-                        player.world.addEntity(new EntityCloudParachute(player.world, player, true));
-                        itemstack.damage(1, player);
-                        player.inventory.setItem(i, itemstack);
-                    }
-            }
-		}
-		if (!enteredAether && DimensionManager.getCurrentDimension(player.world).equals(Environment.valueOf(mod_AetherMp.nameDimensionAether.toUpperCase()))) {
-			Achievements.giveAchievement(Achievements.enterAether, player);
-			player.inventory.pickup(new ItemStack(ItemManager.LoreBook, 1, 2));
-            player.inventory.pickup(new ItemStack(ItemManager.CloudParachute, 1));
-            enteredAether = true;
-		}
+                    player.world.makeSound(player, "cloud", 1.0F, 1.0F / (player.world.random.nextFloat() * 0.1F + 0.95F));
+                        player.world.addEntity(new EntityCloudParachute(player.world, player, false));
+                }
+            else
+                for(int i = 0; i < player.inventory.getSize(); i++) {
+                    ItemStack itemstack = player.inventory.getItem(i);
+                    if(itemstack == null || itemstack.id != ItemManager.CloudParachuteGold.id || !EntityCloudParachute.entityHasRoomForCloud(player.world, player))
+                        continue;
+                    EntityCloudParachute.doCloudSmoke(player.world, player);
+                    player.world.makeSound(player, "cloud", 1.0F, 1.0F / (player.world.random.nextFloat() * 0.1F + 0.95F));
+                    player.world.addEntity(new EntityCloudParachute(player.world, player, true));
+                    itemstack.damage(1, player);
+                    player.inventory.setItem(i, itemstack);
+                }
+        }
+	}
+	
+	@Override
+	public ItemStack[] getBonus() {
+		return entranceBonus;
+	}
+	
+	@Override
+	public void doAccessoriesPhysics() {
 		if(player.inventory.armor[3] != null && player.inventory.armor[3].id == ItemManager.PhoenixHelm.id && player.inventory.armor[2] != null && player.inventory.armor[2].id == ItemManager.PhoenixBody.id && player.inventory.armor[1] != null && player.inventory.armor[1].id == ItemManager.PhoenixLegs.id && player.inventory.armor[0] != null && player.inventory.armor[0].id == ItemManager.PhoenixBoots.id && inv.slots[6] != null && inv.slots[6].id == ItemManager.PhoenixGlove.id) {
             PackageAccess.Entity.setIsImmuneToFire(player, true);
             player.fireTicks = 0;
@@ -299,65 +371,15 @@ public class PlayerBaseAether extends PlayerBase {
             }
         }
 		ticks++;
-		return false;
 	}
-	
-	@Override
-	public boolean writeEntityToNBT(NBTTagCompound tag) {
-        NBTTagCompound customData = new NBTTagCompound();
-        customData.a("MaxHealth", (byte) maxHealth);
-        customData.a("Inventory", inv.writeToNBT(new NBTTagList()));
-        customData.a("EnteredAether", enteredAether);
-        tag.a("Aether", customData);
-        return false;
-    }
-	
-	@Override
-	public boolean readEntityFromNBT(NBTTagCompound tag) {
-        NBTTagCompound customData = tag.k("Aether");
-        maxHealth = customData.c("MaxHealth");
-        if(maxHealth < 20)
-            maxHealth = 20;
-        NBTTagList nbttaglist = customData.l("Inventory");
-        inv.readFromNBT(nbttaglist);
-        enteredAether = customData.m("EnteredAether");
-        return false;
-    }
-	
-	@Override
-	public boolean onDeath(Entity entity) {
-		for (int i = 0; i < inv.slots.length; i++)
-			inv.slots[i] = null;
-		sendInv();
-		return false;
-	}
-	
-	@Override
-	public boolean isInWater(boolean inWater) {
-        return inWater && (!wearingNeptuneArmor() || player.getJumping());
-    }
-	
-	@Override
-	public float getCurrentPlayerStrVsBlock(Block block, float f) {
-        if(inv.slots[0] != null && inv.slots[0].id == ItemManager.ZanitePendant.id)
-            f *= 1.0F + (float)inv.slots[0].getData() / ((float)inv.slots[0].i() * 3F);
-        if(inv.slots[4] != null && inv.slots[4].id == ItemManager.ZaniteRing.id)
-            f *= 1.0F + (float)inv.slots[4].getData() / ((float)inv.slots[4].i() * 3F);
-        if(inv.slots[5] != null && inv.slots[5].id == ItemManager.ZaniteRing.id)
-            f *= 1.0F + (float)inv.slots[5].getData() / ((float)inv.slots[5].i() * 3F);
-        return f;
-    }
-	
-	private boolean wearingNeptuneArmor() {
-        return player.inventory.armor[3] != null && player.inventory.armor[3].id == ItemManager.NeptuneHelmet.id && player.inventory.armor[2] != null && player.inventory.armor[2].id == ItemManager.NeptuneChestplate.id && player.inventory.armor[1] != null && player.inventory.armor[1].id == ItemManager.NeptuneLeggings.id && player.inventory.armor[0] != null && player.inventory.armor[0].id == ItemManager.NeptuneBoots.id && inv.slots[6] != null && inv.slots[6].id == ItemManager.NeptuneGlove.id;
-    }
 	
     public int maxHealth = 20;
+    public int previousMaxHealth = 20;
     public InventoryAether inv;
-    public ItemStack[] moreArmor = new ItemStack[4];
-    public double prevLocX;
-    public double prevLocZ;
     private boolean jumpBoosted;
     private int ticks = 0;
-    public boolean enteredAether = false;
+    public World poisonWorld;
+    public int poisonTime;
+    public long clock;
+    public static ItemStack[] entranceBonus = new ItemStack[] {new ItemStack(ItemManager.LoreBook, 1, 2), new ItemStack(ItemManager.CloudParachute, 1)};
 }

@@ -28,7 +28,7 @@ public class Achievements {
 	
 	public static void giveAchievement(Achievement achievement, EntityPlayer entityplayer) {
 		Packet230ModLoader packet = new Packet230ModLoader();
-		packet.packetType = 5;
+		packet.packetType = 4;
 		packet.dataInt = new int[] {achievement.e};
 		ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), entityplayer, packet);
 	}

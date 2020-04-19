@@ -339,23 +339,23 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
         case 1:
             return new ItemStack(ItemManager.Bucket, 1, 2);
 
-        /*case 2:
-            return new ItemStack(ItemManager.DartShooter.id, 1);
+        case 2:
+            return new ItemStack(ItemManager.DartShooter);
 
         case 3:
-            return new ItemStack(ItemManager.MoaEgg.id, 1, (short)0);*/
+            return new ItemStack(ItemManager.MoaEgg, 1, 0);
 
         case 4:
             return new ItemStack(ItemManager.AmbrosiumShard, random.nextInt(10) + 1);
 
-        /*case 5:
+        case 5:
             return new ItemStack(ItemManager.Dart.id, random.nextInt(5) + 1, 0);
 
         case 6:
             return new ItemStack(ItemManager.Dart.id, random.nextInt(3) + 1, 1);
 
         case 7:
-            return new ItemStack(ItemManager.Dart.id, random.nextInt(3) + 1, 2);*/
+            return new ItemStack(ItemManager.Dart.id, random.nextInt(3) + 1, 2);
 
         case 8:
             if(random.nextInt(20) == 0)

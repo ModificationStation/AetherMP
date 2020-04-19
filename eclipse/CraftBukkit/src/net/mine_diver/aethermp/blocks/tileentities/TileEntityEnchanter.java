@@ -218,7 +218,7 @@ public class TileEntityEnchanter extends TileEntity implements IInventory {
         addEnchantment(new ItemStack(ItemManager.SwordGravitite, 1), new ItemStack(ItemManager.SwordGravitite, 1), 6000);
         addEnchantment(new ItemStack(ItemManager.ShovelGravitite, 1), new ItemStack(ItemManager.ShovelGravitite, 1), 5000);
         addEnchantment(new ItemStack(ItemManager.AxeGravitite, 1), new ItemStack(ItemManager.AxeGravitite, 1), 5000);
-        //addEnchantment(new ItemStack(ItemManager.Dart, 1, 0), new ItemStack(ItemManager.Dart, 1, 2), 250);
+        addEnchantment(new ItemStack(ItemManager.Dart, 1, 0), new ItemStack(ItemManager.Dart, 1, 2), 250);
         addEnchantment(new ItemStack(ItemManager.Bucket, 1, 2), new ItemStack(ItemManager.Bucket, 1, 3), 1000);
         addEnchantment(new ItemStack(Item.GOLD_RECORD, 1), new ItemStack(ItemManager.BlueMusicDisk, 1), 2500);
         addEnchantment(new ItemStack(Item.GREEN_RECORD, 1), new ItemStack(ItemManager.BlueMusicDisk, 1), 2500);
@@ -282,6 +282,6 @@ public class TileEntityEnchanter extends TileEntity implements IInventory {
         addEnchantment(new ItemStack(ItemManager.IronGlove, 1), new ItemStack(ItemManager.IronGlove, 1), 1200);
         addEnchantment(new ItemStack(ItemManager.GoldGlove, 1), new ItemStack(ItemManager.GoldGlove, 1), 800);
         addEnchantment(new ItemStack(ItemManager.DiamondGlove, 1), new ItemStack(ItemManager.DiamondGlove, 1), 4000);
-        //addEnchantment(new ItemStack(ItemManager.DartShooter, 1, 0), new ItemStack(ItemManager.DartShooter, 1, 2), 2000);
+        addEnchantment(new ItemStack(ItemManager.DartShooter, 1, 0), new ItemStack(ItemManager.DartShooter, 1, 2), 2000);
     }
 }

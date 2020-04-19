@@ -2,6 +2,7 @@ package net.mine_diver.aethermp.entities;
 
 import java.util.*;
 
+import net.mine_diver.aethermp.bukkit.craftbukkit.entity.CraftEntityAether;
 import net.minecraft.server.AxisAlignedBB;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityHuman;
@@ -68,7 +69,7 @@ public class EntityCloudParachute extends Entity implements ISpawnable {
     public static void doCloudSmoke(World world, EntityLiving entityliving) {
         Packet230ModLoader packet = new Packet230ModLoader();
         packet.dataInt = new int[] {entityliving == null ? 0 : entityliving.id};
-        packet.packetType = 3;
+        packet.packetType = 2;
         packet.modId = ModLoaderMp.GetModInstance(mod_AetherMp.class).getId();
         ModLoader.getMinecraftServerInstance().serverConfigurationManager.sendPacketNearby(entityliving.locX, entityliving.locY, entityliving.locZ, ModLoader.getMinecraftServerInstance().propertyManager.getInt("view-distance", 10) * 16, ((WorldServer) world).dimension, packet);
     }
@@ -157,6 +158,17 @@ public class EntityCloudParachute extends Entity implements ISpawnable {
     
     @Override
     protected void b(NBTTagCompound nbttagcompound) {}
+    
+    public final EntityLiving getEntityUsing() {
+    	return entityUsing;
+    }
+    
+    @Override
+    public org.bukkit.entity.Entity getBukkitEntity() {
+        if (this.bukkitEntity == null)
+            this.bukkitEntity = CraftEntityAether.getEntity(this.world.getServer(), this);
+        return this.bukkitEntity;
+    }
     
     @Override
     public Packet230ModLoader getSpawnPacket() {

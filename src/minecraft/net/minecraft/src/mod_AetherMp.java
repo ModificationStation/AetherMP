@@ -77,13 +77,23 @@ public class mod_AetherMp extends BaseModMp {
 	idGuiTreasureChest = 81,
 	idGuiFreezer = 82,
 	idGuiLore = 83,
-	idEntityCloudParachute = 101,
+	
 	idEntityFloatingBlock = 80,
 	idEntityMimic = 81,
-	idEntitySentry = 89,
-	idEntitySheepuff = 86,
 	idEntityZephyr = 85,
-	idEntityZephyrSnowball = 100;
+	idEntitySheepuff = 86,
+	idEntitySentry = 89,
+	idEntityZephyrSnowball = 100,
+	idEntityCloudParachute = 101,
+	idEntityDartEnchanted = 102,
+	idEntityDartGolden = 103,
+	idEntityDartPoison = 104,
+	idEntityAetherLightning = 105,
+	idEntityLightningKnife = 106,
+	idEntityNotchWave = 107,
+	idEntityFlamingArrow = 108,
+	idEntityMiniCloud = 109,
+	idEntityFiroBall = 110;
 	
 	public static class PackageAccess {
 		

@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.mine_diver.aethermp.blocks.BlockFloating;
 import net.mine_diver.aethermp.blocks.BlockManager;
+import net.mine_diver.aethermp.bukkit.craftbukkit.entity.CraftEntityAether;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityFallingSand;
 import net.minecraft.server.ItemStack;
@@ -103,6 +104,13 @@ public class EntityFloatingBlock extends Entity {
     @Override
     public ItemStack[] getEquipment(){
         return new ItemStack[] {new ItemStack(blockID, 1, metadata)};
+    }
+    
+    @Override
+    public org.bukkit.entity.Entity getBukkitEntity() {
+        if (this.bukkitEntity == null)
+            this.bukkitEntity = CraftEntityAether.getEntity(this.world.getServer(), this);
+        return this.bukkitEntity;
     }
 
     public int blockID;

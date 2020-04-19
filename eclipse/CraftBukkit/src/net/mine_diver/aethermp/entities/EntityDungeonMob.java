@@ -3,6 +3,7 @@ package net.mine_diver.aethermp.entities;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
 
+import net.mine_diver.aethermp.bukkit.craftbukkit.entity.CraftEntityAether;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityCreature;
 import net.minecraft.server.EntityHuman;
@@ -100,6 +101,13 @@ public class EntityDungeonMob extends EntityCreature implements IMonster {
             world.f = i1;
         }
         return l <= random.nextInt(8) && super.d();
+    }
+    
+    @Override
+    public org.bukkit.entity.Entity getBukkitEntity() {
+        if (this.bukkitEntity == null)
+            this.bukkitEntity = CraftEntityAether.getEntity(this.world.getServer(), this);
+        return this.bukkitEntity;
     }
 
     protected int attackStrength;

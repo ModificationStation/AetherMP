@@ -10,15 +10,26 @@ public class EntityInfo {
 		this.regType = regType;
 	}
 	
-	EntityInfo(Class<? extends Entity> clazz, String name, int id) {
+	EntityInfo(Class<? extends Entity> clazz, String name, int id, String behavior) {
 		this(clazz, id, RegType.MAIN);
 		this.name = name;
+		this.behavior = behavior;
+	}
+	
+	EntityInfo(Class<? extends Entity> clazz, String name, int id, String behavior, String suffix) {
+		this(clazz, name, id, behavior);
+		this.suffix = suffix;
 	}
 	
 	EntityInfo(Class<? extends Entity> clazz, int id, int trackingDistance, int updateRate) {
+		this(clazz, id, trackingDistance, updateRate, false);
+	}
+	
+	EntityInfo(Class<? extends Entity> clazz, int id, int trackingDistance, int updateRate, boolean hasOwner) {
 		this(clazz, id, RegType.SECONDARY);
 		this.trackingDistance = trackingDistance;
 		this.updateRate = updateRate;
+		this.hasOwner = false;
 	}
 	
 	public Class<? extends Entity> getEntityClass() {
@@ -41,6 +52,18 @@ public class EntityInfo {
 		return updateRate;
 	}
 	
+	public boolean getHasOwner() {
+		return hasOwner;
+	}
+	
+	public String getBehavior() {
+		return behavior;
+	}
+	
+	public String getSuffix() {
+		return suffix;
+	}
+	
 	public RegType getRegType() {
 		return regType;
 	}
@@ -50,6 +73,9 @@ public class EntityInfo {
 	private final int ID;
 	private int trackingDistance;
 	private int updateRate;
+	private boolean hasOwner;
+	private String behavior;
+	private String suffix;
 	private final RegType regType;
 	
 	static enum RegType {

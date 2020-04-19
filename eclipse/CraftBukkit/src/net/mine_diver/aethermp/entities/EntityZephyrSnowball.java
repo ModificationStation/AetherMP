@@ -2,18 +2,15 @@ package net.mine_diver.aethermp.entities;
 
 import java.util.List;
 
+import net.mine_diver.aethermp.bukkit.craftbukkit.entity.CraftEntityAether;
 import net.minecraft.server.AxisAlignedBB;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityLiving;
-import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.MathHelper;
-import net.minecraft.server.ModLoaderMp;
 import net.minecraft.server.MovingObjectPosition;
 import net.minecraft.server.NBTTagCompound;
-import net.minecraft.server.Packet230ModLoader;
 import net.minecraft.server.Vec3D;
 import net.minecraft.server.World;
-import net.minecraft.server.mod_AetherMp;
 
 public class EntityZephyrSnowball extends Entity {
 
@@ -54,6 +51,16 @@ public class EntityZephyrSnowball extends Entity {
         field_9405_b = (d / d3) * 0.10000000000000001D;
         field_9404_c = (d1 / d3) * 0.10000000000000001D;
         field_9403_d = (d2 / d3) * 0.10000000000000001D;
+    }
+    
+    public void setDirection(double d0, double d1, double d2) {
+        d0 += this.random.nextGaussian() * 0.4;
+        d1 += this.random.nextGaussian() * 0.4;
+        d2 += this.random.nextGaussian() * 0.4;
+        final double d3 = MathHelper.a(d0 * d0 + d1 * d1 + d2 * d2);
+        this.field_9405_b = d0 / d3 * 0.1;
+        this.field_9404_c = d1 / d3 * 0.1;
+        this.field_9403_d = d2 / d3 * 0.1;
     }
     
     @Override
@@ -113,16 +120,7 @@ public class EntityZephyrSnowball extends Entity {
                 movingobjectposition.entity.motX += motX;
                 movingobjectposition.entity.motY += 0.20000000000000001D;
                 movingobjectposition.entity.motZ += motZ;
-                if (movingobjectposition.entity instanceof EntityPlayer){
-                    Packet230ModLoader packet = new Packet230ModLoader();
-                    float[] dataFloat = new float[3];
-                    dataFloat[0] = (float) movingobjectposition.entity.motX;
-                    dataFloat[1] = (float) movingobjectposition.entity.motY;
-                    dataFloat[2] = (float) movingobjectposition.entity.motZ;
-                    packet.dataFloat = dataFloat;
-                    packet.packetType = 2;
-                    ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), (EntityPlayer)movingobjectposition.entity, packet);
-                }
+                movingobjectposition.entity.velocityChanged = true;
             }
             die();
         }
@@ -192,6 +190,21 @@ public class EntityZephyrSnowball extends Entity {
             return true;
         } else
             return false;
+    }
+    
+    public final void setShooter(EntityLiving entityliving) {
+    	field_9397_j = entityliving;
+    }
+    
+    public final EntityLiving getShooter() {
+    	return field_9397_j;
+    }
+    
+    @Override
+    public org.bukkit.entity.Entity getBukkitEntity() {
+        if (this.bukkitEntity == null)
+            this.bukkitEntity = CraftEntityAether.getEntity(this.world.getServer(), this);
+        return this.bukkitEntity;
     }
 
     private int field_9402_e;

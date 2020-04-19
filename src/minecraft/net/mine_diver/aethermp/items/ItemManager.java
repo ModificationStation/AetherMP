@@ -51,7 +51,10 @@ public class ItemManager {
 	static {
 		try {
 			aetherItems = new ItemType[] {
-					new ItemType(ItemLoreBookMp.class, AetherItems.class.getDeclaredField("LoreBook"), mod_Aether.idItemLoreBook)
+					new ItemType(ItemLoreBookMp.class, AetherItems.class.getDeclaredField("LoreBook"), mod_Aether.idItemLoreBook),
+					new ItemType(ItemSwordElementalMp.class, AetherItems.class.getDeclaredField("SwordLightning"), mod_Aether.idItemSwordLightning),
+					new ItemType(ItemPigSlayerMp.class, AetherItems.class.getDeclaredField("PigSlayer"), mod_Aether.idItemPigSlayer),
+					new ItemType(ItemCloudStaffMp.class, AetherItems.class.getDeclaredField("CloudStaff"), mod_Aether.idItemCloudStaff)
 			};
 		} catch (Exception e) {
 			throw new RuntimeException(e);

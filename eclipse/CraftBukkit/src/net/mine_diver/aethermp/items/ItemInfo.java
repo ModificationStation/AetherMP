@@ -13,6 +13,11 @@ public class ItemInfo {
 		return this;
 	}
 	
+	ItemInfo setHasSubtypes(boolean hasSubtypes) {
+		this.hasSubtypes = hasSubtypes;
+		return this;
+	}
+	
 	public Item getItem() {
 		return item;
 	}
@@ -21,6 +26,11 @@ public class ItemInfo {
 		return maxDamage;
 	}
 	
+	public boolean getHasSubtypes() {
+		return hasSubtypes;
+	}
+	
 	private final Item item;
 	private int maxDamage;
+	private boolean hasSubtypes = false;
 }
