@@ -166,6 +166,9 @@ public class PlayerBaseAether extends PlayerBaseAetherImpl {
         else {
             poisonTime = 500;
             poisonWorld = player.world;
+            Packet230ModLoader packet = new Packet230ModLoader();
+            packet.packetType = 7;
+            ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), player, packet);
             return true;
         }
     }
@@ -177,6 +180,9 @@ public class PlayerBaseAether extends PlayerBaseAetherImpl {
         else {
             poisonTime = -500;
             poisonWorld = player.world;
+            Packet230ModLoader packet = new Packet230ModLoader();
+            packet.packetType = 8;
+            ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), player, packet);
             return true;
         }
     }

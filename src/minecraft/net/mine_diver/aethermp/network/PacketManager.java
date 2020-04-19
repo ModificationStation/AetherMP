@@ -7,6 +7,7 @@ import net.mine_diver.aethermp.entities.EntityCloudParachuteMp;
 import net.mine_diver.aethermp.entities.EntityManager;
 import net.mine_diver.aethermp.gui.GuiManager;
 import net.mine_diver.aethermp.util.AchievementHandler;
+import net.mine_diver.aethermp.util.AetherPoisonMp;
 import net.minecraft.src.Achievement;
 import net.minecraft.src.EntityAetherLightning;
 import net.minecraft.src.EntityLightningBolt;
@@ -57,5 +58,7 @@ public class PacketManager {
             }
 		});
         handlers.put(6, (packet) -> mod_Aether.getPlayer().maxHealth = packet.dataInt[0]);
+        handlers.put(7, (packet) -> AetherPoisonMp.afflictPoison());
+        handlers.put(8, (packet) -> AetherPoisonMp.curePoison());
 	}
 }

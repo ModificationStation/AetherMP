@@ -20,6 +20,7 @@ import net.mine_diver.aethermp.proxy.AchievementsMapProxy;
 import net.mine_diver.aethermp.proxy.GuiIngameAetherMp;
 import net.mine_diver.aethermp.render.RenderManager;
 import net.mine_diver.aethermp.util.AchievementHandler;
+import net.mine_diver.aethermp.util.AetherPoisonMp;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.AetherAchievements;
 import net.minecraft.src.AetherItems;
@@ -119,6 +120,7 @@ public class Core {
 	            renderHearts((mod_Aether) aetherInstance);
 			if (minecraft.currentScreen instanceof GuiInventory)
 	            minecraft.displayGuiScreen(new GuiInventoryMoreSlots(minecraft.thePlayer));
+			AetherPoisonMp.tickRender(minecraft);
 			long time = minecraft.theWorld.getWorldTime();
 			if (clock != time) {
 				InventoryAether inv = mod_Aether.getPlayer(player).inv;
