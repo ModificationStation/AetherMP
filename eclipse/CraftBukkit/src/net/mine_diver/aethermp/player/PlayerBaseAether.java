@@ -16,6 +16,7 @@ import net.minecraft.server.MathHelper;
 import net.minecraft.server.ModLoaderMp;
 import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.NBTTagList;
+import net.minecraft.server.NetServerHandler;
 import net.minecraft.server.Packet230ModLoader;
 import net.minecraft.server.World;
 import net.minecraft.server.mod_AetherMp;
@@ -40,6 +41,12 @@ public class PlayerBaseAether extends PlayerBaseAetherImpl {
     }
 	
 	@Override
+	public boolean setEntityDead() {
+		wasDead = true;
+		return false;
+	}
+	
+	@Override
 	public boolean heal(int i) {
         if(player.health <= 0)
             return false;
@@ -51,14 +58,16 @@ public class PlayerBaseAether extends PlayerBaseAetherImpl {
     }
 	
 	@Override
-	public boolean handlePortalEffect() {
-		if (maxHealth != previousMaxHealth) {
-			Packet230ModLoader packet = new Packet230ModLoader();
-			packet.packetType = 6;
-			packet.dataInt = new int[] {maxHealth};
-			ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), player, packet);
-			previousMaxHealth = maxHealth;
-		}
+	public boolean moveEntity(double x, double y, double z) {
+		if (new Exception().getStackTrace()[3].getClassName().equals(NetServerHandler.class.getName()))
+			if (wasDead || maxHealth != previousMaxHealth) {
+				Packet230ModLoader packet = new Packet230ModLoader();
+				packet.packetType = 6;
+				packet.dataInt = new int[] {maxHealth};
+				ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), player, packet);
+				wasDead = false;
+				previousMaxHealth = maxHealth;
+			}
 		return false;
 	}
 	
@@ -375,6 +384,7 @@ public class PlayerBaseAether extends PlayerBaseAetherImpl {
 	
     public int maxHealth = 20;
     public int previousMaxHealth = 20;
+    public boolean wasDead = false;
     public InventoryAether inv;
     private boolean jumpBoosted;
     private int ticks = 0;
