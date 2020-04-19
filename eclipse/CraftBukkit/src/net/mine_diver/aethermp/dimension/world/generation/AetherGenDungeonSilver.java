@@ -403,7 +403,7 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
         default:
             break;
 
-        /*case 0:
+        case 0:
             return new ItemStack(ItemManager.GummieSwet, random.nextInt(16));
 
         case 1:
@@ -419,7 +419,7 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
             break;
 
         case 3:
-            return new ItemStack(ItemManager.SwordHoly);*/
+            return new ItemStack(ItemManager.SwordHoly);
 
         case 4:
             return new ItemStack(ItemManager.GoldenFeather);

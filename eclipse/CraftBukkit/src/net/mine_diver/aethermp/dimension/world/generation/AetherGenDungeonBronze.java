@@ -296,7 +296,7 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
     private ItemStack getBronzeLoot(Random random) {
         int i = random.nextInt(7);
         switch(i) {
-        /*case 0:
+        case 0:
             return new ItemStack(ItemManager.GummieSwet, random.nextInt(8), random.nextInt(2));
 
         case 1:
@@ -312,7 +312,7 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
             return new ItemStack(ItemManager.LightningKnife, random.nextInt(16), 1);
 
         case 5:
-            return new ItemStack(ItemManager.Lance);*/
+            return new ItemStack(ItemManager.Lance);
 
         case 6:
             return new ItemStack(ItemManager.AgilityCape);
