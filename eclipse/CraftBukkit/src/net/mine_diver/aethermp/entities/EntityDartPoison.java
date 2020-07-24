@@ -2,14 +2,13 @@ package net.mine_diver.aethermp.entities;
 
 import java.util.List;
 
-import net.mine_diver.aethermp.api.player.Poisonable;
 import net.mine_diver.aethermp.items.ItemManager;
+import net.mine_diver.aethermp.player.PlayerManager;
 import net.mine_diver.aethermp.util.AetherPoison;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.ItemStack;
-import net.minecraft.server.PlayerAPI;
 import net.minecraft.server.World;
 
 public class EntityDartPoison extends EntityDartGolden {
@@ -39,7 +38,7 @@ public class EntityDartPoison extends EntityDartGolden {
             return super.onHitTarget(entity);
         EntityLiving ent = (EntityLiving)entity;
         if(ent instanceof EntityPlayer) {
-        	((Poisonable) PlayerAPI.getPlayerBase((EntityPlayer) ent, Poisonable.class)).afflictPoison();
+        	PlayerManager.afflictPoison((EntityPlayer) ent);
             return super.onHitTarget(entity);
         }
         @SuppressWarnings("unchecked")

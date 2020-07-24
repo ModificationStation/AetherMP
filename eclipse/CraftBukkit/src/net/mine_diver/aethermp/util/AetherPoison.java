@@ -1,12 +1,15 @@
 package net.mine_diver.aethermp.util;
 
+import net.mine_diver.aethermp.entities.EntityAechorPlant;
+import net.mine_diver.aethermp.entities.EntityFiroBall;
+import net.mine_diver.aethermp.entities.EntityMiniCloud;
 import net.mine_diver.aethermp.entities.EntitySentry;
 import net.minecraft.server.Entity;
 
 public class AetherPoison {
 
     public static boolean canPoison(Entity entity) {
-        return /*!(entity instanceof EntitySlider) && */!(entity instanceof EntitySentry)/* && !(entity instanceof EntityMiniCloud) && !(entity instanceof EntityFireMonster) && !(entity instanceof EntityAechorPlant) && !(entity instanceof EntityFiroBall) && !(entity instanceof EntityCockatrice) && !(entity instanceof EntityHomeShot)*/;
+        return /*!(entity instanceof EntitySlider) && */!(entity instanceof EntitySentry) && !(entity instanceof EntityMiniCloud) /*&& !(entity instanceof EntityFireMonster)*/ && !(entity instanceof EntityAechorPlant) && !(entity instanceof EntityFiroBall) /*&& !(entity instanceof EntityCockatrice) && !(entity instanceof EntityHomeShot)*/;
     }
 
     public static void distractEntity(Entity ent) {

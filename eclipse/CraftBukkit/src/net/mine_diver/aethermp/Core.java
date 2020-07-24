@@ -1,6 +1,13 @@
 package net.mine_diver.aethermp;
 
+import java.io.File;
+import java.net.URISyntaxException;
+
+import org.bukkit.Bukkit;
 import org.bukkit.World.Environment;
+import org.bukkit.plugin.InvalidDescriptionException;
+import org.bukkit.plugin.InvalidPluginException;
+import org.bukkit.plugin.UnknownDependencyException;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import com.earth2me.essentials.Mob;
@@ -61,6 +68,11 @@ public class Core {
 	@SuppressWarnings("unchecked")
 	public void onTickInGame(MinecraftServer game) {
 		if (firstTick) {
+			try {
+				Bukkit.getServer().getPluginManager().loadPlugin(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()));
+			} catch (InvalidPluginException | InvalidDescriptionException | UnknownDependencyException | URISyntaxException e) {
+				throw new RuntimeException(e);
+			}
 			if (game.server.getPluginManager().isPluginEnabled("Essentials")) {
 				JavaPluginLoader jpl = (JavaPluginLoader)game.server.getPluginManager().getPlugin("Essentials").getPluginLoader();
 				EntityManager.registerEssentialsEntities((Class<Mob>) jpl.getClassByName("com.earth2me.essentials.Mob"), (Class<Enemies>) jpl.getClassByName("com.earth2me.essentials.Mob$Enemies"));

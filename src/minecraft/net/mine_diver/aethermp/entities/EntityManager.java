@@ -3,6 +3,7 @@ package net.mine_diver.aethermp.entities;
 import net.mine_diver.aethermp.Core;
 import net.mine_diver.aethermp.entities.EntityType.RegType;
 import net.minecraft.src.Entity;
+import net.minecraft.src.EntityAechorPlant;
 import net.minecraft.src.EntityList;
 import net.minecraft.src.EntityMimic;
 import net.minecraft.src.EntitySentry;
@@ -59,8 +60,13 @@ public class EntityManager {
 			new EntityType(EntityDartPoisonMp.class, mod_AetherMp.idEntityDartPoison, RegType.SECONDARY),
 			new EntityType(EntityLightningKnifeMp.class, mod_AetherMp.idEntityLightningKnife, RegType.SECONDARY),
 			new EntityType(EntityNotchWaveMp.class, mod_AetherMp.idEntityNotchWave, RegType.SECONDARY),
+			new EntityType(EntityFlamingArrowMp.class, mod_AetherMp.idEntityFlamingArrow, RegType.MAIN),
 			new EntityType(EntityFlamingArrowMp.class, mod_AetherMp.idEntityFlamingArrow, RegType.SECONDARY),
 			new EntityType(EntityMiniCloudMp.class, mod_AetherMp.idEntityMiniCloud, RegType.SECONDARY),
-			new EntityType(EntityFiroBallMp.class, mod_AetherMp.idEntityFiroBall, RegType.SECONDARY)
+			new EntityType(EntityFiroBallMp.class, mod_AetherMp.idEntityFiroBall, RegType.SECONDARY),
+			new EntityType(EntityAechorPlant.class, mod_AetherMp.idEntityAechorPlant, RegType.MAIN),
+			new EntityType(EntityAechorPlantMp.class, mod_AetherMp.idEntityAechorPlant, RegType.MAIN),
+			new EntityType(EntityPoisonNeedleMp.class, mod_AetherMp.idEntityPoisonNeedle, RegType.SECONDARY),
+			new EntityType(EntitySliderMp.class, mod_AetherMp.idEntitySlider, RegType.SECONDARY)
 	};
 }

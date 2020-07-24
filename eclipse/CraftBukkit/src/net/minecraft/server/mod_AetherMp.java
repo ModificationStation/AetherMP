@@ -55,6 +55,7 @@ public class mod_AetherMp extends BaseModMp {
 	idEntityMimic = 81,
 	idEntityZephyr = 85,
 	idEntitySheepuff = 86,
+	idEntityAechorPlant = 88,
 	idEntitySentry = 89,
 	idEntityZephyrSnowball = 100,
 	idEntityCloudParachute = 101,
@@ -67,7 +68,10 @@ public class mod_AetherMp extends BaseModMp {
 	idEntityFlamingArrow = 108,
 	idEntityMiniCloud = 109,
 	idEntityFiroBall = 110,
+	idEntityPoisonNeedle = 111,
+	idEntitySlider = 112,
 	
+	rarityAechorPlant = 8,
 	rarityZephyr = 5,
 	raritySheepuff = 10,
 	

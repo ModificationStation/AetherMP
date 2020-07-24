@@ -16,6 +16,7 @@ import net.mine_diver.aethermp.entities.EntityFloatingBlock;
 import net.mine_diver.aethermp.entities.EntityLightningKnife;
 import net.mine_diver.aethermp.entities.EntityMimic;
 import net.mine_diver.aethermp.entities.EntityMiniCloud;
+import net.mine_diver.aethermp.entities.EntityPoisonNeedle;
 import net.mine_diver.aethermp.entities.EntityProjectileBase;
 import net.mine_diver.aethermp.entities.EntitySentry;
 import net.mine_diver.aethermp.entities.EntitySheepuff;
@@ -65,6 +66,8 @@ public class CraftEntityAether extends CraftEntity {
 					return new CraftDartGolden(server, (EntityDartGolden) entity);
 				if (entity instanceof EntityDartPoison)
 					return new CraftDartPoison(server, (EntityDartPoison) entity);
+				if (entity instanceof EntityPoisonNeedle)
+					return new CraftPoisonNeedle(server, (EntityPoisonNeedle) entity);
 			} else if (entity instanceof EntityCloudParachute)
 				return new CraftCloudParachute(server, (EntityCloudParachute) entity);
 			else if (entity instanceof EntityFloatingBlock)

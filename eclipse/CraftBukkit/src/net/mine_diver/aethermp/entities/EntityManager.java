@@ -97,9 +97,14 @@ public class EntityManager {
 			new EntityInfo(EntityDartPoison.class, mod_AetherMp.idEntityDartPoison, 64, 20),
 			new EntityInfo(EntityLightningKnife.class, mod_AetherMp.idEntityLightningKnife, 64, 10),
 			new EntityInfo(EntityNotchWave.class, mod_AetherMp.idEntityNotchWave, 64, 10),
+			new EntityInfo(EntityFlamingArrow.class, "FlamingArrow", mod_AetherMp.idEntityFlamingArrow, "NEUTRAL"),
 			new EntityInfo(EntityFlamingArrow.class, mod_AetherMp.idEntityFlamingArrow, 64, 20),
 			new EntityInfo(EntityMiniCloud.class, mod_AetherMp.idEntityMiniCloud, 512, 2),
-			new EntityInfo(EntityFiroBall.class, mod_AetherMp.idEntityFiroBall, 64, 10)
+			new EntityInfo(EntityFiroBall.class, mod_AetherMp.idEntityFiroBall, 64, 10),
+			new EntityInfo(EntityAechorPlant.class, "AechorPlant", mod_AetherMp.idEntityAechorPlant, "ENEMY"),
+			new EntityInfo(EntityPoisonNeedle.class, mod_AetherMp.idEntityPoisonNeedle, 64, 20),
+			new EntityInfo(EntitySlider.class, "Slider", mod_AetherMp.idEntitySentry, "NEUTRAL"),
+			new EntityInfo(EntitySlider.class, mod_AetherMp.idEntitySlider, 512, 2)
 	};
 	
 	public static final Map<String, CreatureType> mapping;

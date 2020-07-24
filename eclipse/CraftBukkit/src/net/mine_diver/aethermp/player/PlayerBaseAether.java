@@ -2,6 +2,7 @@ package net.mine_diver.aethermp.player;
 
 import org.bukkit.Location;
 
+import net.mine_diver.aethermp.api.entities.IAetherBoss;
 import net.mine_diver.aethermp.entities.EntityCloudParachute;
 import net.mine_diver.aethermp.inventory.ContainerAether;
 import net.mine_diver.aethermp.inventory.InventoryAether;
@@ -65,6 +66,7 @@ public class PlayerBaseAether extends PlayerBaseAetherImpl {
 				packet.packetType = 6;
 				packet.dataInt = new int[] {maxHealth};
 				ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), player, packet);
+				setCurrentBoss(getCurrentBoss());
 				wasDead = false;
 				previousMaxHealth = maxHealth;
 			}
@@ -388,6 +390,22 @@ public class PlayerBaseAether extends PlayerBaseAetherImpl {
 		ticks++;
 	}
 	
+	@Override
+	public void setCurrentBoss(IAetherBoss boss) {
+		currentBoss = boss;
+		Packet230ModLoader packet = new Packet230ModLoader();
+		packet.packetType = 10;
+		packet.dataInt = new int[] {boss == null ? 0 : 1, boss == null ? 0 : boss.getBossEntityID()};
+		ModLoaderMp.SendPacketTo(ModLoaderMp.GetModInstance(mod_AetherMp.class), player, packet);
+	}
+	
+	@Override
+	public IAetherBoss getCurrentBoss() {
+		return currentBoss;
+	}
+	
+    public static ItemStack[] entranceBonus = new ItemStack[] {new ItemStack(ItemManager.LoreBook, 1, 2), new ItemStack(ItemManager.CloudParachute, 1)};
+	
     public int maxHealth = 20;
     public int previousMaxHealth = 20;
     public boolean wasDead = false;
@@ -397,5 +415,5 @@ public class PlayerBaseAether extends PlayerBaseAetherImpl {
     public World poisonWorld;
     public int poisonTime;
     public long clock;
-    public static ItemStack[] entranceBonus = new ItemStack[] {new ItemStack(ItemManager.LoreBook, 1, 2), new ItemStack(ItemManager.CloudParachute, 1)};
+    public IAetherBoss currentBoss;
 }

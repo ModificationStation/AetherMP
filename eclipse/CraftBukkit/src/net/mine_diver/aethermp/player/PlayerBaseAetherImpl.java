@@ -15,7 +15,7 @@ import net.minecraft.server.Packet5EntityEquipment;
 import net.minecraft.server.PlayerBase;
 import net.minecraft.server.mod_AetherMp;
 
-public abstract class PlayerBaseAetherImpl extends PlayerBase implements Poisonable, Fallable, EntranceBonus, HasAccessories, HasMoreArmor, AdditionalHealth {
+public abstract class PlayerBaseAetherImpl extends PlayerBase implements Poisonable, Fallable, EntranceBonus, HasAccessories, HasMoreArmor, AdditionalHealth, CanFightBoss {
 
 	public PlayerBaseAetherImpl(EntityPlayer var1) {
 		super(var1);

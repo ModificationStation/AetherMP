@@ -5,8 +5,8 @@ import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 
-import net.mine_diver.aethermp.api.player.Poisonable;
 import net.mine_diver.aethermp.bukkit.craftbukkit.event.CraftAetherEventFactory;
+import net.mine_diver.aethermp.player.PlayerManager;
 import net.minecraft.server.Block;
 import net.minecraft.server.EntityCow;
 import net.minecraft.server.EntityHuman;
@@ -17,7 +17,6 @@ import net.minecraft.server.ItemStack;
 import net.minecraft.server.Material;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.MovingObjectPosition;
-import net.minecraft.server.PlayerAPI;
 import net.minecraft.server.Vec3D;
 import net.minecraft.server.World;
 
@@ -54,14 +53,14 @@ public class ItemSkyrootBucket extends Item {
             if (event3.isCancelled())
                 return itemstack;
             final CraftItemStack itemInHand2 = (CraftItemStack)event3.getItemStack();
-            final byte data2 = (byte) (((entityhuman instanceof EntityPlayer ? ((Poisonable)PlayerAPI.getPlayerBase((EntityPlayer) entityhuman, Poisonable.class)).afflictPoison() : (true)) || itemInHand2.getData() == null) ? 0 : itemInHand2.getData().getData());
+            final byte data2 = (byte) (((entityhuman instanceof EntityPlayer ? PlayerManager.afflictPoison((EntityPlayer) entityhuman) : (true)) || itemInHand2.getData() == null) ? 0 : itemInHand2.getData().getData());
             return new ItemStack(itemInHand2.getTypeId(), itemInHand2.getAmount(), data2);
         } else if (itemstack.getData() == 3) {
             final PlayerBucketEmptyEvent event3 = CraftAetherEventFactory.callPlayerBucketEmptyEvent(entityhuman, MathHelper.floor(entityhuman.locX), MathHelper.floor(entityhuman.locY), MathHelper.floor(entityhuman.locZ), 0, itemstack);
             if (event3.isCancelled())
                 return itemstack;
             final CraftItemStack itemInHand2 = (CraftItemStack)event3.getItemStack();
-            final byte data2 = (byte) (((entityhuman instanceof EntityPlayer ? ((Poisonable)PlayerAPI.getPlayerBase((EntityPlayer) entityhuman, Poisonable.class)).curePoison() : (true)) || itemInHand2.getData() == null) ? 0 : itemInHand2.getData().getData());
+            final byte data2 = (byte) (((entityhuman instanceof EntityPlayer ? PlayerManager.curePoison((EntityPlayer) entityhuman) : (true)) || itemInHand2.getData() == null) ? 0 : itemInHand2.getData().getData());
             return new ItemStack(itemInHand2.getTypeId(), itemInHand2.getAmount(), data2);
         }
         if (movingobjectposition != null && movingobjectposition.type == EnumMovingObjectType.TILE && (itemstack.getData() == 0 || itemstack.getData() == Block.WATER.id)) {

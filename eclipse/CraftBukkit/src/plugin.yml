@@ -1,0 +1,5 @@
+name: AetherMP
+main: net.mine_diver.aethermp.bukkit.craftbukkit.Core
+version: r1-1.2
+description: AetherMP plugin for better bukkit integration
+author: mine_diver

@@ -121,6 +121,7 @@ public class Core {
 			if (minecraft.currentScreen instanceof GuiInventory)
 	            minecraft.displayGuiScreen(new GuiInventoryMoreSlots(minecraft.thePlayer));
 			AetherPoisonMp.tickRender(minecraft);
+			renderBossHP((mod_Aether) aetherInstance);
 			long time = minecraft.theWorld.getWorldTime();
 			if (clock != time) {
 				InventoryAether inv = mod_Aether.getPlayer(player).inv;
@@ -181,6 +182,14 @@ public class Core {
 		}
 	}
 	
+	public void renderBossHP(mod_Aether aetherInstance) {
+		try {
+			renderBossHPMethod.invoke(aetherInstance, new Object[] {});
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public static OtherPlayerMPBaseAether getPlayer(EntityPlayer entityplayer) {
 		return (OtherPlayerMPBaseAether) OtherPlayerMPAPI.getPlayerBase((EntityOtherPlayerMP) entityplayer, OtherPlayerMPBaseAether.class);
 	}
@@ -192,6 +201,7 @@ public class Core {
 	
 	private static final Field field_25102_aField;
 	private static final Method renderHeartsMethod;
+	private static final Method renderBossHPMethod;
 	static {
 		Field field = null;
 		try {
@@ -213,6 +223,13 @@ public class Core {
 		}
 		method.setAccessible(true);
 		renderHeartsMethod = method;
+		try {
+			method = mod_Aether.class.getDeclaredMethod("renderBossHP", new Class[] {});
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		method.setAccessible(true);
+		renderBossHPMethod = method;
 	}
 	
 	public static final Unsafe unsafe;

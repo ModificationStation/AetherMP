@@ -23,6 +23,11 @@ public class ItemManager {
 		}
 	}
 	
+	public static boolean equippedSkyrootSword(EntityHuman entityhuman) {
+        ItemStack itemstack = entityhuman.inventory.getItemInHand();
+        return itemstack != null && itemstack.id == SwordSkyroot.id;
+    }
+	
 	public static boolean equippedSkyrootPick(EntityHuman entityhuman) {
         ItemStack itemstack = entityhuman.inventory.getItemInHand();
         return itemstack != null && itemstack.id == PickSkyroot.id;

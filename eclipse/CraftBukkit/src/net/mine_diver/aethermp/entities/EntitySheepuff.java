@@ -29,7 +29,7 @@ public class EntitySheepuff extends EntityAetherAnimal {
     @Override
     protected void b() {
         super.b();
-        datawatcher.a(16, new Byte((byte)0));
+        datawatcher.a(16, (byte) 0);
     }
     
     @Override

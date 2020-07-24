@@ -9,10 +9,14 @@ import net.mine_diver.aethermp.gui.GuiManager;
 import net.mine_diver.aethermp.util.AchievementHandler;
 import net.mine_diver.aethermp.util.AetherPoisonMp;
 import net.minecraft.src.Achievement;
+import net.minecraft.src.Entity;
 import net.minecraft.src.EntityAetherLightning;
 import net.minecraft.src.EntityLightningBolt;
 import net.minecraft.src.EntityLiving;
+import net.minecraft.src.EntityProjectileBase;
+import net.minecraft.src.EntitySlider;
 import net.minecraft.src.GuiScreen;
+import net.minecraft.src.IAetherBoss;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.Packet230ModLoader;
 import net.minecraft.src.StatList;
@@ -60,5 +64,16 @@ public class PacketManager {
         handlers.put(6, (packet) -> mod_Aether.getPlayer().maxHealth = packet.dataInt[0]);
         handlers.put(7, (packet) -> AetherPoisonMp.afflictPoison());
         handlers.put(8, (packet) -> AetherPoisonMp.curePoison());
+        handlers.put(9, (packet) -> {
+        	Entity entity = EntityManager.getEntityByID(packet.dataInt[0]);
+        	if (entity instanceof EntityProjectileBase)
+        		((EntityProjectileBase)entity).setArrowHeading(packet.dataFloat[0], packet.dataFloat[1], packet.dataFloat[2], packet.dataFloat[3], packet.dataFloat[4]);
+        });
+        handlers.put(10, (packet) -> mod_Aether.currentBoss = packet.dataInt[0] == 0 ? null : (IAetherBoss) EntityManager.getEntityByID(packet.dataInt[1]));
+        handlers.put(11, (packet) -> {
+        	if (ModLoader.getMinecraftInstance().gameSettings.fancyGraphics)
+        		((EntitySlider) EntityManager.getEntityByID(packet.dataInt[0])).addSquirrelButts(packet.dataInt[1], packet.dataInt[2], packet.dataInt[3]);
+        });
+        handlers.put(12, (packet) -> ModLoader.getMinecraftInstance().effectRenderer.addBlockDestroyEffects(packet.dataInt[0], packet.dataInt[1], packet.dataInt[2], packet.dataInt[3], packet.dataInt[4]));
 	}
 }

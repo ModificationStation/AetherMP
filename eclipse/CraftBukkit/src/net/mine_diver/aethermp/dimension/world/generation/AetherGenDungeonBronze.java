@@ -3,6 +3,7 @@ package net.mine_diver.aethermp.dimension.world.generation;
 import java.util.Random;
 
 import net.mine_diver.aethermp.blocks.BlockManager;
+import net.mine_diver.aethermp.entities.EntitySlider;
 import net.mine_diver.aethermp.items.ItemManager;
 import net.minecraft.server.Block;
 import net.minecraft.server.Item;
@@ -36,10 +37,10 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
         setBlocks(lockedBlockID1, lockedBlockID2, 20);
         addHollowBox(world, random, i, j, k, 16, 12, 16);
         addHollowBox(world, random, i + 6, j - 2, k + 6, 4, 4, 4);
-        /*EntitySlider entityslider = new EntitySlider(world);
+        EntitySlider entityslider = new EntitySlider(world);
         entityslider.setPosition(i + 8, j + 2, k + 8);
         entityslider.setDungeon(i, j, k);
-        world.addEntity(entityslider);*/
+        world.addEntity(entityslider);
         int l = i + 7 + random.nextInt(2);
         int i1 = j - 1;
         int j1 = k + 7 + random.nextInt(2);
