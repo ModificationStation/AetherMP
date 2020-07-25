@@ -40,7 +40,6 @@ public class EntityManager {
 	}
 	
 	public static void registerEssentialsEntities(Class<Mob> mobEnum, Class<Enemies> enemies) {
-		System.out.println((mobEnum == null) + " " + (enemies == null));
 		Map<String, Object> mapping;
 		try {
 			Field field = mobEnum.getDeclaredField("hashMap");

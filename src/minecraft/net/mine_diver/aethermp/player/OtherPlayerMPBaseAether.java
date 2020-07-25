@@ -7,7 +7,6 @@ public class OtherPlayerMPBaseAether extends OtherPlayerMPBase {
 	
 	public OtherPlayerMPBaseAether(EntityOtherPlayerMP entityotherplayermp) {
 		super(entityotherplayermp);
-		System.out.println("REINITIALIZED");
 	}
 
 	@Override

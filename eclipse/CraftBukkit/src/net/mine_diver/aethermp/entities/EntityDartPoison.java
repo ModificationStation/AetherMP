@@ -59,7 +59,6 @@ public class EntityDartPoison extends EntityDartGolden {
 
         victim = ent;
         ent.damageEntity(shooter, dmg);
-        System.out.println("hmmmm");
         poisonTime = 500;
         return false;
     }
