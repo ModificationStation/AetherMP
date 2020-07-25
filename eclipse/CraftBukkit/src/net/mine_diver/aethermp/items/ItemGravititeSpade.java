@@ -1,5 +1,8 @@
 package net.mine_diver.aethermp.items;
 
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.entities.EntityFloatingBlock;
 import net.minecraft.server.Block;
@@ -65,6 +68,10 @@ public class ItemGravititeSpade extends ItemTool {
                     continue;
                 if(l == BlockManager.Grass.id)
                     l = BlockManager.Dirt.id;
+                BlockBreakEvent event = new BlockBreakEvent(world.getWorld().getBlockAt(i, j, k), (Player) entityhuman.getBukkitEntity());
+            	world.getServer().getPluginManager().callEvent(event);
+            	if (event.isCancelled())
+            		return itemstack;
                 EntityFloatingBlock entityfloatingblock = new EntityFloatingBlock(world, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F, l, i1);
                 world.addEntity(entityfloatingblock);
             }

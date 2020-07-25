@@ -44,6 +44,9 @@ public class EntityFlamingArrowMp extends EntityFlamingArrow implements ISpawnab
         posY -= 0.10000000149011612D;
         posZ -= MathHelper.sin((rotationYaw / 180F) * 3.141593F) * 0.16F;
         setPositionAndRotation(posX, posY, posZ, rotationYaw, rotationPitch);
+        serverPosX = (int) (posX * 32);
+        serverPosY = (int) (posY * 32);
+        serverPosZ = (int) (posZ * 32);
         yOffset = 0.0F;
         motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
         motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);

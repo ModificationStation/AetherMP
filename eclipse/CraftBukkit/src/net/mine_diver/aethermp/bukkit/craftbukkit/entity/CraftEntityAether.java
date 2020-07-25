@@ -20,6 +20,7 @@ import net.mine_diver.aethermp.entities.EntityPoisonNeedle;
 import net.mine_diver.aethermp.entities.EntityProjectileBase;
 import net.mine_diver.aethermp.entities.EntitySentry;
 import net.mine_diver.aethermp.entities.EntitySheepuff;
+import net.mine_diver.aethermp.entities.EntitySlider;
 import net.mine_diver.aethermp.entities.EntityZephyr;
 import net.mine_diver.aethermp.entities.EntityZephyrSnowball;
 import net.minecraft.server.Entity;
@@ -57,6 +58,8 @@ public class CraftEntityAether extends CraftEntity {
 					return new CraftFiroBall(server, (EntityFiroBall) entity);
 				if (entity instanceof EntityMiniCloud)
 					return new CraftMiniCloud(server, (EntityMiniCloud) entity);
+				if (entity instanceof EntitySlider)
+					return new CraftSlider(server, (EntitySlider) entity);
 			}
 		} else {
 			if (entity instanceof EntityProjectileBase) {

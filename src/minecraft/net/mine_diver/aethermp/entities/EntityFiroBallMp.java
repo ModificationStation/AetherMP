@@ -15,12 +15,12 @@ public class EntityFiroBallMp extends EntityFiroBall implements ISpawnable {
 	@Override
 	public void spawn(Packet230ModLoader packet) {
 		entityId = packet.dataInt[0];
-		double x = packet.dataFloat[0];
-		double y = packet.dataFloat[1];
-		double z = packet.dataFloat[2];
 		boolean flag = packet.dataInt[1] == 1;
 		boolean flag2 = packet.dataInt[2] == 1;
-        setPositionAndRotation(x, y, z, rotationYaw, rotationPitch);
+        setPositionAndRotation(packet.dataFloat[0], packet.dataFloat[1], packet.dataFloat[2], rotationYaw, rotationPitch);
+        serverPosX = (int) (posX * 32);
+        serverPosY = (int) (posY * 32);
+        serverPosZ = (int) (posZ * 32);
         smotionX = packet.dataFloat[3];
         smotionY = packet.dataFloat[4];
         smotionZ = packet.dataFloat[5];

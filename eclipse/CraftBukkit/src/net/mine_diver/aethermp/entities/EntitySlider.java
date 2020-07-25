@@ -2,6 +2,7 @@ package net.mine_diver.aethermp.entities;
 
 import net.mine_diver.aethermp.api.entities.IAetherBoss;
 import net.mine_diver.aethermp.blocks.BlockManager;
+import net.mine_diver.aethermp.bukkit.craftbukkit.entity.CraftEntityAether;
 import net.mine_diver.aethermp.items.ItemManager;
 import net.mine_diver.aethermp.network.PacketManager;
 import net.mine_diver.aethermp.player.PlayerManager;
@@ -507,6 +508,13 @@ public class EntitySlider extends EntityFlying implements IAetherBoss {
 
     public String getBossTitle() {
         return (new StringBuilder()).append(datawatcher.c(18)).append(", the Slider").toString();
+    }
+    
+    @Override
+    public org.bukkit.entity.Entity getBukkitEntity() {
+        if (this.bukkitEntity == null)
+            this.bukkitEntity = CraftEntityAether.getEntity(this.world.getServer(), this);
+        return this.bukkitEntity;
     }
 
     public int moveTimer;

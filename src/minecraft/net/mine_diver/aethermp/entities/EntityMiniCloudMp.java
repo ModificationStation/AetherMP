@@ -23,7 +23,7 @@ public class EntityMiniCloudMp extends EntityMiniCloud implements ISpawnable {
 	@Override
 	public void updatePlayerActionState() {
         getTargetPos();
-        if(atShoulder()) {
+        if (atShoulder()) {
             motionX *= 0.65000000000000002D;
             motionY *= 0.65000000000000002D;
             motionZ *= 0.65000000000000002D;
@@ -31,11 +31,6 @@ public class EntityMiniCloudMp extends EntityMiniCloud implements ISpawnable {
             rotationPitch = dude.rotationPitch;
         } else
             approachTarget();
-	}
-	
-	@Override
-	public void setPosition(double x, double y, double z) {
-		super.setPosition(x, y, z);
 	}
 
 	@Override
@@ -49,9 +44,6 @@ public class EntityMiniCloudMp extends EntityMiniCloud implements ISpawnable {
 		posX = packet.dataFloat[0];
 		posY = packet.dataFloat[1];
 		posZ = packet.dataFloat[2];
-		prevPosX = posX;
-        prevPosY = posY;
-        prevPosZ = posZ;
 		texture = "/aether/mobs/minicloud.png";
         setSize(0.5F, 0.45F);
         noClip = false;
@@ -60,6 +52,9 @@ public class EntityMiniCloudMp extends EntityMiniCloud implements ISpawnable {
         lifeSpan = 3600;
         getTargetPos();
         setPosition(targetX, targetY, targetZ);
+        serverPosX = (int) (posX * 32);
+        serverPosY = (int) (posY * 32);
+        serverPosZ = (int) (posZ * 32);
         rotationPitch = dude.rotationPitch;
         rotationYaw = dude.rotationYaw;
         entityCollisionReduction = 1.75F;

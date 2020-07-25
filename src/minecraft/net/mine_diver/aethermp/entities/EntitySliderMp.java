@@ -21,6 +21,7 @@ public class EntitySliderMp extends EntitySlider {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+		chatTime = 1;
 		switch(dataWatcher.getWatchableObjectByte(16)) {
 		case 0:
 			texture = "/aether/mobs/sliderSleep.png";

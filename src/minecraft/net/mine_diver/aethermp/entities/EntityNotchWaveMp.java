@@ -41,6 +41,9 @@ public class EntityNotchWaveMp extends EntityNotchWave implements ISpawnable {
         posY -= 0.10000000149011612D;
         posZ -= MathHelper.sin((rotationYaw / 180F) * 3.141593F) * 0.16F;
         setPositionAndRotation(posX, posY, posZ, rotationYaw, rotationPitch);
+        serverPosX = (int) (posX * 32);
+        serverPosY = (int) (posY * 32);
+        serverPosZ = (int) (posZ * 32);
         yOffset = 0.0F;
         float f = 0.4F;
         motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F) * f;
