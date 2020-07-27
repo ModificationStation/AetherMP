@@ -64,6 +64,7 @@ public class Core {
 		GuiManager.registerGuis(mod);
 		BlockManager.registerBlocks(aetherInstance);
 		ItemManager.registerItems(aetherInstance);
+		ItemManager.fixItems();
 		EntityManager.registerEntities();
 		OtherPlayerMPAPI.RegisterPlayerBase(OtherPlayerMPBaseAether.class);
 		try {

@@ -6,13 +6,18 @@ import net.minecraft.src.Item;
 
 public class ItemType {
 	
-	ItemType(Class<? extends Item> clazz, Field target, int ID) {
+	ItemType(Class<? extends Item> clazz, Field target, int ID, ItemFactory itemFactory) {
 		itemClass = clazz;
 		targetField = target;
 		originalID = ID;
+		factory = itemFactory;
 	}
 	
-	Class<? extends Item> getBlockClass() {
+	ItemType(Class<? extends Item> clazz, Field target, int ID) {
+		this(clazz, target, ID, ItemFactory.DEFAULT);
+	}
+	
+	Class<? extends Item> getItemClass() {
 		return itemClass;
 	}
 	
@@ -24,7 +29,12 @@ public class ItemType {
 		return originalID;
 	}
 	
+	ItemFactory getFactory() {
+		return factory;
+	}
+	
 	private final Class<? extends Item> itemClass;
 	private final Field targetField;
 	private final int originalID;
+	private final ItemFactory factory;
 }
