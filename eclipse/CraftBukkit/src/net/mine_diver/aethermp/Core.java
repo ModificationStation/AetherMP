@@ -33,7 +33,7 @@ import net.minecraft.server.mod_AetherMp;
 
 public class Core {
 	
-	public void postInit(BaseMod mod) {
+	public void init(BaseMod mod) {
 		ModLoader.SetInGameHook(mod, true, false);
 		BlockManager.registerBlocks();
 		ItemManager.registerItems();
@@ -66,19 +66,17 @@ public class Core {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void onTickInGame(MinecraftServer game) {
-		if (firstTick) {
-			try {
-				Bukkit.getServer().getPluginManager().loadPlugin(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()));
-			} catch (InvalidPluginException | InvalidDescriptionException | UnknownDependencyException | URISyntaxException e) {
-				throw new RuntimeException(e);
-			}
-			if (game.server.getPluginManager().isPluginEnabled("Essentials")) {
-				JavaPluginLoader jpl = (JavaPluginLoader)game.server.getPluginManager().getPlugin("Essentials").getPluginLoader();
-				EntityManager.registerEssentialsEntities((Class<Mob>) jpl.getClassByName("com.earth2me.essentials.Mob"), (Class<Enemies>) jpl.getClassByName("com.earth2me.essentials.Mob$Enemies"));
-			}
-			firstTick = false;
+	public void postInit(BaseMod mod, MinecraftServer game) {
+		try {
+			Bukkit.getServer().getPluginManager().loadPlugin(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()));
+		} catch (InvalidPluginException | InvalidDescriptionException | UnknownDependencyException | URISyntaxException e) {
+			throw new RuntimeException(e);
 		}
+		if (game.server.getPluginManager().isPluginEnabled("Essentials")) {
+			JavaPluginLoader jpl = (JavaPluginLoader)game.server.getPluginManager().getPlugin("Essentials").getPluginLoader();
+			EntityManager.registerEssentialsEntities((Class<Mob>) jpl.getClassByName("com.earth2me.essentials.Mob"), (Class<Enemies>) jpl.getClassByName("com.earth2me.essentials.Mob$Enemies"));
+		}
+		ModLoader.SetInGameHook(mod, false, false);
 	}
 	
 	private boolean firstTick = true;

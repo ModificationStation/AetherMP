@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.mine_diver.aethermp.entities.EntityAetherLightning;
 import net.mine_diver.aethermp.entities.EntityManager;
-import net.mine_diver.aethermp.util.EnumElement;
+import net.mine_diver.aethermp.items.material.EnumElement;
 import net.minecraft.server.Block;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityLiving;

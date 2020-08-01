@@ -10,7 +10,7 @@ import net.minecraft.server.ItemSword;
 
 import static net.minecraft.server.mod_AetherMp.PackageAccess;
 
-import net.mine_diver.aethermp.util.EnumElement;
+import net.mine_diver.aethermp.items.material.EnumElement;
 
 public class ItemManager {
 	

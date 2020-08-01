@@ -1,19 +1,37 @@
 package net.minecraft.server;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import net.mine_diver.aethermp.Core;
-import net.mine_diver.aethermp.info;
 
 public class mod_AetherMp extends BaseModMp {
 
+	public mod_AetherMp() {
+		try {
+			info.load(getClass().getResourceAsStream("/" + CORE.getClass().getPackage().getName().replace(".", "/") + "/mod.info"));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public String Name() {
+		return info.getProperty("name");
+	}
+	
+	public String Description() {
+		return info.getProperty("description");
+	}
+	
 	@Override
 	public String Version() {
-		return info.VERSION;
+		return info.getProperty("version");
 	}
 	
 	@Override
 	public void ModsLoaded() {
 		super.ModsLoaded();
-		CORE.postInit(this);
+		CORE.init(this);
 	}
 	
 	@Override
@@ -28,10 +46,11 @@ public class mod_AetherMp extends BaseModMp {
 	
 	@Override
 	public void OnTickInGame(MinecraftServer game) {
-		CORE.onTickInGame(game);
+		CORE.postInit(this, game);
 	}
 	
 	public static final Core CORE = new Core();
+	private final Properties info = new Properties();
 	
 	@MLProp
 	public static boolean

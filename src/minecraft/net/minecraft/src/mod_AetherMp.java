@@ -1,26 +1,35 @@
 package net.minecraft.src;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 
 import net.mine_diver.aethermp.Core;
-import net.mine_diver.aethermp.info;
 import net.minecraft.client.Minecraft;
 
 public class mod_AetherMp extends BaseModMp {
 	
+	public mod_AetherMp() {
+		try {
+			info.load(getClass().getResourceAsStream("/" + CORE.getClass().getPackage().getName().replace(".", "/") + "/mod.info"));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public String Name() {
-		return info.NAME;
+		return info.getProperty("name");
 	}
 	
 	public String Description() {
-		return info.DESCRIPTION;
+		return info.getProperty("description");
 	}
 	
 	@Override
 	public String Version() {
-		return info.VERSION;
+		return info.getProperty("version");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -66,10 +75,8 @@ public class mod_AetherMp extends BaseModMp {
     }
 	
 	public static final Core CORE = new Core();
+	private final Properties info = new Properties();
 	private BaseMod aetherInstance;
-	
-	@MLProp(info = "Receive packets from old server code with additional events. Enhances gameplay experience, yet kicks from server may occur.")
-	public static boolean utilizeUnstablePackets = true;
 	
 	@MLProp
 	public static int
