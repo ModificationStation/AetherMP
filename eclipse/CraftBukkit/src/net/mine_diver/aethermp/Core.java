@@ -78,6 +78,4 @@ public class Core {
 		}
 		ModLoader.SetInGameHook(mod, false, false);
 	}
-	
-	private boolean firstTick = true;
 }
