@@ -9,10 +9,10 @@ import net.minecraft.src.World;
 public interface AetherPopulator {
 	
 	Event<AetherPopulator> EVENT = new AetherEvent<>(AetherPopulator.class, (listeners) ->
-		(world, random, i, j) -> {
-			for (AetherPopulator listener : listeners)
-				listener.GenerateAether(world, random, i, j);
-	});
+	(world, random, i, j) -> {
+		for (AetherPopulator listener : listeners)
+			listener.GenerateAether(world, random, i, j);
+		});
 	
 	void GenerateAether(World world, Random random, int i, int j);
 }
