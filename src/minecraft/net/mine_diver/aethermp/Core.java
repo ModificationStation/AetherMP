@@ -7,10 +7,10 @@ import java.util.Map;
 import org.lwjgl.input.Keyboard;
 
 import sun.misc.Unsafe;
-import net.mine_diver.aethermp.blocks.BlockManager;
-import net.mine_diver.aethermp.entities.EntityManager;
+import net.mine_diver.aethermp.item.ItemManager;
+import net.mine_diver.aethermp.block.BlockManager;
+import net.mine_diver.aethermp.entity.EntityManager;
 import net.mine_diver.aethermp.gui.GuiManager;
-import net.mine_diver.aethermp.items.ItemManager;
 import net.mine_diver.aethermp.network.NetClientHandlerAether;
 import net.mine_diver.aethermp.network.PacketManager;
 import net.mine_diver.aethermp.player.OtherPlayerMPAPI;
@@ -62,8 +62,8 @@ public class Core {
 			if (PlayerAPI.playerBaseClasses.get(i).equals(PlayerBaseAether.class))
 				PlayerAPI.playerBaseClasses.set(i, PlayerBaseAetherMp.class);
 		GuiManager.registerGuis(mod);
-		BlockManager.registerBlocks(aetherInstance);
-		ItemManager.registerItems(aetherInstance);
+		BlockManager.registerBlocks();
+		ItemManager.registerItems();
 		ItemManager.fixItems();
 		EntityManager.registerEntities();
 		OtherPlayerMPAPI.RegisterPlayerBase(OtherPlayerMPBaseAether.class);

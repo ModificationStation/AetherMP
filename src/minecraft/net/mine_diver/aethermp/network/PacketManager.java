@@ -3,8 +3,8 @@ package net.mine_diver.aethermp.network;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.mine_diver.aethermp.entities.EntityCloudParachuteMp;
-import net.mine_diver.aethermp.entities.EntityManager;
+import net.mine_diver.aethermp.entity.EntityCloudParachuteMp;
+import net.mine_diver.aethermp.entity.EntityManager;
 import net.mine_diver.aethermp.gui.GuiManager;
 import net.mine_diver.aethermp.util.AchievementHandler;
 import net.mine_diver.aethermp.util.AetherPoisonMp;

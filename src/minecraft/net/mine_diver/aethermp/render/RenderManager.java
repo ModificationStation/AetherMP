@@ -2,7 +2,7 @@ package net.mine_diver.aethermp.render;
 
 import java.util.Map;
 
-import net.mine_diver.aethermp.entities.EntitySentryMp;
+import net.mine_diver.aethermp.entity.EntitySentryMp;
 import net.mine_diver.aethermp.render.RenderType.RegType;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityOtherPlayerMP;

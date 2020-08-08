@@ -16,6 +16,7 @@
 !/src/minecraft/net/minecraft/src/
 /src/minecraft/net/minecraft/src/*
 !/src/minecraft/net/minecraft/src/mod_AetherMp.java
+!/src/minecraft/net/minecraft/src/mod_AetherAPI.java
 /temp/
 /versions/
 cleanup.bat

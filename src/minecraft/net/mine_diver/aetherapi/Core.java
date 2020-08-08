@@ -3,13 +3,16 @@ package net.mine_diver.aetherapi;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+import net.mine_diver.aetherapi.block.BlockManager;
+import net.mine_diver.aetherapi.item.ItemManager;
 import net.mine_diver.aetherapi.proxy.WorldProviderAetherProxy;
+import net.minecraft.src.BaseMod;
 import net.minecraft.src.DimensionBase;
 import net.minecraft.src.mod_Aether;
 
 public class Core {
 
-	public void postInit() {
+	public void init() {
 		try {
 			Field dimField = mod_Aether.class.getDeclaredField("dim");
 			dimField.setAccessible(true);
@@ -22,5 +25,10 @@ public class Core {
 		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public void postInit(BaseMod aetherInstance) {
+		BlockManager.registerBlocks(aetherInstance);
+		ItemManager.registerItems(aetherInstance);
 	}
 }
