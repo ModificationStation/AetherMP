@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
-import net.mine_diver.aetherapi.item.ItemType;
+import net.mine_diver.aetherapi.api.item.ItemType;
 import net.mine_diver.aethermp.proxy.RandomProxy;
 import net.minecraft.src.AetherItems;
 import net.minecraft.src.Block;
@@ -18,7 +18,7 @@ public class ItemManager {
 	
 	public static void registerItems() {
 		for (ItemType item : aetherItems)
-			net.mine_diver.aetherapi.item.ItemManager.addItem(item);
+			net.mine_diver.aetherapi.impl.item.ItemManager.INSTANCE.overrideItem(item);
 	}
 	
 	public static void fixItems() {

@@ -1,11 +1,12 @@
-package net.mine_diver.aetherapi.block;
+package net.mine_diver.aetherapi.impl.block;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Properties;
 
-import net.mine_diver.aetherapi.item.ItemType;
-import net.mine_diver.aetherapi.util.IDResolverResolver;
+import net.mine_diver.aetherapi.api.block.BlockType;
+import net.mine_diver.aetherapi.api.item.ItemType;
+import net.mine_diver.aetherapi.impl.util.IDResolverResolver;
 import net.minecraft.src.BaseMod;
 import net.minecraft.src.Block;
 import net.minecraft.src.IDResolver;
@@ -14,7 +15,7 @@ import net.minecraft.src.ModLoader;
 
 import static net.minecraft.src.mod_AetherAPI.PackageAccess;
 
-public class BlockManager {
+public class BlockManager implements net.mine_diver.aetherapi.api.block.BlockManager {
 	
 	public static void registerBlocks(BaseMod aetherInstance) {
 		try {
@@ -52,8 +53,14 @@ public class BlockManager {
 			throw new RuntimeException(e);
 		}
 	}
+
+	@Override
+	public void setHandler(net.mine_diver.aetherapi.api.block.BlockManager handler) {
+		INSTANCE.setHandler(handler);
+	}
 	
-	public static void addBlock(BlockType block) {
+	@Override
+	public void overrideBlock(BlockType block) {
 		aetherBlocks = Arrays.copyOf(aetherBlocks, aetherBlocks.length + 1);
 		aetherBlocks[aetherBlocks.length - 1] = block;
 	}

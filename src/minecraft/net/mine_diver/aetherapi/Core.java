@@ -3,14 +3,19 @@ package net.mine_diver.aetherapi;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import net.mine_diver.aetherapi.block.BlockManager;
-import net.mine_diver.aetherapi.item.ItemManager;
-import net.mine_diver.aetherapi.proxy.WorldProviderAetherProxy;
+import net.mine_diver.aetherapi.impl.block.BlockManager;
+import net.mine_diver.aetherapi.impl.item.ItemManager;
+import net.mine_diver.aetherapi.impl.proxy.WorldProviderAetherProxy;
 import net.minecraft.src.BaseMod;
 import net.minecraft.src.DimensionBase;
 import net.minecraft.src.mod_Aether;
 
 public class Core {
+	
+	public void preInit() {
+		net.mine_diver.aetherapi.api.block.BlockManager.INSTANCE.setHandler(new BlockManager());
+		net.mine_diver.aetherapi.api.item.ItemManager.INSTANCE.setHandler(new ItemManager());
+	}
 
 	public void init() {
 		try {

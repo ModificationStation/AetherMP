@@ -1,4 +1,4 @@
-package net.mine_diver.aetherapi.util;
+package net.mine_diver.aetherapi.api.util;
 
 public enum LootType {
 	

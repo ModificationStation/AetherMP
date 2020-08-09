@@ -15,6 +15,7 @@ public class mod_AetherAPI extends BaseModMp {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		CORE.preInit();
 	}
 	
 	public String Name() {
@@ -50,7 +51,7 @@ public class mod_AetherAPI extends BaseModMp {
 	private final Properties info = new Properties();
 	private BaseMod aetherInstance;
 	
-public static class PackageAccess {
+	public static class PackageAccess {
 		
 		public static class Block {
 			

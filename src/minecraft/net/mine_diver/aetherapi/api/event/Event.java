@@ -1,4 +1,4 @@
-package net.mine_diver.aetherapi.event;
+package net.mine_diver.aetherapi.api.event;
 
 public abstract class Event<T> {
 

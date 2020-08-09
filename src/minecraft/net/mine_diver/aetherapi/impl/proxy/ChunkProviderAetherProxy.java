@@ -1,9 +1,9 @@
-package net.mine_diver.aetherapi.proxy;
+package net.mine_diver.aetherapi.impl.proxy;
 
 import java.lang.reflect.Field;
 import java.util.Random;
 
-import net.mine_diver.aetherapi.event.dimension.world.generation.AetherPopulator;
+import net.mine_diver.aetherapi.api.event.dimension.world.generation.AetherPopulator;
 import net.minecraft.src.AetherBlocks;
 import net.minecraft.src.AetherGenClouds;
 import net.minecraft.src.AetherGenFlowers;

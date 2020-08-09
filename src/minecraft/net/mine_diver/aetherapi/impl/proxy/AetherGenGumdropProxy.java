@@ -1,4 +1,4 @@
-package net.mine_diver.aetherapi.proxy;
+package net.mine_diver.aetherapi.impl.proxy;
 
 import java.util.Random;
 

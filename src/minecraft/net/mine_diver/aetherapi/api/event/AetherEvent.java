@@ -1,4 +1,4 @@
-package net.mine_diver.aetherapi.event;
+package net.mine_diver.aetherapi.api.event;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

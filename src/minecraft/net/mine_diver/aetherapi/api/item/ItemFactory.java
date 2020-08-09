@@ -1,4 +1,4 @@
-package net.mine_diver.aetherapi.item;
+package net.mine_diver.aetherapi.api.item;
 
 import java.lang.reflect.InvocationTargetException;
 

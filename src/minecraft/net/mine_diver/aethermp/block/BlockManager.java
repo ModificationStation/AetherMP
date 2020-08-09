@@ -1,6 +1,6 @@
 package net.mine_diver.aethermp.block;
 
-import net.mine_diver.aetherapi.block.BlockType;
+import net.mine_diver.aetherapi.api.block.BlockType;
 import net.minecraft.src.AetherBlocks;
 import net.minecraft.src.mod_Aether;
 
@@ -8,7 +8,7 @@ public class BlockManager {
 	
 	public static void registerBlocks() {
 		for (BlockType block : aetherBlocks)
-			net.mine_diver.aetherapi.block.BlockManager.addBlock(block);
+			net.mine_diver.aetherapi.api.block.BlockManager.INSTANCE.overrideBlock(block);
 	}
 	
 	private static final BlockType[] aetherBlocks;

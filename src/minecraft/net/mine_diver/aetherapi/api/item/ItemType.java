@@ -1,4 +1,4 @@
-package net.mine_diver.aetherapi.item;
+package net.mine_diver.aetherapi.api.item;
 
 import java.lang.reflect.Field;
 
@@ -16,19 +16,19 @@ public class ItemType {
 	public ItemType(Class<? extends Item> clazz, Field target, int ID) {
 		this(clazz, target, ID, ItemFactory.DEFAULT);
 	}
-	
+
 	public Class<? extends Item> getItemClass() {
 		return itemClass;
 	}
-	
+
 	public Field getTargetField() {
 		return targetField;
 	}
-	
+
 	public int getOriginalID() {
 		return originalID;
 	}
-	
+
 	public ItemFactory getFactory() {
 		return factory;
 	}

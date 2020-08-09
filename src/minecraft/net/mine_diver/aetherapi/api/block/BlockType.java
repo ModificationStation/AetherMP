@@ -1,8 +1,8 @@
-package net.mine_diver.aetherapi.block;
+package net.mine_diver.aetherapi.api.block;
 
 import java.lang.reflect.Field;
 
-import net.mine_diver.aetherapi.item.ItemType;
+import net.mine_diver.aetherapi.api.item.ItemType;
 import net.minecraft.src.Block;
 
 public class BlockType {
@@ -21,15 +21,15 @@ public class BlockType {
 	public Class<? extends Block> getBlockClass() {
 		return blockClass;
 	}
-	
+
 	public Field getTargetField() {
 		return targetField;
 	}
-	
+
 	public int getOriginalID() {
 		return originalID;
 	}
-	
+
 	public ItemType getItemBlock() {
 		return itemBlock;
 	}

@@ -1,12 +1,12 @@
-package net.mine_diver.aetherapi.proxy;
+package net.mine_diver.aetherapi.impl.proxy;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Random;
 
-import net.mine_diver.aetherapi.event.dimension.world.generation.dungeon.DungeonLoot;
-import net.mine_diver.aetherapi.util.LootType;
+import net.mine_diver.aetherapi.api.event.dimension.world.generation.dungeon.DungeonLoot;
+import net.mine_diver.aetherapi.api.util.LootType;
 import net.minecraft.src.AetherBlocks;
 import net.minecraft.src.AetherGenDungeonBronze;
 import net.minecraft.src.Block;

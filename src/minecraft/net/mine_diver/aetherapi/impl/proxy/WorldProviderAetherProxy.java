@@ -1,4 +1,4 @@
-package net.mine_diver.aetherapi.proxy;
+package net.mine_diver.aetherapi.impl.proxy;
 
 import net.minecraft.src.IChunkProvider;
 import net.minecraft.src.WorldProviderAether;

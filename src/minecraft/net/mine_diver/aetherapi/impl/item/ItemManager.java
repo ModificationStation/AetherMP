@@ -1,9 +1,10 @@
-package net.mine_diver.aetherapi.item;
+package net.mine_diver.aetherapi.impl.item;
 
 import java.util.Arrays;
 import java.util.Properties;
 
-import net.mine_diver.aetherapi.util.IDResolverResolver;
+import net.mine_diver.aetherapi.api.item.ItemType;
+import net.mine_diver.aetherapi.impl.util.IDResolverResolver;
 import net.minecraft.src.BaseMod;
 import net.minecraft.src.Block;
 import net.minecraft.src.IDResolver;
@@ -12,7 +13,7 @@ import net.minecraft.src.ModLoader;
 
 import static net.minecraft.src.mod_AetherAPI.PackageAccess;
 
-public class ItemManager {
+public class ItemManager implements net.mine_diver.aetherapi.api.item.ItemManager {
 	
 	public static void registerItems(BaseMod aetherInstance) {
 		try {
@@ -43,8 +44,14 @@ public class ItemManager {
 			throw new RuntimeException(e);
 		}
 	}
+
+	@Override
+	public void setHandler(net.mine_diver.aetherapi.api.item.ItemManager handler) {
+		INSTANCE.setHandler(handler);
+	}
 	
-	public static void addItem(ItemType item) {
+	@Override
+	public void overrideItem(ItemType item) {
 		aetherItems = Arrays.copyOf(aetherItems, aetherItems.length + 1);
 		aetherItems[aetherItems.length - 1] = item;
 	}
