@@ -185,6 +185,7 @@ public class AetherGenDungeonProxy extends AetherGenDungeon {
 			doorsMethod = AetherGenDungeon.class.getDeclaredMethod("doors");
 			doorsMethod.setAccessible(true);
 			getGoldLootMethod = AetherGenDungeon.class.getDeclaredMethod("getGoldLoot", Random.class);
+			getGoldLootMethod.setAccessible(true);
 		} catch (NoSuchMethodException | SecurityException e) {
 			throw new RuntimeException(e);
 		}
