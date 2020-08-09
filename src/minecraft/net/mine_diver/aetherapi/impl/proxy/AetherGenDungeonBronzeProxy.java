@@ -226,9 +226,9 @@ public class AetherGenDungeonBronzeProxy extends AetherGenDungeonBronze {
 			corridorBlockID2Field.setAccessible(true);
 			corridorBlockID1Field = AetherGenDungeonBronze.class.getDeclaredField("corridorBlockID1");
 			corridorBlockID1Field.setAccessible(true);
-			corridorMeta2Field = AetherGenDungeonBronze.class.getDeclaredField("corridorMeta2Field");
+			corridorMeta2Field = AetherGenDungeonBronze.class.getDeclaredField("corridorMeta2");
 			corridorMeta2Field.setAccessible(true);
-			corridorMeta1Field = AetherGenDungeonBronze.class.getDeclaredField("corridorMeta1Field");
+			corridorMeta1Field = AetherGenDungeonBronze.class.getDeclaredField("corridorMeta1");
 			corridorMeta1Field.setAccessible(true);
 			numRoomsField = AetherGenDungeonBronze.class.getDeclaredField("numRooms");
 			numRoomsField.setAccessible(true);
