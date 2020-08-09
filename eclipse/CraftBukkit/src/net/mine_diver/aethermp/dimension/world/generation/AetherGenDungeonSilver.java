@@ -2,6 +2,8 @@ package net.mine_diver.aethermp.dimension.world.generation;
 
 import java.util.Random;
 
+import net.mine_diver.aethermp.api.event.dimension.world.generation.dungeon.DungeonLoot;
+import net.mine_diver.aethermp.api.util.LootType;
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.items.ItemManager;
 import net.minecraft.server.Block;
@@ -326,8 +328,12 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
             return;
         }
     }
+    
+    public ItemStack getNormalLoot(Random random) {
+    	return DungeonLoot.EVENT.getInvoker().getLoot(getDefaultNormalLoot(random), LootType.SILVER_NORMAL, random);
+    }
 
-    private ItemStack getNormalLoot(Random random) {
+    public ItemStack getDefaultNormalLoot(Random random) {
         int i = random.nextInt(15);
         switch(i) {
         default:
@@ -396,8 +402,12 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
         }
         return new ItemStack(BlockManager.AmbrosiumTorch, random.nextInt(5));
     }
+    
+    public ItemStack getSilverLoot(Random random) {
+    	return DungeonLoot.EVENT.getInvoker().getLoot(getDefaultSilverLoot(random), LootType.SILVER, random);
+    }
 
-    private ItemStack getSilverLoot(Random random) {
+    public ItemStack getDefaultSilverLoot(Random random) {
         int i = random.nextInt(9);
         switch(i) {
         default:

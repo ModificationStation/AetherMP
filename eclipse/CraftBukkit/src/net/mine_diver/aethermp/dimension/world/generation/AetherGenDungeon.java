@@ -2,6 +2,8 @@ package net.mine_diver.aethermp.dimension.world.generation;
 
 import java.util.Random;
 
+import net.mine_diver.aethermp.api.event.dimension.world.generation.dungeon.DungeonLoot;
+import net.mine_diver.aethermp.api.util.LootType;
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.items.ItemManager;
 import net.minecraft.server.Block;
@@ -176,8 +178,12 @@ public class AetherGenDungeon extends WorldGenerator {
         else
             block.setTypeIdAndData(l, (byte)i1, false);
     }
+    
+    public ItemStack getGoldLoot(Random random) {
+    	return DungeonLoot.EVENT.getInvoker().getLoot(getDefaultGoldLoot(random), LootType.GOLD, random);
+    }
 
-    private ItemStack getGoldLoot(Random random) {
+    public ItemStack getDefaultGoldLoot(Random random) {
         int i = random.nextInt(8);
         switch(i) {
         default:
@@ -186,13 +192,13 @@ public class AetherGenDungeon extends WorldGenerator {
         case 0:
             return new ItemStack(ItemManager.IronBubble);
 
-        case 1: // '\001'
+        case 1:
             return new ItemStack(ItemManager.VampireBlade);
 
-        case 2: // '\002'
+        case 2:
             return new ItemStack(ItemManager.PigSlayer);
 
-        case 3: // '\003'
+        case 3:
             if(random.nextBoolean())
                 return new ItemStack(ItemManager.PhoenixHelm);
             if(random.nextBoolean())
@@ -201,16 +207,16 @@ public class AetherGenDungeon extends WorldGenerator {
                 return new ItemStack(ItemManager.PhoenixBody);
             break;
 
-        case 4: // '\004'
+        case 4:
             if(random.nextBoolean())
                 return new ItemStack(ItemManager.PhoenixBoots);
             else
                 return new ItemStack(ItemManager.PhoenixGlove);
 
-        case 5: // '\005'
+        case 5:
             return new ItemStack(ItemManager.LifeShard);
 
-        case 6: // '\006'
+        case 6:
             if(random.nextBoolean())
                 return new ItemStack(ItemManager.GravititeHelmet);
             if(random.nextBoolean())
@@ -219,7 +225,7 @@ public class AetherGenDungeon extends WorldGenerator {
                 return new ItemStack(ItemManager.GravititeBodyplate);
             break;
 
-        case 7: // '\007'
+        case 7:
             if(random.nextBoolean())
                 return new ItemStack(ItemManager.GravititeBoots);
             else

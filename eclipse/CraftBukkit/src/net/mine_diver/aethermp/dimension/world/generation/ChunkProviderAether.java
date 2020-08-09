@@ -2,6 +2,7 @@ package net.mine_diver.aethermp.dimension.world.generation;
 
 import java.util.Random;
 
+import net.mine_diver.aethermp.api.event.dimension.world.generation.AetherPopulator;
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.minecraft.server.BiomeBase;
 import net.minecraft.server.Block;
@@ -407,6 +408,12 @@ public class ChunkProviderAether implements IChunkProvider {
         }
 
         BlockSand.instaFall = false;
+        
+        Random rnd = new Random(worldObj.getSeed());
+        long xSeed = (rnd.nextLong() / 2L) * 2L + 1L;
+        long zSeed = (rnd.nextLong() / 2L) * 2L + 1L;
+        rnd.setSeed((long)i * xSeed + (long)j * zSeed ^ worldObj.getSeed());
+		AetherPopulator.EVENT.getInvoker().GenerateAether(worldObj, rnd, i << 4, j << 4);
     }
     
     @Override

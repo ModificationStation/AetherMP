@@ -196,11 +196,7 @@ public class ChunkProviderAetherProxy extends ChunkProviderAether {
         long xSeed = (rnd.nextLong() / 2L) * 2L + 1L;
         long zSeed = (rnd.nextLong() / 2L) * 2L + 1L;
         rnd.setSeed((long)i * xSeed + (long)j * zSeed ^ ((World) worldObjField.get(this)).getRandomSeed());
-		try {
-			AetherPopulator.EVENT.getInvoker().GenerateAether((World) worldObjField.get(this), rnd, i << 4, j << 4);
-		} catch (IllegalArgumentException | IllegalAccessException e) {
-			throw new RuntimeException(e);
-		}
+		AetherPopulator.EVENT.getInvoker().GenerateAether((World) worldObjField.get(this), rnd, i << 4, j << 4);
 	}
 	
 	private static final Field worldObjField;
