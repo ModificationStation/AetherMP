@@ -173,7 +173,7 @@ public class AetherGenDungeonSilverProxy extends AetherGenDungeonSilver {
                                 break;
                             world.setBlockWithNotify(i10, j + 5 * l7 + 1, k10, Block.chest.blockID);
                             TileEntityChest tileentitychest1 = (TileEntityChest)world.getBlockTileEntity(i10, j + 5 * l7 + 1, k10);
-                            for(int j10 = 0; j10 < guaranteedAmountOfNormalLoot + random.nextInt(maximumAmountOfNormalLoot - guaranteedAmountOfNormalLoot); j10++) {
+                            for(int j10 = 0; j10 < LootType.SILVER_NORMAL.getGuaranteedLootPerChest() + random.nextInt(LootType.SILVER_NORMAL.getMaximumLootPerChest() - LootType.SILVER_NORMAL.getGuaranteedLootPerChest()); j10++) {
                                 ItemStack itemstack1 = getNormalLoot(random);
                                 tileentitychest1.setInventorySlotContents(random.nextInt(tileentitychest1.getSizeInventory()), itemstack1);
                             }
@@ -247,7 +247,7 @@ public class AetherGenDungeonSilverProxy extends AetherGenDungeonSilver {
         int i7 = k + 14 + random.nextInt(2);
         world.setBlock(i3, j - 1, i7, AetherBlocks.TreasureChest.blockID);
         TileEntityChest tileentitychest = (TileEntityChest)world.getBlockTileEntity(i3, j - 1, i7);
-        for(int j8 = 0; j8 < guaranteedAmountOfSilverLoot + random.nextInt(maximumAmountOfSilverLoot - guaranteedAmountOfSilverLoot); j8++) {
+        for(int j8 = 0; j8 < LootType.SILVER.getGuaranteedLootPerChest() + random.nextInt(LootType.SILVER.getMaximumLootPerChest() - LootType.SILVER.getGuaranteedLootPerChest()); j8++) {
             ItemStack itemstack = getSilverLoot(random);
             tileentitychest.setInventorySlotContents(random.nextInt(tileentitychest.getSizeInventory()), itemstack);
         }
@@ -278,11 +278,6 @@ public class AetherGenDungeonSilverProxy extends AetherGenDungeonSilver {
 	public ItemStack getSilverLootThrows(Random random) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		return DungeonLoot.EVENT.getInvoker().getLoot((ItemStack) getSilverLootMethod.invoke(this, random), LootType.SILVER, random);
 	}
-	
-	public static int guaranteedAmountOfNormalLoot = 3;
-	public static int maximumAmountOfNormalLoot = 6;
-	public static int guaranteedAmountOfSilverLoot = 3;
-	public static int maximumAmountOfSilverLoot = 6;
 	
 	private static final Field baseID2Field;
 	private static final Field baseID1Field;

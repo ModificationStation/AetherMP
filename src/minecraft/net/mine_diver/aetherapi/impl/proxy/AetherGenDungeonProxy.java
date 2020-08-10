@@ -124,7 +124,7 @@ public class AetherGenDungeonProxy extends AetherGenDungeon {
                         if(i == wid + 4 && k == 0 && j == -2) {
                             world.setBlockAndMetadata(x + a, y + j, z + b, AetherBlocks.TreasureChest.blockID, 4);
                             TileEntityChest chest = (TileEntityChest)world.getBlockTileEntity(x + a, y + j, z + b);
-                            for(int p = 0; p < guaranteedAmountOfGoldLoot + random.nextInt(maximumAmountOfGoldLoot - guaranteedAmountOfGoldLoot); p++) {
+                            for(int p = 0; p < LootType.GOLD.getGuaranteedLootPerChest() + random.nextInt(LootType.GOLD.getMaximumLootPerChest() - LootType.GOLD.getGuaranteedLootPerChest()); p++) {
                                 ItemStack item = getGoldLoot(random);
                                 chest.setInventorySlotContents(random.nextInt(chest.getSizeInventory()), item);
                             }
@@ -162,9 +162,6 @@ public class AetherGenDungeonProxy extends AetherGenDungeon {
 	public ItemStack getGoldLootThrows(Random random) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		return DungeonLoot.EVENT.getInvoker().getLoot((ItemStack) getGoldLootMethod.invoke(this, random), LootType.GOLD, random);
 	}
-	
-	public static int guaranteedAmountOfGoldLoot = 3;
-	public static int maximumAmountOfGoldLoot = 6;
 	
 	private static final Method setBlockMethod;
 	private static final Method wallsMethod;

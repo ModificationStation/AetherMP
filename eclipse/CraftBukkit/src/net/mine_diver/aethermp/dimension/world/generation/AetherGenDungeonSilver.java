@@ -168,7 +168,7 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
                                 break;
                             worldBukkit.getBlockAt(i10, j + 5 * l7 + 1, k10).setTypeId(Block.CHEST.id);
                             TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(i10, j + 5 * l7 + 1, k10);
-                            for(int j10 = 0; j10 < 3 + random.nextInt(3); j10++) {
+                            for(int j10 = 0; j10 < LootType.SILVER_NORMAL.getGuaranteedLootPerChest() + random.nextInt(LootType.SILVER_NORMAL.getMaximumLootPerChest() - LootType.SILVER_NORMAL.getGuaranteedLootPerChest()); j10++) {
                             	ItemStack itemstack = getNormalLoot(random);
                                 tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
                             }
@@ -247,7 +247,7 @@ public class AetherGenDungeonSilver extends AetherGenBuildings {
         
         worldBukkit.getBlockAt(i3, j - 1, i7).setTypeId(BlockManager.TreasureChest.id, false);
         TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i3, j - 1, i7);
-        for(int j10 = 0; j10 < 3 + random.nextInt(3); j10++) {
+        for(int j8 = 0; j8 < LootType.SILVER.getGuaranteedLootPerChest() + random.nextInt(LootType.SILVER.getMaximumLootPerChest() - LootType.SILVER.getGuaranteedLootPerChest()); j8++) {
         	ItemStack itemstack = getSilverLoot(random);
             tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
         }

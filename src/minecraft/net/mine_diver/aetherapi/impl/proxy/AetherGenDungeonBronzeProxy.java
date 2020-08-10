@@ -48,7 +48,7 @@ public class AetherGenDungeonBronzeProxy extends AetherGenDungeonBronze {
         int z = k + 7 + random.nextInt(2);
         world.setBlockAndMetadataWithNotify(x, y, z, AetherBlocks.TreasureChest.blockID, 0);
         TileEntityChest chest = (TileEntityChest)world.getBlockTileEntity(x, y, z);
-        for(int p = 0; p < guaranteedAmountOfBronzeLoot + random.nextInt(maximumAmountOfBronzeLoot - guaranteedAmountOfBronzeLoot); p++) {
+        for(int p = 0; p < LootType.BRONZE.getGuaranteedLootPerChest() + random.nextInt(LootType.BRONZE.getMaximumLootPerChest() - LootType.BRONZE.getGuaranteedLootPerChest()); p++) {
             ItemStack item = getBronzeLoot(random);
             chest.setInventorySlotContents(random.nextInt(chest.getSizeInventory()), item);
         }
@@ -149,7 +149,7 @@ public class AetherGenDungeonBronzeProxy extends AetherGenDungeonBronze {
                 break;
             world.setBlockWithNotify(p, y + 2, q, Block.chest.blockID);
             TileEntityChest chest = (TileEntityChest)world.getBlockTileEntity(p, y + 2, q);
-            for(p = 0; p < guaranteedAmountOfNormalLoot + random.nextInt(maximumAmountOfNormalLoot - guaranteedAmountOfNormalLoot); p++) {
+            for(p = 0; p < LootType.BRONZE_NORMAL.getGuaranteedLootPerChest() + random.nextInt(LootType.BRONZE_NORMAL.getMaximumLootPerChest() - LootType.BRONZE_NORMAL.getGuaranteedLootPerChest()); p++) {
                 ItemStack item = getNormalLoot(random);
                 chest.setInventorySlotContents(random.nextInt(chest.getSizeInventory()), item);
             }
@@ -191,11 +191,6 @@ public class AetherGenDungeonBronzeProxy extends AetherGenDungeonBronze {
 	public ItemStack getNormalLootThrows(Random random) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		return DungeonLoot.EVENT.getInvoker().getLoot((ItemStack) getNormalLootMethod.invoke(this, random), LootType.BRONZE_NORMAL, random);
 	}
-	
-	public static int guaranteedAmountOfBronzeLoot = 3;
-	public static int maximumAmountOfBronzeLoot = 6;
-	public static int guaranteedAmountOfNormalLoot = 3;
-	public static int maximumAmountOfNormalLoot = 6;
 	
 	private static final Field nField;
 	private static final Field lockedBlockID1Field;

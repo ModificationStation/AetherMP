@@ -49,7 +49,7 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
         
         worldBukkit.getBlockAt(l, i1, j1).setTypeIdAndData(BlockManager.TreasureChest.id, (byte) 0, true);
         TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(l, i1, j1);
-        for(int k1 = 0; k1 < 3 + random.nextInt(3); k1++) {
+        for(int p = 0; p < LootType.BRONZE.getGuaranteedLootPerChest() + random.nextInt(LootType.BRONZE.getMaximumLootPerChest() - LootType.BRONZE.getGuaranteedLootPerChest()); p++) {
         	ItemStack itemstack = getBronzeLoot(random);
             tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
         }
@@ -135,7 +135,7 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
             
             worldBukkit.getBlockAt(i3, j1 + 2, l3).setTypeId(Block.CHEST.id);
             TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(i3, j1 + 2, l3);
-            for(int j3 = 0; j3 < 3 + random.nextInt(3); j3++) {
+            for(int p = 0; p < LootType.BRONZE_NORMAL.getGuaranteedLootPerChest() + random.nextInt(LootType.BRONZE_NORMAL.getMaximumLootPerChest() - LootType.BRONZE_NORMAL.getGuaranteedLootPerChest()); p++) {
             	ItemStack itemstack = getNormalLoot(random);
                 tileentitychest.setItem(random.nextInt(tileentitychest.getSize()), itemstack);
             }
@@ -145,19 +145,19 @@ public class AetherGenDungeonBronze extends AetherGenBuildings {
         setBlocks(corridorBlockID2, corridorBlockID1, 5);
         setMetadata(corridorMeta2, corridorMeta1);
         switch(l) {
-        case 0: // '\0'
+        case 0:
             addSquareTube(world, random, i1 - 5, j1, k1 + 3, 6, 6, 6, 0);
             break;
 
-        case 1: // '\001'
+        case 1:
             addSquareTube(world, random, i1 + 3, j1, k1 - 5, 6, 6, 6, 2);
             break;
 
-        case 2: // '\002'
+        case 2:
             addSquareTube(world, random, i1 + 11, j1, k1 + 3, 6, 6, 6, 0);
             break;
 
-        case 3: // '\003'
+        case 3:
             addSquareTube(world, random, i1 + 3, j1, k1 + 11, 6, 6, 6, 2);
             break;
         }
