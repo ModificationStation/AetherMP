@@ -46,11 +46,16 @@ public class mod_AetherMp extends BaseModMp {
 	
 	@Override
 	public void OnTickInGame(MinecraftServer game) {
-		CORE.postInit(this, game);
+		if (firstTick) {
+			CORE.postInit(this, game);
+			firstTick = false;
+		}
 	}
 	
 	public static final Core CORE = new Core();
 	private final Properties info = new Properties();
+	
+	private boolean firstTick = true;
 	
 	@MLProp
 	public static boolean

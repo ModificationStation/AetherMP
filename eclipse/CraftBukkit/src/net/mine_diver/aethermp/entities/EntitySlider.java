@@ -15,6 +15,7 @@ import net.minecraft.server.EntityFlying;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.ISpawnable;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.NBTTagCompound;
@@ -23,7 +24,7 @@ import net.minecraft.server.Tool;
 import net.minecraft.server.World;
 import net.minecraft.server.WorldServer;
 
-public class EntitySlider extends EntityFlying implements IAetherBoss {
+public class EntitySlider extends EntityFlying implements IAetherBoss, ISpawnable {
 
     public EntitySlider(World world) {
         super(world);
@@ -486,14 +487,17 @@ public class EntitySlider extends EntityFlying implements IAetherBoss {
         dungeonZ = k;
     }
 
+    @Override
     public int getBossHP() {
         return health;
     }
 
+    @Override
     public int getBossMaxHP() {
         return 500;
     }
 
+    @Override
     public boolean isCurrentBoss(EntityPlayer entityPlayer) {
     	IAetherBoss boss = PlayerManager.getCurrentBoss(entityPlayer);
         if(boss == null)
@@ -502,13 +506,24 @@ public class EntitySlider extends EntityFlying implements IAetherBoss {
             return equals(boss);
     }
 
+    @Override
     public int getBossEntityID() {
         return id;
     }
-
+    
+    @Override
     public String getBossTitle() {
         return (new StringBuilder()).append(datawatcher.c(18)).append(", the Slider").toString();
     }
+    
+	@Override
+	public Packet230ModLoader getSpawnPacket() {
+		Packet230ModLoader packet = new Packet230ModLoader();
+		packet.dataInt = new int[] {id, datawatcher.a(16), health};
+		packet.dataFloat = new float[] {(float) locX, (float) locY, (float) locZ};
+		packet.dataString = new String[] {datawatcher.c(18)};
+		return null;
+	}
     
     @Override
     public org.bukkit.entity.Entity getBukkitEntity() {
