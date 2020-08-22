@@ -6,36 +6,36 @@ import net.minecraft.server.TileEntity;
 
 public class BlockInfo {
 	
-	BlockInfo(Block block) {
+	public BlockInfo(Block block) {
 		this.block = block;
 	}
 	
-	BlockInfo setHardness(float hardness) {
+	public BlockInfo setHardness(float hardness) {
 		this.hardness = hardness;
 		return this;
 	}
 	
-	BlockInfo setResistance(float resistance) {
+	public BlockInfo setResistance(float resistance) {
 		this.resistance = resistance;
 		return this;
 	}
 	
-	BlockInfo setLightValue(float lightValue) {
+	public BlockInfo setLightValue(float lightValue) {
 		this.lightValue = lightValue;
 		return this;
 	}
 	
-	BlockInfo setLightOpacity(int lightOpacity) {
+	public BlockInfo setLightOpacity(int lightOpacity) {
 		this.lightOpacity = lightOpacity;
 		return this;
 	}
 	
-	BlockInfo setBlockItem(Class<? extends ItemBlock> blockItem) {
+	public BlockInfo setBlockItem(Class<? extends ItemBlock> blockItem) {
 		this.blockItem = blockItem;
 		return this;
 	}
 	
-	BlockInfo setTileEntity(Class<? extends TileEntity> tileEntity) {
+	public BlockInfo setTileEntity(Class<? extends TileEntity> tileEntity) {
 		this.tileEntity = tileEntity;
 		return this;
 	}

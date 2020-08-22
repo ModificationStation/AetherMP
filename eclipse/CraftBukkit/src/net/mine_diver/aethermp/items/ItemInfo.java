@@ -4,16 +4,16 @@ import net.minecraft.server.Item;
 
 public class ItemInfo {
 	
-	ItemInfo(Item item) {
+	public ItemInfo(Item item) {
 		this.item = item;
 	}
 	
-	ItemInfo setMaxDamage(int maxDamage) {
+	public ItemInfo setMaxDamage(int maxDamage) {
 		this.maxDamage = maxDamage;
 		return this;
 	}
 	
-	ItemInfo setHasSubtypes(boolean hasSubtypes) {
+	public ItemInfo setHasSubtypes(boolean hasSubtypes) {
 		this.hasSubtypes = hasSubtypes;
 		return this;
 	}

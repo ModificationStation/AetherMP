@@ -5,16 +5,16 @@ import net.minecraft.server.DimensionBase;
 
 public class DimensionInfo {
 	
-	DimensionInfo(DimensionBase dimensionBase) {
+	public DimensionInfo(DimensionBase dimensionBase) {
 		this.dimensionBase = dimensionBase;
 	}
 	
-	DimensionInfo setName(String name) {
+	public DimensionInfo setName(String name) {
 		this.name = name;
 		return this;
 	}
 	
-	DimensionInfo setBiomes(BiomeBase[] biomes) {
+	public DimensionInfo setBiomes(BiomeBase[] biomes) {
 		this.biomes = biomes;
 		return this;
 	}
