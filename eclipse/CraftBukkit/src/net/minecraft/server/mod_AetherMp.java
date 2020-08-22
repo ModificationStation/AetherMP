@@ -31,7 +31,7 @@ public class mod_AetherMp extends BaseModMp {
 	@Override
 	public void ModsLoaded() {
 		super.ModsLoaded();
-		CORE.init(this);
+		CORE.preInit(this);
 	}
 	
 	@Override

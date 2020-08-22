@@ -19,6 +19,7 @@ import net.mine_diver.aethermp.dimension.DimensionManager;
 import net.mine_diver.aethermp.entities.EntityManager;
 import net.mine_diver.aethermp.items.ItemManager;
 import net.mine_diver.aethermp.player.PlayerBaseAether;
+import net.mine_diver.aethermp.proxy.ModLoaderLoggerProxy;
 import net.mine_diver.aethermp.util.Achievements;
 import net.mine_diver.aethermp.util.BlockPlacementHandler;
 import net.minecraft.server.BaseMod;
@@ -33,14 +34,18 @@ import net.minecraft.server.mod_AetherMp;
 
 public class Core {
 	
-	public void init(BaseMod mod) {
+	public void preInit(BaseMod mod) {
 		ModLoader.SetInGameHook(mod, true, false);
+		SAPI.interceptAdd(new BlockPlacementHandler());
+		PlayerAPI.RegisterPlayerBase(PlayerBaseAether.class);
+		new ModLoaderLoggerProxy();
+	}
+	
+	public void init() {
 		BlockManager.registerBlocks();
 		ItemManager.registerItems();
 		WorkbenchManager.registerRecipes();
 		EntityManager.registerEntities();
-		SAPI.interceptAdd(new BlockPlacementHandler());
-		PlayerAPI.RegisterPlayerBase(PlayerBaseAether.class);
 		DimensionManager.registerDimensions();
 	}
 	

@@ -45,7 +45,7 @@ public class BlockManager {
         return i == 0 || i == Aercloud.id;
     }
     
-    public static final Block
+    public static Block
     Portal = new BlockAetherPortal(mod_AetherMp.idBlockAetherPortal).a("AetherPortal"),
     Dirt = new BlockAetherDirt(mod_AetherMp.idBlockAetherDirt).a("AetherDirt"),
     Grass = new BlockAetherGrass(mod_AetherMp.idBlockAetherGrass).a("AetherGrass"),

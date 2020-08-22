@@ -23,7 +23,7 @@ public class DimensionManager {
         return world.getWorld().getEnvironment();
     }
 	
-	public static final DimensionBase Aether = new DimensionBase(mod_AetherMp.idDimensionAether, WorldProviderAether.class, PortalTravelAgentAether.class);
+	public static DimensionBase Aether = new DimensionBase(mod_AetherMp.idDimensionAether, WorldProviderAether.class, PortalTravelAgentAether.class);
 	
 	public static final DimensionInfo[] dimensions = new DimensionInfo[] {
 			new DimensionInfo(Aether).setName(mod_AetherMp.nameDimensionAether).setBiomes(new BiomeBase[] {new BiomeAether()})

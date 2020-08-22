@@ -43,7 +43,7 @@ public class ItemManager {
         return itemstack != null && itemstack.id == ShovelSkyroot.id;
     }
     
-    public static final Item
+    public static Item
     VictoryMedal = PackageAccess.Item.newItem(mod_AetherMp.idItemVictoryMedal).c(10).a("VictoryMedal"),
     Key = new ItemAetherKey(mod_AetherMp.idItemKey).a("AetherKey"),
     LoreBook = new ItemLoreBook(mod_AetherMp.idItemLoreBook).a("LoreBook"),
