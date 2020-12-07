@@ -2,6 +2,7 @@ package net.mine_diver.aethermp.network;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import net.mine_diver.aethermp.entity.EntityCloudParachuteMp;
 import net.mine_diver.aethermp.entity.EntityManager;
@@ -26,11 +27,10 @@ import net.minecraft.src.mod_Aether;
 public class PacketManager {
 	
 	public static void handlePacket(Packet230ModLoader packet) {
-		handlers.get(packet.packetType).handle(packet);
+		handlers.get(packet.packetType).accept(packet);
 	}
 	
-	public static final Map<Integer, PacketHandler> handlers = new HashMap<Integer, PacketHandler>();
-	
+	public static final Map<Integer, Consumer<Packet230ModLoader>> handlers = new HashMap<>();
 	static {
 		handlers.put(0, (packet) -> ModLoader.getMinecraftInstance().theWorld.playSoundAtEntity(EntityManager.getEntityByID(packet.dataInt[0]), packet.dataString[0], packet.dataFloat[0], packet.dataFloat[1]));
 		handlers.put(1, (packet) -> ModLoader.getMinecraftInstance().theWorld.playSoundEffect(packet.dataFloat[0], packet.dataFloat[1], packet.dataFloat[2], packet.dataString[0], packet.dataFloat[3], packet.dataFloat[4]));

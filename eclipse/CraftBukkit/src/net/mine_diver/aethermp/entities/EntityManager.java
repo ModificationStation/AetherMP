@@ -36,7 +36,7 @@ public class EntityManager {
 				ModLoaderMp.RegisterEntityTrackerEntry(entity.getEntityClass(), entity.getHasOwner(), entity.getID());
 				break;
 			}
-			}
+		}
 	}
 	
 	public static void registerEssentialsEntities(Class<Mob> mobEnum, Class<Enemies> enemies) {

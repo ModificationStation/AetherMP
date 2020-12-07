@@ -15,7 +15,6 @@ import net.minecraft.server.EntityFlying;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.ISpawnable;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.NBTTagCompound;
@@ -24,7 +23,7 @@ import net.minecraft.server.Tool;
 import net.minecraft.server.World;
 import net.minecraft.server.WorldServer;
 
-public class EntitySlider extends EntityFlying implements IAetherBoss, ISpawnable {
+public class EntitySlider extends EntityFlying implements IAetherBoss {
 
     public EntitySlider(World world) {
         super(world);
@@ -89,6 +88,7 @@ public class EntitySlider extends EntityFlying implements IAetherBoss, ISpawnabl
     @Override
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
+        datawatcher.watch(17, health);
         speedy = nbttagcompound.g("Speedy");
         moveTimer = nbttagcompound.d("MoveTimer");
         direction = nbttagcompound.d("Direction");
@@ -515,15 +515,6 @@ public class EntitySlider extends EntityFlying implements IAetherBoss, ISpawnabl
     public String getBossTitle() {
         return (new StringBuilder()).append(datawatcher.c(18)).append(", the Slider").toString();
     }
-    
-	@Override
-	public Packet230ModLoader getSpawnPacket() {
-		Packet230ModLoader packet = new Packet230ModLoader();
-		packet.dataInt = new int[] {id, datawatcher.a(16), health};
-		packet.dataFloat = new float[] {(float) locX, (float) locY, (float) locZ};
-		packet.dataString = new String[] {datawatcher.c(18)};
-		return null;
-	}
     
     @Override
     public org.bukkit.entity.Entity getBukkitEntity() {
