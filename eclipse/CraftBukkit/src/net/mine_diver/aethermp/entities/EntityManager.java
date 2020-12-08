@@ -27,7 +27,7 @@ public class EntityManager {
 			switch(entity.getRegType()){
 			case MAIN: {
 				ModLoader.RegisterEntityID(entity.getEntityClass(), entity.getName(), entity.getID());
-				System.out.println("Adding CreatureType: " + entity.getName().toUpperCase() + ":" + entity.getName() + ":" + entity.getEntityClass().getName());
+				mod_AetherMp.CORE.LOGGER.info("Adding CreatureType: " + entity.getName().toUpperCase() + ":" + entity.getName() + ":" + entity.getEntityClass().getName());
 				mapping.put(entity.getName(), DimensionBase.EnumHelper.addEnum(CreatureType.class, entity.getName().toUpperCase(), new Class[] {String.class}, new Object[] {entity.getName()}));
 				break;
 			}
@@ -51,7 +51,7 @@ public class EntityManager {
 		for (EntityInfo entity : entities)
 			if (entity.getRegType() == RegType.MAIN) {
 				String suffix = entity.getSuffix();
-				System.out.println("Adding Mob: " + entity.getName().toUpperCase() + ":" + entity.getName() + ":" + entity.getEntityClass().getName());
+				mod_AetherMp.CORE.LOGGER.info("Adding Mob: " + entity.getName().toUpperCase() + ":" + entity.getName() + ":" + entity.getEntityClass().getName());
 				Object mob;
 				if (suffix == null)
 					mob = DimensionBase.EnumHelper.addEnum(mobEnum, entity.getName().toUpperCase(), new Class[] {String.class, enemies, CreatureType.class}, new Object[] {entity.getName(), Enum.valueOf(enemies, entity.getBehavior()), CreatureType.fromName(entity.getName())});

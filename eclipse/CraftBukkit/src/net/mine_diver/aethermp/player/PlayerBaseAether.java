@@ -212,7 +212,7 @@ public class PlayerBaseAether extends PlayerBaseAetherImpl {
 				player.world.addEntity(riding);
 				player.setPassengerOf(riding);
 			} catch (Exception e) {
-				System.out.println("Failed to transfer mount.");
+				mod_AetherMp.CORE.LOGGER.info("Failed to transfer mount.");
 			}
 		player.motX = player.motZ = 0.0D;
         player.motY = motionY;

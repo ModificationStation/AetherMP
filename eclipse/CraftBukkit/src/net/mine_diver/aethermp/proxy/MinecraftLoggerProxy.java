@@ -21,8 +21,13 @@ public class MinecraftLoggerProxy extends Handler {
 	@Override
 	public void publish(LogRecord record) {
 		if (record.getMessage().equals("Starting minecraft server version Beta 1.7.3")) {
-			Logger.getLogger(record.getLoggerName()).removeHandler(this);
+			Logger logger = Logger.getLogger(record.getLoggerName());
+			logger.removeHandler(this);
 			mod_AetherMp.CORE.init();
+			logger.addHandler(this);
+		} else if (record.getMessage().matches("This server is running .*. version .*.")) {
+			Logger.getLogger(record.getLoggerName()).removeHandler(this);
+			mod_AetherMp.CORE.onBukkit();
 		}
 	}
 	

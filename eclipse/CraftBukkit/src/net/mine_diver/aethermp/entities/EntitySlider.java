@@ -153,8 +153,8 @@ public class EntitySlider extends EntityFlying implements IAetherBoss {
                     return;
                 }
                 if(target == null) {
-                    target = world.findNearbyPlayer(this, -1D);
-                    if(target == null) {
+                    /*target = world.findNearbyPlayer(this, -1D);
+                    if(target == null) {*/
                         awake = false;
                         //mod_Aether.currentBoss = null;
                         target = null;
@@ -164,7 +164,7 @@ public class EntitySlider extends EntityFlying implements IAetherBoss {
                         openDoor();
                         moveTimer = 0;
                         return;
-                    }
+                    //}
                 }
             }
             if(gotMovement) {

@@ -2,10 +2,14 @@ package net.mine_diver.aethermp;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.logging.Filter;
+import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World.Environment;
 import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.InvalidPluginException;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.UnknownDependencyException;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
@@ -34,11 +38,18 @@ import net.minecraft.server.mod_AetherMp;
 public class Core {
 	
 	public void preInit(BaseMod mod) {
+		Filter target = LOGGER.getFilter();
+		LOGGER.setFilter((record) -> {
+			record.setMessage("[" + LOGGER.getName() + "] - " + record.getMessage());
+	        return target == null || target.isLoggable(record);
+		});
+		LOGGER.info("Pre initialization...");
 		MinecraftServer.log.addHandler(new MinecraftLoggerProxy());
 		ModLoader.SetInGameHook(mod, true, false);
 	}
 	
 	public void init() {
+		LOGGER.info("Initialization...");
 		BlockManager.registerBlocks();
 		ItemManager.registerItems();
 		WorkbenchManager.registerRecipes();
@@ -46,6 +57,27 @@ public class Core {
 		SAPI.interceptAdd(new BlockPlacementHandler());
 		PlayerAPI.RegisterPlayerBase(PlayerBaseAether.class);
 		DimensionManager.registerDimensions();
+	}
+	
+	public void onBukkit() {
+		LOGGER.info("On Bukkit initialization...");
+		try {
+			PluginManager pm = Bukkit.getServer().getPluginManager();
+			pm.registerInterface(JavaPluginLoader.class);
+			pm.loadPlugin(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()));
+		} catch (InvalidPluginException | InvalidDescriptionException | UnknownDependencyException | URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void postInit(BaseMod mod, MinecraftServer game) {
+		LOGGER.info("Post initialization...");
+		if (game.server.getPluginManager().isPluginEnabled("Essentials")) {
+			LOGGER.info("Essentials detected. Registering entities...");
+			JavaPluginLoader jpl = (JavaPluginLoader)game.server.getPluginManager().getPlugin("Essentials").getPluginLoader();
+			EntityManager.registerEssentialsEntities((Class<Mob>) jpl.getClassByName("com.earth2me.essentials.Mob"), (Class<Enemies>) jpl.getClassByName("com.earth2me.essentials.Mob$Enemies"));
+		}
 	}
 	
 	public void handleSendKey(EntityPlayer entityplayer, int key) {
@@ -69,16 +101,5 @@ public class Core {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void postInit(BaseMod mod, MinecraftServer game) {
-		try {
-			Bukkit.getServer().getPluginManager().loadPlugin(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()));
-		} catch (InvalidPluginException | InvalidDescriptionException | UnknownDependencyException | URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
-		if (game.server.getPluginManager().isPluginEnabled("Essentials")) {
-			JavaPluginLoader jpl = (JavaPluginLoader)game.server.getPluginManager().getPlugin("Essentials").getPluginLoader();
-			EntityManager.registerEssentialsEntities((Class<Mob>) jpl.getClassByName("com.earth2me.essentials.Mob"), (Class<Enemies>) jpl.getClassByName("com.earth2me.essentials.Mob$Enemies"));
-		}
-	}
+	public final Logger LOGGER = Logger.getLogger("AetherMP");
 }

@@ -1,22 +1,8 @@
 package org.bukkit.craftbukkit.entity;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
 import net.minecraft.server.Entity;
 
-public class mod_AetherMp extends JavaPlugin {
-
-	@Override
-	public void onDisable() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onEnable() {
-		// TODO Auto-generated method stub
-		
-	}
+public class mod_AetherMp {
 	
 	public static class PackageAccess {
 		
