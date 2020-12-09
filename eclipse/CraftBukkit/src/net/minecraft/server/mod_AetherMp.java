@@ -59,11 +59,18 @@ public class mod_AetherMp extends BaseModMp {
 	
 	@MLProp
 	public static boolean
-	allowLoreBookKeyBind = true;
+	
+	allowLoreBookKeyBind = true,
+	punishQuittingDuringFight = true,
+	preventTeleportDuringFight = true,
+	punishTeleportDuringFight = false;
 	
 	@MLProp
 	public static String
-	nameDimensionAether = "Aether";
+	
+	nameDimensionAether = "Aether",
+	
+	dungeonAllowedCommands = "/tell;/msg;/help";
 	
 	@MLProp
 	public static int
@@ -228,7 +235,9 @@ public class mod_AetherMp extends BaseModMp {
     idItemShovelValkyrie = 17092,
     idItemHealingStone = 17093,
     idItemIceRing = 17094,
-    idItemIcePendant = 17095;
+    idItemIcePendant = 17095,
+    
+    commandCancellationDistance = 17;
 	
 	public static class PackageAccess {
 		

@@ -128,44 +128,12 @@ public class EntitySlider extends EntityFlying implements IAetherBoss {
             if(target != null && (target instanceof EntityLiving)) {
                 EntityLiving e1 = (EntityLiving)target;
                 if(e1.health <= 0) {
-                    awake = false;
-                    if (target instanceof EntityPlayer)
-                    	PlayerManager.setCurrentBoss((EntityPlayer) target, null);
-                    target = null;
-                    texture = "/aether/mobs/sliderSleep.png";
-                    datawatcher.watch(16, (byte) 0);
-                    stop();
-                    openDoor();
-                    moveTimer = 0;
+                	stopFight();
                     return;
                 }
-            } else {
-                if(target != null && target.dead) {
-                    awake = false;
-                    if (target instanceof EntityPlayer)
-                    	PlayerManager.setCurrentBoss((EntityPlayer) target, null);
-                    target = null;
-                    texture = "/aether/mobs/sliderSleep.png";
-                    datawatcher.watch(16, (byte) 0);
-                    stop();
-                    openDoor();
-                    moveTimer = 0;
-                    return;
-                }
-                if(target == null) {
-                    /*target = world.findNearbyPlayer(this, -1D);
-                    if(target == null) {*/
-                        awake = false;
-                        //mod_Aether.currentBoss = null;
-                        target = null;
-                        texture = "/aether/mobs/sliderSleep.png";
-                        datawatcher.watch(16, (byte) 0);
-                        stop();
-                        openDoor();
-                        moveTimer = 0;
-                        return;
-                    //}
-                }
+            } else if(target == null || target.dead) {
+             	stopFight();
+                return;
             }
             if(gotMovement) {
                 if(bd) {
@@ -515,6 +483,19 @@ public class EntitySlider extends EntityFlying implements IAetherBoss {
     public String getBossTitle() {
         return (new StringBuilder()).append(datawatcher.c(18)).append(", the Slider").toString();
     }
+    
+	@Override
+	public void stopFight() {
+		awake = false;
+        if (target instanceof EntityPlayer)
+        	PlayerManager.setCurrentBoss((EntityPlayer) target, null);
+        target = null;
+        texture = "/aether/mobs/sliderSleep.png";
+        datawatcher.watch(16, (byte) 0);
+        stop();
+        openDoor();
+        moveTimer = 0;
+	}
     
     @Override
     public org.bukkit.entity.Entity getBukkitEntity() {

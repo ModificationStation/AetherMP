@@ -50,6 +50,7 @@ public class Core {
 	
 	public void init() {
 		LOGGER.info("Initialization...");
+		dungeonAllowedCommands = mod_AetherMp.dungeonAllowedCommands.split(";");
 		BlockManager.registerBlocks();
 		ItemManager.registerItems();
 		WorkbenchManager.registerRecipes();
@@ -102,4 +103,6 @@ public class Core {
 	}
 	
 	public final Logger LOGGER = Logger.getLogger("AetherMP");
+	
+	public String[] dungeonAllowedCommands;
 }

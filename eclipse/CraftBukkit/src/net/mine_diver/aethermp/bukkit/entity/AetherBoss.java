@@ -14,4 +14,6 @@ public interface AetherBoss extends Monster {
     public int getBossEntityID();
 
     public String getBossTitle();
+    
+    public void stopFight();
 }

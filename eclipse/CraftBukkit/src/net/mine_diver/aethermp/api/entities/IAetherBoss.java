@@ -13,4 +13,6 @@ public interface IAetherBoss {
     public int getBossEntityID();
 
     public String getBossTitle();
+    
+    public void stopFight();
 }

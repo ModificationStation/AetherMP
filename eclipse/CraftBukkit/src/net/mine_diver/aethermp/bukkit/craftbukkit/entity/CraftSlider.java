@@ -51,6 +51,11 @@ public class CraftSlider extends CraftFlyingAether implements Slider {
 	}
 	
 	@Override
+	public void stopFight() {
+		((EntitySlider) getHandle()).stopFight();
+	}
+	
+	@Override
 	public String toString() {
 		return "CraftSlider";
 	}
