@@ -311,7 +311,7 @@ public abstract class EntityProjectileBase extends Entity implements ISpawnable 
 
 	public boolean canBeShot(Entity ent) {
 		return ent.l_() && (ent != shooter || ticksFlying >= 5)
-				&& (!(ent instanceof EntityLiving) || ((EntityLiving) ent).deathTicks <= 0);
+				&& (!(ent instanceof EntityLiving) || ((EntityLiving)ent).health > 0);
 	}
 
 	public boolean onHit() {
