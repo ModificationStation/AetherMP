@@ -63,6 +63,8 @@ public class PlayerListener extends org.bukkit.event.player.PlayerListener {
 					event.setCancelled(true);
 				if (mod_AetherMp.punishTeleportDuringFight)
 					player.setHealth(0);
+				if (!event.isCancelled())
+					boss.stopFight();
 			}
 		}
 	}

@@ -1,10 +1,15 @@
 package net.mine_diver.aethermp.entities;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+
 import net.mine_diver.aethermp.api.entities.IAetherBoss;
 import net.mine_diver.aethermp.blocks.BlockManager;
 import net.mine_diver.aethermp.bukkit.craftbukkit.entity.CraftEntityAether;
 import net.mine_diver.aethermp.items.ItemManager;
 import net.mine_diver.aethermp.network.PacketManager;
+import net.mine_diver.aethermp.player.FakePlayer;
 import net.mine_diver.aethermp.player.PlayerManager;
 import net.mine_diver.aethermp.util.Achievements;
 import net.mine_diver.aethermp.util.NameGen;
@@ -434,6 +439,11 @@ public class EntitySlider extends EntityFlying implements IAetherBoss {
         int b = world.getData(x, y, z);
         if(a == 0 || a == BlockManager.LockedDungeonStone.id || a == BlockManager.LockedLightDungeonStone.id)
             return;
+        org.bukkit.block.Block block = world.getWorld().getBlockAt(x, y, z);
+        BlockBreakEvent event = new BlockBreakEvent(block, (Player) FakePlayer.get(world).getBukkitEntity());
+        Bukkit.getServer().getPluginManager().callEvent(event);
+        if (event.isCancelled())
+        	return;
         PacketManager.addBlockDestroyEffects(x, y, z, a, b, ((WorldServer) world).dimension);
         Block.byId[a].remove(world, x, y, z);
         Block.byId[a].g(world, x, y, z, b);
