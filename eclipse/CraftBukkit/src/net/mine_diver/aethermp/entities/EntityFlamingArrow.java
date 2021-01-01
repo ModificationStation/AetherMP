@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.bukkit.craftbukkit.entity.CraftItem;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
 import net.mine_diver.aethermp.bukkit.craftbukkit.entity.CraftEntityAether;
@@ -175,6 +177,11 @@ public class EntityFlamingArrow extends Entity implements ISpawnable {
             movingobjectposition = new MovingObjectPosition(entity);
         if(movingobjectposition != null) {
             if(movingobjectposition.entity != null) {
+            	EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(this.getBukkitEntity(), entity.getBukkitEntity(), EntityDamageEvent.DamageCause.PROJECTILE, 4);
+            	world.getServer().getPluginManager().callEvent(event);
+            	if (event.isCancelled()) {
+            		return;
+            	}
                 if(movingobjectposition.entity.damageEntity(owner, 4)) {
                     movingobjectposition.entity.fireTicks = 100;
                     int x = MathHelper.floor(movingobjectposition.entity.boundingBox.a);

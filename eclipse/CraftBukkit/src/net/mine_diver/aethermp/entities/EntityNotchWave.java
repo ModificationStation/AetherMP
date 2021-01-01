@@ -17,6 +17,10 @@ import net.minecraft.server.Packet230ModLoader;
 import net.minecraft.server.Vec3D;
 import net.minecraft.server.World;
 
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageByProjectileEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+
 public class EntityNotchWave extends Entity implements ISpawnable {
 
     public EntityNotchWave(World world) {
@@ -120,8 +124,13 @@ public class EntityNotchWave extends Entity implements ISpawnable {
             if(!entity1.l_() || entity1 == thrower && ticksInAirSnowball < 5)
                 continue;
             float f4 = 0.3F;
-            if(entity1 != thrower)
-                entity1.damageEntity(thrower, 5);
+            if(entity1 != thrower) {
+            	EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(this.getBukkitEntity(), entity1.getBukkitEntity(), EntityDamageEvent.DamageCause.PROJECTILE, 5);
+                world.getServer().getPluginManager().callEvent(event);
+                if (!event.isCancelled()) {
+                	entity1.damageEntity(thrower, 5);
+                }
+            }
             AxisAlignedBB axisalignedbb = entity1.boundingBox.b(f4, f4, f4);
             MovingObjectPosition movingobjectposition1 = axisalignedbb.a(vec3d, vec3d1);
             if(movingobjectposition1 == null)

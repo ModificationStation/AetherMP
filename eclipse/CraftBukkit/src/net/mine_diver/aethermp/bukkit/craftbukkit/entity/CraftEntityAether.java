@@ -16,6 +16,7 @@ import net.mine_diver.aethermp.entities.EntityFloatingBlock;
 import net.mine_diver.aethermp.entities.EntityLightningKnife;
 import net.mine_diver.aethermp.entities.EntityMimic;
 import net.mine_diver.aethermp.entities.EntityMiniCloud;
+import net.mine_diver.aethermp.entities.EntityNotchWave;
 import net.mine_diver.aethermp.entities.EntityPoisonNeedle;
 import net.mine_diver.aethermp.entities.EntityProjectileBase;
 import net.mine_diver.aethermp.entities.EntitySentry;
@@ -85,6 +86,8 @@ public class CraftEntityAether extends CraftEntity {
 				return new CraftLightningKnife(server, (EntityLightningKnife) entity);
 			else if (entity instanceof EntityFlamingArrow)
 				return new CraftFlamingArrow(server, (EntityFlamingArrow) entity);
+			else if (entity instanceof EntityNotchWave)
+				return new CraftNotchWave(server, (EntityNotchWave) entity);
 					
 		}
 		return CraftEntity.getEntity(server, entity);
